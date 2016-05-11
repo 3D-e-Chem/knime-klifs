@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./default.png" type="Source" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knime.org/node/v2.10 http://knime.org/node/v2.10.xsd">
+    <name>Structures List</name>
+    
+    <shortDescription>
+        Knime node to retrieve a list of structures for a given set of kinase IDs from KLIFS
+    </shortDescription>
+    
+    <fullDescription>
+        <intro>Knime node to retrieve a list of structures for a given set of kinase IDs from KLIFS</intro>
+        
+        
+        <option name="Kinase IDs column">Column from the input stream with the kinase IDs</option>
+    </fullDescription>
+    
+    <ports>
+        <inPort index="0" name="Kinase IDs">Input with at least a column with kinase IDs</inPort>
+        <outPort index="0" name="Structure Information">All structural information obtained from KLIFS</outPort>
+    </ports>    
+</knimeNode>

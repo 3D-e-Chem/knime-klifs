@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./default.png" type="Source" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knime.org/node/v2.10 http://knime.org/node/v2.10.xsd">
+    <name>Kinase Families</name>
+    
+    <shortDescription>
+        Knime node to retrieve all kinase families from KLIFS
+    </shortDescription>
+    
+    <fullDescription>
+        <intro>Knime node to retrieve all kinase families from KLIFS</intro>
+
+        <option name="Column">(Optional) input column with kinase groups to restrict the kinase family search.</option>
+    </fullDescription>
+    
+    <ports>
+        <inPort index="0" name="Kinase Groups">Optional input port: a list of kinase groups </inPort>
+        <outPort index="0" name="Kinase Families">All kinase families retrieved from KLIFS optionally restricted to the provided kinase groups</outPort>
+    </ports>    
+</knimeNode>

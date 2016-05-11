@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./default.png" type="Source" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knime.org/node/v2.10 http://knime.org/node/v2.10.xsd">
+    <name>Kinase Names</name>
+    
+    <shortDescription>
+        Knime node to retrieve all kinase names from KLIFS
+    </shortDescription>
+    
+    <fullDescription>
+        <intro>Knime node to retrieve all kinase names from KLIFS</intro>
+        
+        <option name="Column Groups">(Optional) input column with kinase groups to restrict the kinase name search.</option>
+        <option name="Column Families">(Optional) input column with kinase families to restrict the kinase name search.</option>
+        <option name="Species">Optional setting to specify the species to restrict the search to (e.g. HUMAN).</option>
+    </fullDescription>
+    
+    <ports>
+        <inPort index="0" name="Kinase Groups">(Optional) input column with kinase groups to restrict the kinase name search.</inPort>
+        <inPort index="1" name="Kinase Families">(Optional) input column with kinase families to restrict the kinase name search.</inPort>        
+        <outPort index="0" name="Kinase names">A list of kinase IDs, kinase names, kinase full names and species</outPort>
+    </ports>    
+</knimeNode>

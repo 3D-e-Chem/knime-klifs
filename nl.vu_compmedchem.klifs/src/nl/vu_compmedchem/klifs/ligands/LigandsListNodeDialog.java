@@ -1,0 +1,29 @@
+package nl.vu_compmedchem.klifs.ligands;
+
+import org.knime.core.data.IntValue;
+import org.knime.core.node.defaultnodesettings.DefaultNodeSettingsPane;
+import org.knime.core.node.defaultnodesettings.DialogComponentColumnNameSelection;
+import org.knime.core.node.defaultnodesettings.SettingsModelString;
+
+/**
+ * <code>NodeDialog</code> for the "LigandsList" Node.
+ * Knime node to retrieve a list of all co-crystallized ligands (optionally for a given set of kinase IDs) from KLIFS
+ * 
+ * @author 3D-e-Chem (Albert J. Kooistra)
+ */
+public class LigandsListNodeDialog extends DefaultNodeSettingsPane {
+
+    /**
+     * New pane for configuring LigandsList node dialog.
+     */
+    @SuppressWarnings("unchecked")
+	protected LigandsListNodeDialog() {
+        super();
+        
+        addDialogComponent(new DialogComponentColumnNameSelection(
+                new SettingsModelString(LigandsListNodeModel.CFGKEY_INPUTCOLUMNNAME, null),
+                "(Optional) Column with Kinase IDs", 0, false, IntValue.class));
+                    
+    }
+}
+

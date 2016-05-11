@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./default.png" type="Source" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knime.org/node/v2.10 http://knime.org/node/v2.10.xsd">
+    <name>Get List of Ligands</name>
+    
+    <shortDescription>
+        Knime node to retrieve a list of all co-crystallized ligands (optionally for a given set of kinase IDs) from KLIFS
+    </shortDescription>
+    
+    <fullDescription>
+        <intro>Knime node to retrieve a list of all co-crystallized ligands (optionally for a given set of kinase IDs) from KLIFS</intro>
+        
+        <option name="Kinase IDs">(Optional) Column with kinase IDs</option>
+    </fullDescription>
+    
+    <ports>
+        <inPort index="0" name="Kinase IDs">Optional input table  with kinase IDs</inPort>
+        <outPort index="0" name="Ligand output">List of co-crystallized ligands and related information</outPort>
+    </ports>   
+</knimeNode>

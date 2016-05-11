@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./default.png" type="Source" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knime.org/node/v2.10 http://knime.org/node/v2.10.xsd">
+    <name>Get Interaction Fingerprint</name>
+    
+    <shortDescription>
+        Knime node to retrieve the interaction fingerprints (IFPs) from specific structures from KLIFS
+    </shortDescription>
+    
+    <fullDescription>
+        <intro>Knime node to retrieve the interaction fingerprints (IFPs) from specific structures from KLIFS</intro>
+        
+        <option name="Structure ID column">Select the input column with the structure IDs</option>
+    </fullDescription>
+    
+    <ports>
+        <inPort index="0" name="Structure IDs">Data stream with Structure IDs</inPort>
+        <outPort index="0" name="IFPs">Protein-ligand interaction fingerprints for each protein-ligand complex</outPort>
+    </ports>    
+</knimeNode>

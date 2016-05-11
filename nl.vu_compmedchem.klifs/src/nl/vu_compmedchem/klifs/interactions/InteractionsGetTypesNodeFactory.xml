@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./default.png" type="Source" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knime.org/node/v2.10 http://knime.org/node/v2.10.xsd">
+    <name>Get Interactions Types</name>
+    
+    <shortDescription>
+        Knime node to retrieve a description of all 7 interaction types from KLIFS
+    </shortDescription>
+    
+    <fullDescription>
+        <intro>Knime node to retrieve a description of all 7 interaction types from KLIFS</intro>
+    </fullDescription>
+    
+    <ports>
+        <outPort index="0" name="Interaction Types">Description of the different interactions types represented by the IFP bit positions. 7 bits are encoded for each binding pocket residue.</outPort>
+    </ports>    
+</knimeNode>

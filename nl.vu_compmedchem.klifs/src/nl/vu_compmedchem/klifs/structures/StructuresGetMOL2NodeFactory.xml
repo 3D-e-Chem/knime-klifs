@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./default.png" type="Source" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knime.org/node/v2.10 http://knime.org/node/v2.10.xsd">
+    <name>Get Structures (MOL2)</name>
+    
+    <shortDescription>
+        Knime node to retrieve a (part of) a structure in  MOL2 format from KLIFS
+    </shortDescription>
+    
+    <fullDescription>
+        <intro>Knime node to retrieve a (part of) a structure in  MOL2 format from KLIFS</intro>
+        
+        <option name="Structure IDs column">Column from the input stream with the structure IDs</option>
+        <option name="Structural element">Select what you want to retrieve: full complex, protein, pocket, or ligand</option>
+    </fullDescription>
+    
+    <ports>
+        <inPort index="0" name="Structure IDs">Input with at least a column with structure IDs</inPort>
+        <outPort index="0" name="Structure Information">All structural information obtained from KLIFS</outPort>
+    </ports>    
+</knimeNode>
