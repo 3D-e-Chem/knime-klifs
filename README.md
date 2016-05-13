@@ -9,16 +9,14 @@ Requirements:
 
 Steps to get KLIFS nodes inside KNIME:
 
-The update site is currently under development and will be available soon.
+<!--The update site is currently under development and will be available soon.-->
 
-<!--1. Goto Help > Install new software ... menu
+1. Goto Help > Install new software ... menu
 2. Press add button
-3. Fill text fields with `https://3d-e-chem.github.io/updates`
+3. Fill text fields with `http://klifs.vu-compmedchem.nl/knime` (this is a temporary location)
 4. Select --all sites-- in work with pulldown
-5. Open KNIME 3D-e-Chem Contributions folder
 6. Select KLIFS knime nodes
-7. Install sofware & restart-->
-
+7. Install sofware & restart (for now an "Unsigned Content" warning can popup during the installation, you can safely ignore this)
 
 # References
 
