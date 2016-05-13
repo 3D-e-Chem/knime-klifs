@@ -28,7 +28,6 @@ import org.knime.core.node.NodeSettingsWO;
 
 
 /**
- * This is the model implementation of KinaseGroups.
  * Knime node to retrieve all kinase groups from KLIFS
  *
  * @author 3D-e-Chem (Albert J. Kooistra)

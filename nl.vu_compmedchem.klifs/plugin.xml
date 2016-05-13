@@ -17,6 +17,7 @@
 	<node category-path="/community/klifs/information" factory-class="nl.vu_compmedchem.klifs.information.KinaseInformationNodeFactory" id="nl.vu_compmedchem.klifs.information.KinaseInformationNodeFactory"/>
 	<node category-path="/community/klifs/interactions" factory-class="nl.vu_compmedchem.klifs.interactions.InteractionsGetIFPNodeFactory" id="nl.vu_compmedchem.klifs.interactions.InteractionsGetIFPNodeFactory"/>
 	<node category-path="/community/klifs/interactions" factory-class="nl.vu_compmedchem.klifs.interactions.InteractionsGetTypesNodeFactory" id="nl.vu_compmedchem.klifs.interactions.InteractionsGetTypesNodeFactory"/>
+	<node category-path="/community/klifs/interactions" factory-class="nl.vu_compmedchem.klifs.interactions.InteractionsDecomposerNodeFactory" id="nl.vu_compmedchem.klifs.interactions.InteractionsDecomposerNodeFactory"/>
 	<node category-path="/community/klifs/ligands" factory-class="nl.vu_compmedchem.klifs.ligands.LigandsListNodeFactory" id="nl.vu_compmedchem.klifs.ligands.LigandsListNodeFactory"/>
 	<node category-path="/community/klifs/ligands" factory-class="nl.vu_compmedchem.klifs.ligands.LigandsGetStructuresNodeFactory" id="nl.vu_compmedchem.klifs.ligands.LigandsGetStructuresNodeFactory"/>
 	<node category-path="/community/klifs/structures" factory-class="nl.vu_compmedchem.klifs.structures.StructuresListNodeFactory" id="nl.vu_compmedchem.klifs.structures.StructuresListNodeFactory"/>

@@ -34,7 +34,6 @@ import org.knime.core.node.NodeSettingsWO;
 
 
 /**
- * This is the model implementation of LigandsGetStructures.
  * Knime node to retrieve a list of structures for a given set of ligand IDs from KLIFS
  *
  * @author 3D-e-Chem (Albert J. Kooistra)

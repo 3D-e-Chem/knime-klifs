@@ -30,7 +30,6 @@ import org.knime.core.node.NodeSettingsWO;
 
 
 /**
- * This is the model implementation of InteractionsGetTypes.
  * Knime node to retrieve a description of all 7 interaction types from KLIFS
  *
  * @author 3D-e-Chem (Albert J. Kooistra)
@@ -70,7 +69,7 @@ public class InteractionsGetTypesNodeModel extends NodeModel {
         DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
         BufferedDataContainer container = exec.createDataContainer(outputSpec);
         for (InteractionList type: types) {        
-            RowKey key = new RowKey(new Long(container.size()).toString());
+            RowKey key = new RowKey(type.getPosition().toString());
             // the cells of the current row, the types of the cells must match
             // the column spec (see above)
             DataCell[] cells = new DataCell[2];

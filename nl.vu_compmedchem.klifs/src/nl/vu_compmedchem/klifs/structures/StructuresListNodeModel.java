@@ -34,7 +34,6 @@ import org.knime.core.node.NodeSettingsWO;
 
 
 /**
- * This is the model implementation of StructuresList.
  * Knime node to retrieve a list of structures for a given set of kinase IDs from KLIFS
  *
  * @author 3D-e-Chem (Albert J. Kooistra)

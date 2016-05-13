@@ -32,7 +32,6 @@ import org.knime.core.node.NodeSettingsWO;
 
 
 /**
- * This is the model implementation of KinaseNames.
  * Knime node to retrieve all kinase names from KLIFS
  *
  * @author 3D-e-Chem (Albert J. Kooistra)
@@ -113,7 +112,7 @@ public class KinaseNamesNodeModel extends NodeModel {
         DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
         BufferedDataContainer container = exec.createDataContainer(outputSpec);
         for (IDlist kinaseName: kinaseNames) {
-            RowKey key = new RowKey(new Long(container.size()).toString());
+            RowKey key = new RowKey(kinaseName.getKinaseID().toString());
             
             // the cells of the current row, the types of the cells must match
             // the column spec (see above)

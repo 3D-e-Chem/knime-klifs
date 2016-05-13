@@ -30,7 +30,6 @@ import org.knime.core.node.port.PortType;
 
 
 /**
- * This is the model implementation of KinaseFamilies.
  * Knime node to retrieve all kinase families from KLIFS
  *
  * @author 3D-e-Chem (Albert J. Kooistra)

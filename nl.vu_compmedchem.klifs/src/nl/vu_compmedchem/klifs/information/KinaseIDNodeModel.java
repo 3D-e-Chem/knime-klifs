@@ -31,7 +31,6 @@ import org.knime.core.node.NodeSettingsWO;
 
 
 /**
- * This is the model implementation of KinaseID.
  * Knime node to retrieve Kinase IDs from KLIFS
  *
  * @author 3D-e-Chem (Albert J. Kooistra)
@@ -97,7 +96,7 @@ public class KinaseIDNodeModel extends NodeModel {
             DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
             BufferedDataContainer container = exec.createDataContainer(outputSpec);
             for (KinaseInformation info: kinaseInfos) {
-                RowKey key = new RowKey(new Long(container.size()).toString());
+                RowKey key = new RowKey(info.getKinaseID().toString());
                 
                 // the cells of the current row, the types of the cells must match
                 // the column spec (see above)

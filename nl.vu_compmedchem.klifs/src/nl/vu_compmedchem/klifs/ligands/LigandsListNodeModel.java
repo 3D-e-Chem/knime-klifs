@@ -33,7 +33,6 @@ import org.knime.core.node.NodeSettingsWO;
 
 
 /**
- * This is the model implementation of LigandsList.
  * Knime node to retrieve a list of all co-crystallized ligands (optionally for a given set of kinase IDs) from KLIFS
  *
  * @author 3D-e-Chem (Albert J. Kooistra)

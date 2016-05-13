@@ -34,7 +34,6 @@ import org.knime.core.node.NodeSettingsWO;
 
 
 /**
- * This is the model implementation of InteractionsGetIFP.
  * Knime node to retrieve the interaction fingerprints (IFPs) from specific structures from KLIFS
  *
  * @author 3D-e-Chem (Albert J. Kooistra)

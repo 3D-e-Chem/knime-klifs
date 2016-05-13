@@ -31,7 +31,6 @@ import org.knime.core.node.NodeSettingsWO;
 
 
 /**
- * This is the model implementation of StructuresGetMOL2.
  * Knime node to retrieve a (part of) a structure in  MOL2 format from KLIFS
  *
  * @author 3D-e-Chem (Albert J. Kooistra)
