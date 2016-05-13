@@ -10,13 +10,14 @@ import io.swagger.client.Pair;
 import io.swagger.client.model.IFPList;
 import io.swagger.client.model.Error;
 import io.swagger.client.model.InteractionList;
+import io.swagger.client.model.MatchList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-11T07:30:28.396Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-13T12:15:53.243Z")
 public class InteractionsApi {
   private ApiClient apiClient;
 
@@ -123,6 +124,55 @@ public class InteractionsApi {
 
     
     GenericType<List<InteractionList>> localVarReturnType = new GenericType<List<InteractionList>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Match IFP residues
+   * The Match IFP residues endpoint returns a list of the pocket definition of IFP including the X-ray numbering for a specific structure. This list can be used to decompose an IFP into specific residue interactions and to match Xray numbering to KLIFS numbering and vice versa.
+   * @param structureID ID of the structure(s) that is requested. (required)
+   * @return List<MatchList>
+   * @throws ApiException if fails to make API call
+   */
+  public List<MatchList> interactionsMatchResiduesGet(Integer structureID) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'structureID' is set
+    if (structureID == null) {
+      throw new ApiException(400, "Missing the required parameter 'structureID' when calling interactionsMatchResiduesGet");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/interactions_match_residues".replaceAll("\\{format\\}","json");
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "structure_ID", structureID));
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<List<MatchList>> localVarReturnType = new GenericType<List<MatchList>>() {};
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
     
   }
