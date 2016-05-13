@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./default.png" type="Source" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knime.org/node/v2.10 http://knime.org/node/v2.10.xsd">
+    <name>IFP Decomposer</name>
+    
+    <shortDescription>
+        Knime node for decomposing an interaction fingerprint into a more human readable overview of interactions (including types) per structure
+    </shortDescription>
+    
+    <fullDescription>
+        <intro>Knime node for decomposing an interaction fingerprint into a more human readable overview of interactions (including types) per structure</intro>
+        
+        <option name="Column with structure IDs">Select the column with structure IDs</option>
+        <option name="Column with IFPs">Select the column with IFPs</option>
+        <option name="Only output interactions">Only output the interactions that are present</option>
+        <option name="Match X-ray and KLIFS">Add X-ray residue numbering and KLIFS position classification. Turn this off if you want a quick decomposition.</option>
+    </fullDescription>
+    
+    <ports>
+        <inPort index="0" name="IFP input">Table with IFPs and structure IDs</inPort>
+        <inPort index="1" name="Interaction Types">Output of the Get Interaction Types node</inPort>
+        <outPort index="0" name="Out-Port name">Decomposed IFP</outPort>
+    </ports>    
+</knimeNode>
