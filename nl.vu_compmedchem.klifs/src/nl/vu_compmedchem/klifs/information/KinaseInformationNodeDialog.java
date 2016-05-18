@@ -26,8 +26,8 @@ public class KinaseInformationNodeDialog extends DefaultNodeSettingsPane {
         super();
         
         addDialogComponent(new DialogComponentColumnNameSelection(
-                new SettingsModelString(KinaseInformationNodeModel.CFGKEY_INPUTCOLUMNNAME, null),
-                "Input column with kinase IDs", 0, IntValue.class));
+                new SettingsModelString(KinaseInformationNodeModel.CFGKEY_INPUTCOLUMNNAME, "Kinase IDs"),
+                "Input column with kinase IDs", 0, false, IntValue.class));
                     
     }
 }

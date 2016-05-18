@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <knimeNode icon="./default.png" type="Source" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knime.org/node/v2.10 http://knime.org/node/v2.10.xsd">
-    <name>Kinase ID</name>
+    <name>Kinase ID Mapper</name>
     
     <shortDescription>
-        Knime node to retrieve Kinase IDs from KLIFS
+        KNIME node to map a set of kinase names, HGNC gene symbols, or UniProt accession codes to the corresponding KLIFS kinase ID.
     </shortDescription>
     
     <fullDescription>
-        <intro>Knime node to retrieve Kinase IDs from KLIFS</intro>
+        <intro>KNIME node to map a set of kinase names, HGNC gene symbols, or UniProt accession codes to the corresponding KLIFS kinase ID. This node maps a user-supplied set of Kinase names (names according to Manning et al.), HGNC gene symbols, or UniProt accession codes to a KLIFS kinase ID and can be restricted to a specific species. This node returns the KLIFS kinase ID as well as all related kinase information (see the description of the “Kinase Information Retriever”) present within KLIFS. This node is useful to link external data to information from KLIFS.</intro>
         
-		<option name="Column Kinases">Input column with kinase names (HGNC or Manning) or Uniprot ID to map to a KLIFS kinase ID.</option>
+		<option name="Column Kinases">Input column with kinase names (Manning et al.), HGNC gene symbols, or Uniprot ID to map to a KLIFS kinase ID.</option>
         <option name="Species">Optional setting to specify the species to restrict the search to (e.g. HUMAN).</option>
-
+        
     </fullDescription>
     
     <ports>

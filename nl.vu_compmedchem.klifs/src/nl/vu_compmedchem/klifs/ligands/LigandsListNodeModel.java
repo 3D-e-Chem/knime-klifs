@@ -89,7 +89,7 @@ public class LigandsListNodeModel extends NodeModel {
         DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
         BufferedDataContainer container = exec.createDataContainer(outputSpec);
         for (LigandDetails info: ligandInfos) {
-            RowKey key = new RowKey(new Long(container.size()).toString());
+            RowKey key = new RowKey(info.getLigandID().toString());
             
             DataCell[] cells = new DataCell[5];
             cells[0] = new IntCell(info.getLigandID());

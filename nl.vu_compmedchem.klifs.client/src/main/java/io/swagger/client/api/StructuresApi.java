@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-13T12:15:53.243Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-18T09:34:14.459Z")
 public class StructuresApi {
   private ApiClient apiClient;
 
@@ -258,6 +258,55 @@ public class StructuresApi {
 
     
     localVarQueryParams.addAll(apiClient.parameterToPairs("csv", "kinase_ID", kinaseID));
+    
+
+    
+
+    
+
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    
+    GenericType<List<StructureDetails>> localVarReturnType = new GenericType<List<StructureDetails>>() {};
+    return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    
+  }
+  
+  /**
+   * Get all structures based on a set of PDB-codes
+   * The Structures PDB list endpoint returns a list of available kinase structures in KLIFS based on a set of 4-letter PDB-codes.\n
+   * @param pdbCodes PDB-codes for which all structures are requested. (required)
+   * @return List<StructureDetails>
+   * @throws ApiException if fails to make API call
+   */
+  public List<StructureDetails> structuresPdbListGet(List<String> pdbCodes) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'pdbCodes' is set
+    if (pdbCodes == null) {
+      throw new ApiException(400, "Missing the required parameter 'pdbCodes' when calling structuresPdbListGet");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/structures_pdb_list".replaceAll("\\{format\\}","json");
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarQueryParams.addAll(apiClient.parameterToPairs("csv", "pdb-codes", pdbCodes));
     
 
     

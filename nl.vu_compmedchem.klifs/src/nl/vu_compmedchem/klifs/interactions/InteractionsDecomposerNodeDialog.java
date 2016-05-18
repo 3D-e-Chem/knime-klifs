@@ -31,11 +31,11 @@ public class InteractionsDecomposerNodeDialog extends DefaultNodeSettingsPane {
         super();
         
         addDialogComponent(new DialogComponentColumnNameSelection(
-                new SettingsModelString(InteractionsDecomposerNodeModel.CFGKEY_INPUTCOLUMNNAME_STRUCTURE, null),
+                new SettingsModelString(InteractionsDecomposerNodeModel.CFGKEY_INPUTCOLUMNNAME_STRUCTURE, "Structure ID"),
                 "Column with structure IDs", 0, true, IntValue.class));
         
         addDialogComponent(new DialogComponentColumnNameSelection(
-                new SettingsModelString(InteractionsDecomposerNodeModel.CFGKEY_INPUTCOLUMNNAME_IFP, null),
+                new SettingsModelString(InteractionsDecomposerNodeModel.CFGKEY_INPUTCOLUMNNAME_IFP, "IFP"),
                 "Column with IFPs", 0, true, StringValue.class));
                     
         addDialogComponent(new DialogComponentBoolean(

@@ -1,13 +1,13 @@
-package nl.vu_compmedchem.klifs.interactions;
+package nl.vu_compmedchem.klifs.structures;
 
-import org.knime.core.data.IntValue;
+import org.knime.core.data.StringValue;
 import org.knime.core.node.defaultnodesettings.DefaultNodeSettingsPane;
 import org.knime.core.node.defaultnodesettings.DialogComponentColumnNameSelection;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
 /**
- * <code>NodeDialog</code> for the "InteractionsGetIFP" Node.
- * Knime node to retrieve the interaction fingerprints (IFPs) from specific structures from KLIFS
+ * <code>NodeDialog</code> for the "StructuresPDBMapper" Node.
+ * KNIME node to map a set of 4-letter PDB-codes to structure IDs from KLIFS.
  *
  * This node dialog derives from {@link DefaultNodeSettingsPane} which allows
  * creation of a simple dialog with standard components. If you need a more 
@@ -16,18 +16,20 @@ import org.knime.core.node.defaultnodesettings.SettingsModelString;
  * 
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
-public class InteractionsGetIFPNodeDialog extends DefaultNodeSettingsPane {
+public class StructuresPDBMapperNodeDialog extends DefaultNodeSettingsPane {
 
     /**
-     * New pane for configuring InteractionsGetIFP node dialog.
+     * New pane for configuring StructuresPDBMapper node dialog.
+     * This is just a suggestion to demonstrate possible default dialog
+     * components.
      */
     @SuppressWarnings("unchecked")
-	protected InteractionsGetIFPNodeDialog() {
+	protected StructuresPDBMapperNodeDialog() {
         super();
         
         addDialogComponent(new DialogComponentColumnNameSelection(
-                new SettingsModelString(InteractionsGetIFPNodeModel.CFGKEY_INPUTCOLUMNNAME, "Structure ID"),
-                "Column with structure IDs", 0, true, IntValue.class));
+                new SettingsModelString(StructuresPDBMapperNodeModel.CFGKEY_INPUTCOLUMNNAME, "PDB"),
+                "Input column with 4-letter PDB-codes", 0, StringValue.class));
                     
     }
 }

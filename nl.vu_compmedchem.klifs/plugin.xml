@@ -11,15 +11,12 @@
    
    <extension point="org.knime.workbench.repository.nodes">
 	<node category-path="/community/klifs/information" factory-class="nl.vu_compmedchem.klifs.information.KinaseIDNodeFactory" id="nl.vu_compmedchem.klifs.information.KinaseIDNodeFactory"/>
-	<node category-path="/community/klifs/information" factory-class="nl.vu_compmedchem.klifs.information.KinaseGroupsNodeFactory" id="nl.vu_compmedchem.klifs.information.KinaseGroupsNodeFactory"/>
-	<node category-path="/community/klifs/information" factory-class="nl.vu_compmedchem.klifs.information.KinaseFamiliesNodeFactory" id="nl.vu_compmedchem.klifs.information.KinaseFamiliesNodeFactory"/>
-	<node category-path="/community/klifs/information" factory-class="nl.vu_compmedchem.klifs.information.KinaseNamesNodeFactory" id="nl.vu_compmedchem.klifs.information.KinaseNamesNodeFactory"/>
 	<node category-path="/community/klifs/information" factory-class="nl.vu_compmedchem.klifs.information.KinaseInformationNodeFactory" id="nl.vu_compmedchem.klifs.information.KinaseInformationNodeFactory"/>
 	<node category-path="/community/klifs/interactions" factory-class="nl.vu_compmedchem.klifs.interactions.InteractionsGetIFPNodeFactory" id="nl.vu_compmedchem.klifs.interactions.InteractionsGetIFPNodeFactory"/>
 	<node category-path="/community/klifs/interactions" factory-class="nl.vu_compmedchem.klifs.interactions.InteractionsGetTypesNodeFactory" id="nl.vu_compmedchem.klifs.interactions.InteractionsGetTypesNodeFactory"/>
 	<node category-path="/community/klifs/interactions" factory-class="nl.vu_compmedchem.klifs.interactions.InteractionsDecomposerNodeFactory" id="nl.vu_compmedchem.klifs.interactions.InteractionsDecomposerNodeFactory"/>
 	<node category-path="/community/klifs/ligands" factory-class="nl.vu_compmedchem.klifs.ligands.LigandsListNodeFactory" id="nl.vu_compmedchem.klifs.ligands.LigandsListNodeFactory"/>
-	<node category-path="/community/klifs/ligands" factory-class="nl.vu_compmedchem.klifs.ligands.LigandsGetStructuresNodeFactory" id="nl.vu_compmedchem.klifs.ligands.LigandsGetStructuresNodeFactory"/>
+	<node category-path="/community/klifs/structures" factory-class="nl.vu_compmedchem.klifs.structures.StructuresPDBMapperNodeFactory" id="nl.vu_compmedchem.klifs.structures.StructuresPDBMapperNodeFactory"/>
 	<node category-path="/community/klifs/structures" factory-class="nl.vu_compmedchem.klifs.structures.StructuresListNodeFactory" id="nl.vu_compmedchem.klifs.structures.StructuresListNodeFactory"/>
 	<node category-path="/community/klifs/structures" factory-class="nl.vu_compmedchem.klifs.structures.StructuresGetMOL2NodeFactory" id="nl.vu_compmedchem.klifs.structures.StructuresGetMOL2NodeFactory"/>
 </extension>

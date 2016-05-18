@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knimeNode icon="./default.png" type="Source" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knime.org/node/v2.10 http://knime.org/node/v2.10.xsd">
+    <name>Structures PDB Mapper</name>
+    
+    <shortDescription>
+        KNIME node to map a set of 4-letter PDB-codes to structure IDs from KLIFS.
+    </shortDescription>
+    
+    <fullDescription>
+        <intro>KNIME node to map a set of 4-letter PDB-codes to structure IDs from KLIFS. This node maps a set of user-supplied 4-letter structure PDB-codes to the KLIFS structure IDs and additionally provides all related structural information from KLIFS (see the description of the Structures Overview Retriever node for a detailed listing). The mapping functionality of this node can, for example, be used to selectively retrieve KLIFS information for a set of PDBs, or to link external data to KLIFS information using PDB-codes.</intro>
+    </fullDescription>
+    
+    <ports>
+        <inPort index="0" name="PDB-codes">List of 4-letter PDB-codes that will be mapped to KLIFS structure IDs.</inPort>
+        <outPort index="0" name="Out-Port name">All structural information obtained from KLIFS for the given PDBs</outPort>
+    </ports>    
+</knimeNode>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <knimeNode icon="./default.png" type="Source" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knime.org/node/v2.10 http://knime.org/node/v2.10.xsd">
-    <name>IFP Decomposer</name>
+    <name>Interaction Fingerprint Decomposer</name>
     
     <shortDescription>
-        Knime node for decomposing an interaction fingerprint into a more human readable overview of interactions (including types) per structure
+        KNIME node for decomposing an interaction fingerprint into a more human readable overview of interactions (including types) per structure.
     </shortDescription>
     
     <fullDescription>
-        <intro>Knime node for decomposing an interaction fingerprint into a more human readable overview of interactions (including types) per structure</intro>
+        <intro>KNIME node for decomposing an interaction fingerprint into a more human readable overview of interactions (including types) per structure. This node combines the output of the Interaction Types Retriever node and the Interaction Fingerprint Retriever node and decomposes the IFP into a detailed list of kinase-ligand interactions. This node can optionally add the sequence number (according to the structure) and the KLIFS position (e.g. GK.45 for the gatekeeper on position 45) for each pocket residue to the table. It also allows the user to only output interactions that are present (these are encoded as a “1” in the fingerprint) or to output all possible interactions for each residue and indicate whether or not that interaction is observed for a structure. The output of this node allows for example to analyze interaction patterns, to perform association rule learning/pattern recognition, to identify interaction hotspots, and to obtain a detailed overview of kinase-ligand interactions. </intro>
         
         <option name="Column with structure IDs">Select the column with structure IDs</option>
         <option name="Column with IFPs">Select the column with IFPs</option>

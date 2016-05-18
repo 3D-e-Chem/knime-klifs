@@ -22,11 +22,11 @@ public class StructuresGetMOL2NodeDialog extends DefaultNodeSettingsPane {
         super();
         
         addDialogComponent(new DialogComponentColumnNameSelection(
-                new SettingsModelString(StructuresGetMOL2NodeModel.CFGKEY_INPUTCOLUMNNAME, null),
+                new SettingsModelString(StructuresGetMOL2NodeModel.CFGKEY_INPUTCOLUMNNAME, "Structure ID"),
                 "Input column with structure IDs", 0, IntValue.class));         
         
         addDialogComponent(new DialogComponentStringSelection(
-        		new SettingsModelString(StructuresGetMOL2NodeModel.CFGKEY_STRUCTURE_TYPE, null), 
+        		new SettingsModelString(StructuresGetMOL2NodeModel.CFGKEY_STRUCTURE_TYPE, "Ligand"), 
         		"Select structure type that will be retrieved", "Complex", "Protein", "Pocket", "Ligand")
         	);   
     }

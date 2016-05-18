@@ -72,8 +72,9 @@ public class StructuresGetMOL2NodeModel extends NodeModel {
         	           
             // the data table spec of the single output table, 
             // the table will have eleven columns: all kinase information
-            DataColumnSpec[] allColSpecs = new DataColumnSpec[1];
-            allColSpecs[0] = new DataColumnSpecCreator("Structure", Mol2Cell.TYPE).createSpec();
+            DataColumnSpec[] allColSpecs = new DataColumnSpec[2];
+            allColSpecs[0] = new DataColumnSpecCreator("Structure ID", IntCell.TYPE).createSpec();
+            allColSpecs[1] = new DataColumnSpecCreator("Structure", Mol2Cell.TYPE).createSpec();
                      
             DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
             BufferedDataContainer container = exec.createDataContainer(outputSpec);
@@ -103,25 +104,26 @@ public class StructuresGetMOL2NodeModel extends NodeModel {
     private void getMol2Structures(int structureID, BufferedDataContainer container) throws Exception {
     	RowKey key = new RowKey(new Integer(structureID).toString());
     	
-        DataCell[] cells = new DataCell[1];
+        DataCell[] cells = new DataCell[2];
+        cells[0] = new IntCell(structureID);
     	if(m_selectStructureType.getStringValue().equals("Complex")){
     		File structure = client.structureGetComplexGet(structureID);
-    		cells[0] = Mol2CellFactory.create(FileUtils.readFileToString(structure));
+    		cells[1] = Mol2CellFactory.create(FileUtils.readFileToString(structure));
             DataRow row = new DefaultRow(key, cells);
             container.addRowToTable(row);
     	} else if(m_selectStructureType.getStringValue().equals("Protein")){
     		File structure = client.structureGetProteinGet(structureID);
-    		cells[0] = Mol2CellFactory.create(FileUtils.readFileToString(structure));
+    		cells[1] = Mol2CellFactory.create(FileUtils.readFileToString(structure));
     		DataRow row = new DefaultRow(key, cells);
     		container.addRowToTable(row);
     	} else if(m_selectStructureType.getStringValue().equals("Pocket")){
     		File structure = client.structureGetPocketGet(structureID);
-    		cells[0] = Mol2CellFactory.create(FileUtils.readFileToString(structure));
+    		cells[1] = Mol2CellFactory.create(FileUtils.readFileToString(structure));
     		DataRow row = new DefaultRow(key, cells);
     		container.addRowToTable(row);
     	} else if(m_selectStructureType.getStringValue().equals("Ligand")){
     		File structure = client.structureGetLigandGet(structureID);
-    		cells[0] = Mol2CellFactory.create(FileUtils.readFileToString(structure));
+    		cells[1] = Mol2CellFactory.create(FileUtils.readFileToString(structure));
     		DataRow row = new DefaultRow(key, cells);
     		container.addRowToTable(row);
     	} else {

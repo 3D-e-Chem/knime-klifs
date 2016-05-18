@@ -21,7 +21,7 @@ public class LigandsListNodeDialog extends DefaultNodeSettingsPane {
         super();
         
         addDialogComponent(new DialogComponentColumnNameSelection(
-                new SettingsModelString(LigandsListNodeModel.CFGKEY_INPUTCOLUMNNAME, null),
+                new SettingsModelString(LigandsListNodeModel.CFGKEY_INPUTCOLUMNNAME, "Kinase ID"),
                 "(Optional) Column with Kinase IDs", 0, false, IntValue.class));
                     
     }

@@ -3,6 +3,7 @@ package nl.vu_compmedchem.klifs.structures;
 import org.knime.core.data.IntValue;
 import org.knime.core.node.defaultnodesettings.DefaultNodeSettingsPane;
 import org.knime.core.node.defaultnodesettings.DialogComponentColumnNameSelection;
+import org.knime.core.node.defaultnodesettings.DialogComponentStringSelection;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
 /**
@@ -21,8 +22,13 @@ public class StructuresListNodeDialog extends DefaultNodeSettingsPane {
         super();
         
         addDialogComponent(new DialogComponentColumnNameSelection(
-                new SettingsModelString(StructuresListNodeModel.CFGKEY_INPUTCOLUMNNAME, null),
-                "Input column with kinase IDs", 0, IntValue.class));
+                new SettingsModelString(StructuresListNodeModel.CFGKEY_INPUTCOLUMNNAME, "Kinase ID"),
+                "Input column with kinase or ligand IDs", 0, IntValue.class));
+        
+        addDialogComponent(new DialogComponentStringSelection(
+        		new SettingsModelString(StructuresListNodeModel.CFGKEY_INPUTTYPE, "Kinase IDs"), 
+        		"Select the type of input IDs", "Kinase IDs", "Ligand IDs")
+        	);  
                     
     }
 }

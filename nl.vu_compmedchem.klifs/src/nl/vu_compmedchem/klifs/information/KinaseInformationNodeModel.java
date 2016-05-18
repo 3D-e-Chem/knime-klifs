@@ -29,6 +29,7 @@ import org.knime.core.node.NodeLogger;
 import org.knime.core.node.NodeModel;
 import org.knime.core.node.NodeSettingsRO;
 import org.knime.core.node.NodeSettingsWO;
+import org.knime.core.node.port.PortType;
 
 
 /**
@@ -38,7 +39,7 @@ import org.knime.core.node.NodeSettingsWO;
  */
 public class KinaseInformationNodeModel extends NodeModel {
 
-	public static final String CFGKEY_INPUTCOLUMNNAME = "In Column";
+	public static final String CFGKEY_INPUTCOLUMNNAME = "(Optional) Input Column";
 	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, null);
 	
     // the logger instance
@@ -49,7 +50,7 @@ public class KinaseInformationNodeModel extends NodeModel {
      * Constructor for the node model.
      */
     protected KinaseInformationNodeModel() {
-        super(1, 1);
+        super(new PortType[] { BufferedDataTable.TYPE_OPTIONAL }, new PortType[] { BufferedDataTable.TYPE });
     }
 
     /**
@@ -62,62 +63,60 @@ public class KinaseInformationNodeModel extends NodeModel {
     	logger.info("Executing KLIFS Kinase Information node - retrieving kinase information from KLIFS server.");
 
         // Check input data and execute query
+    	List<Integer> kinaseIDs = new ArrayList<Integer>();
         if (inData.length > 0 && inData[0] != null){
-        	List<Integer> kinaseIDs = new ArrayList<Integer>();
         	int columnIndex = inData[0].getDataTableSpec().findColumnIndex(m_inputColumnName.getStringValue());
         	for (DataRow inrow : inData[0]) {
         		int kinaseID = ((IntCell) inrow.getCell(columnIndex)).getIntValue();
       			kinaseIDs.add(kinaseID);
         	}
-        	
-            InformationApi client = new InformationApi();
-            List<KinaseInformation> kinaseInfos = client.kinaseInformationGet(kinaseIDs);
-            
-            // the data table spec of the single output table, 
-            // the table will have eleven columns: all kinase information
-            DataColumnSpec[] allColSpecs = new DataColumnSpec[11];
-            allColSpecs[0] = new DataColumnSpecCreator("Kinase ID", IntCell.TYPE).createSpec();
-            allColSpecs[1] = new DataColumnSpecCreator("Kinase name", StringCell.TYPE).createSpec();
-            allColSpecs[2] = new DataColumnSpecCreator("HGNC/MGI", StringCell.TYPE).createSpec();
-            allColSpecs[3] = new DataColumnSpecCreator("Kinase family", StringCell.TYPE).createSpec();
-            allColSpecs[4] = new DataColumnSpecCreator("Kinase group", StringCell.TYPE).createSpec();
-            allColSpecs[5] = new DataColumnSpecCreator("Kinase class", StringCell.TYPE).createSpec();
-            allColSpecs[6] = new DataColumnSpecCreator("Species", StringCell.TYPE).createSpec();
-            allColSpecs[7] = new DataColumnSpecCreator("Full name", StringCell.TYPE).createSpec();
-            allColSpecs[8] = new DataColumnSpecCreator("Uniprot ID", StringCell.TYPE).createSpec();
-            allColSpecs[9] = new DataColumnSpecCreator("IUPHAR ID", StringCell.TYPE).createSpec();
-            allColSpecs[10] = new DataColumnSpecCreator("Pocket Sequence", StringCell.TYPE).createSpec();
-                     
-            DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
-            BufferedDataContainer container = exec.createDataContainer(outputSpec);
-            for (KinaseInformation info: kinaseInfos) {
-                RowKey key = new RowKey(info.getKinaseID().toString());
-                
-                // the cells of the current row, the types of the cells must match
-                // the column spec (see above)
-                DataCell[] cells = new DataCell[11];
-                cells[0] = new IntCell(info.getKinaseID());
-                cells[1] = new StringCell(info.getName());
-                cells[2] = new StringCell(info.getHGNC());
-                cells[3] = new StringCell(info.getFamily());
-                cells[4] = new StringCell(info.getGroup());
-                cells[5] = new StringCell(info.getKinaseClass());
-                cells[6] = new StringCell(info.getSpecies());
-                cells[7] = new StringCell(info.getFullName());
-                cells[8] = new StringCell(info.getUniprot());
-                cells[9] = new StringCell(info.getIuphar());
-                cells[10] = new StringCell(info.getPocket());
-                DataRow row = new DefaultRow(key, cells);
-                container.addRowToTable(row);
-            }
-            
-            // Done: close and return
-            container.close();
-            BufferedDataTable out = container.getTable();
-            return new BufferedDataTable[]{out};
-        } else {
-        	return null;
         }
+        	
+        InformationApi client = new InformationApi();
+        List<KinaseInformation> kinaseInfos = client.kinaseInformationGet(kinaseIDs);
+        
+        // the data table spec of the single output table, 
+        // the table will have eleven columns: all kinase information
+        DataColumnSpec[] allColSpecs = new DataColumnSpec[11];
+        allColSpecs[0] = new DataColumnSpecCreator("Kinase ID", IntCell.TYPE).createSpec();
+        allColSpecs[1] = new DataColumnSpecCreator("Kinase name", StringCell.TYPE).createSpec();
+        allColSpecs[2] = new DataColumnSpecCreator("HGNC/MGI", StringCell.TYPE).createSpec();
+        allColSpecs[3] = new DataColumnSpecCreator("Kinase family", StringCell.TYPE).createSpec();
+        allColSpecs[4] = new DataColumnSpecCreator("Kinase group", StringCell.TYPE).createSpec();
+        allColSpecs[5] = new DataColumnSpecCreator("Kinase class", StringCell.TYPE).createSpec();
+        allColSpecs[6] = new DataColumnSpecCreator("Species", StringCell.TYPE).createSpec();
+        allColSpecs[7] = new DataColumnSpecCreator("Full name", StringCell.TYPE).createSpec();
+        allColSpecs[8] = new DataColumnSpecCreator("Uniprot ID", StringCell.TYPE).createSpec();
+        allColSpecs[9] = new DataColumnSpecCreator("IUPHAR ID", StringCell.TYPE).createSpec();
+        allColSpecs[10] = new DataColumnSpecCreator("Pocket Sequence", StringCell.TYPE).createSpec();
+                 
+        DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
+        BufferedDataContainer container = exec.createDataContainer(outputSpec);
+        for (KinaseInformation info: kinaseInfos) {
+            RowKey key = new RowKey(info.getKinaseID().toString());
+            
+            // the cells of the current row, the types of the cells must match
+            // the column spec (see above)
+            DataCell[] cells = new DataCell[11];
+            cells[0] = new IntCell(info.getKinaseID());
+            cells[1] = new StringCell(info.getName());
+            cells[2] = new StringCell(info.getHGNC());
+            cells[3] = new StringCell(info.getFamily());
+            cells[4] = new StringCell(info.getGroup());
+            cells[5] = new StringCell(info.getKinaseClass());
+            cells[6] = new StringCell(info.getSpecies());
+            cells[7] = new StringCell(info.getFullName());
+            cells[8] = new StringCell(info.getUniprot());
+            cells[9] = new StringCell(info.getIuphar());
+            cells[10] = new StringCell(info.getPocket());
+            DataRow row = new DefaultRow(key, cells);
+            container.addRowToTable(row);
+        }
+        
+        // Done: close and return
+        container.close();
+        BufferedDataTable out = container.getTable();
+        return new BufferedDataTable[]{out};
     }
 
     /**

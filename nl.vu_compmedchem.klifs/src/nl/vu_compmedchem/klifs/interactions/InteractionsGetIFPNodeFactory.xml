@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <knimeNode icon="./default.png" type="Source" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knime.org/node/v2.10 http://knime.org/node/v2.10.xsd">
-    <name>Get Interaction Fingerprint</name>
+    <name>Interaction Fingerprint Retriever</name>
     
     <shortDescription>
-        Knime node to retrieve the interaction fingerprints (IFPs) from specific structures from KLIFS
+        KNIME node to retrieve the interaction fingerprint of specific kinase-ligand complexes from KLIFS.
     </shortDescription>
     
     <fullDescription>
-        <intro>Knime node to retrieve the interaction fingerprints (IFPs) from specific structures from KLIFS</intro>
+        <intro>KNIME node to retrieve the interaction fingerprint of specific kinase-ligand complexes from KLIFS. This node allows a user to retrieve the interaction fingerprint (IFP) from KLIFS for chemoinformatics analysis. The fingerprint has been corrected for gaps/missing residues within the KLIFS pocket thereby enabling all-against-all comparisons. This functionality allows users, for example, to perform their own interaction pattern similarity analysis, to search for specific interaction patterns, to utilize the interaction patterns in predictive models, and to compare in-house calculated interaction patterns (e.g. from docking studies) to all interaction patterns within KLIFS.</intro>
         
         <option name="Structure ID column">Select the input column with the structure IDs</option>
     </fullDescription>

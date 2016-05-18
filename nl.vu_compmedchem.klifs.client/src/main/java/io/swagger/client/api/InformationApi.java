@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-13T12:15:53.243Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-18T09:34:14.459Z")
 public class InformationApi {
   private ApiClient apiClient;
 
@@ -177,17 +177,12 @@ public class InformationApi {
   /**
    * Kinase information
    * The Kinase information endpoint returns a list of information related to the requested kinase (Uniprot, pocket sequence, etc.).\n
-   * @param kinaseID ID (or IDs separated by a comma) of the kinase for which the kinase information is requested. (required)
+   * @param kinaseID ID (or IDs separated by a comma) of the kinase for which the kinase information is requested. (optional)
    * @return List<KinaseInformation>
    * @throws ApiException if fails to make API call
    */
   public List<KinaseInformation> kinaseInformationGet(List<Integer> kinaseID) throws ApiException {
     Object localVarPostBody = null;
-    
-    // verify the required parameter 'kinaseID' is set
-    if (kinaseID == null) {
-      throw new ApiException(400, "Missing the required parameter 'kinaseID' when calling kinaseInformationGet");
-    }
     
     // create path and map variables
     String localVarPath = "/kinase_information".replaceAll("\\{format\\}","json");

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <knimeNode icon="./default.png" type="Source" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knime.org/node/v2.10 http://knime.org/node/v2.10.xsd">
-    <name>Structures List</name>
+    <name>Structures Overview Retriever</name>
     
     <shortDescription>
-        Knime node to retrieve a list of structures for a given set of kinase IDs from KLIFS
+        KNIME node to retrieve a list of structure IDs from KLIFS of structures in complex with specific kinases (kinase IDs) or ligands (ligand IDs).
     </shortDescription>
     
     <fullDescription>
-        <intro>Knime node to retrieve a list of structures for a given set of kinase IDs from KLIFS</intro>
-        
+        <intro>KNIME node to retrieve a list of structure IDs from KLIFS of structures in complex with specific kinases (kinase IDs) or ligands (ligand IDs). A user-supplied set of KLIFS kinase IDs (from the Kinase Information Retriever or Kinase ID Mapper node) or KLIFS ligand IDs (from the Ligands Overview Retriever node) can be used to retrieve a list of structures from specific kinases or structures in complex with specific ligands. This allows, for example, to obtain a list of kinase structures that are in complex with ligand that match a specific substructure or to obtain a list of all structures from a specific kinase family. This node returns the structure ID, kinase name, kinase ID, PDB-code, chain, alternate model, RMSD1, RMSD2, the amino acid sequence of the pocket based on the structure, the resolution, the quality of the structure, the number of missing residues, the number of missing atoms, the allosteric ligand, the orthosteric ligand, the allosteric ligand, the conformation of the DFG-motif, the conformation of the αC-helix, the distance, angle and rotation of the G-rich loop, and whether or not the ligand targets the front pocket, the gate area, the back pocket, and the subpockets FP-I, FP-II, BP-I-A, BP-I-B, BP-II-in, BP-II-A-in, BP-II-B-in, BP-II-out, BP-II-B, BP-III, BP-IV, and BP-V.</intro>
         
         <option name="Kinase IDs column">Column from the input stream with the kinase IDs</option>
+        <option name="Type selection">Select what type of IDs are provides: kinase IDs (default) or ligand IDs</option>
     </fullDescription>
     
     <ports>

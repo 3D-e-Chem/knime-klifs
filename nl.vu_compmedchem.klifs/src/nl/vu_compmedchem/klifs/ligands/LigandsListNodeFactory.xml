@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <knimeNode icon="./default.png" type="Source" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knime.org/node/v2.10 http://knime.org/node/v2.10.xsd">
-    <name>Get List of Ligands</name>
+    <name>Ligands Overview Retriever</name>
     
     <shortDescription>
-        Knime node to retrieve a list of all co-crystallized ligands (optionally for a given set of kinase IDs) from KLIFS
+        KNIME node to retrieve a list of all co-crystallized ligands (optionally for a given set of kinase IDs) from KLIFS.
     </shortDescription>
     
     <fullDescription>
-        <intro>Knime node to retrieve a list of all co-crystallized ligands (optionally for a given set of kinase IDs) from KLIFS</intro>
+        <intro>KNIME node to retrieve a list of all co-crystallized ligands (optionally for a given set of kinase IDs) from KLIFS. This node provides a list of ligand IDs, three-letter PDB-codes, Names, molecular structures (SMILES), InChIKeys, and (if available) a ChEMBL ID for all ligands from kinase-ligand complexes within KLIFS. The node can optionally be restricted to ligands that are in complex with specific kinases based on a list of kinase IDs. This node can, for example, be used to perform chemical similarity analyses of kinase inhibitors or substructure searches to subsequently retrieve kinase structures with the matching ligands using the Structures Overview Retriever node.</intro>
         
         <option name="Kinase IDs">(Optional) Column with kinase IDs</option>
     </fullDescription>

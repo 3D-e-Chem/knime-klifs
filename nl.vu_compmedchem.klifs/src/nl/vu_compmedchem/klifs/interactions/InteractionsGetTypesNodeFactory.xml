@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <knimeNode icon="./default.png" type="Source" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knime.org/node/v2.10 http://knime.org/node/v2.10.xsd">
-    <name>Get Interaction Types</name>
+    <name>Interaction Types Retriever</name>
     
     <shortDescription>
-        Knime node to retrieve a description of all 7 interaction types from KLIFS
+        KNIME node to retrieve the different interaction types that are encoded for each pocket residue in the interaction fingerprint. 
     </shortDescription>
     
     <fullDescription>
-        <intro>Knime node to retrieve a description of all 7 interaction types from KLIFS</intro>
+        <intro>KNIME node to retrieve the different interaction types that are encoded for each pocket residue in the interaction fingerprint. This node retrieves the different interaction types for each bit position of the interaction fingerprint (IFP) method and can, for example, be used in combination with the Interaction Fingerprint Decomposer to identify what kinase-ligand interactions are present in specific structures.</intro>
     </fullDescription>
     
     <ports>
