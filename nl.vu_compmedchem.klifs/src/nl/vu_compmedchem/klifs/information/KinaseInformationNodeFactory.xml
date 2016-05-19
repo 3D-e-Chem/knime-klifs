@@ -10,6 +10,7 @@
         <intro>KNIME node to retrieve all generic kinase information from KLIFS optionally restricted to a user-supplied set of kinase IDs. This node returns a table comprising the KLIFS kinase ID, kinase name, HGNC symbol, kinase group, kinase family, kinase class, species, full name, UniProt accession code, IUPHAR ID, and the amino acid sequence of the pocket based on the KLIFS pocket definition using a consistent alignment of 85 residues. This information can, for example, be used to link KLIFS information to external resources (e.g. using HGNC symbols or UniProt, IUPHAR identifiers), to analyze pocket sequence identity/similarity, to associate kinase IDs with their kinases groups, families and classes, or to select kinases from a specific kinase class/family/group using a Row Filter (core KNIME node) to selectively retrieve KLIFS information.</intro>
         
         <option name="Column Kinase IDs">Optional input column with kinase IDs.</option>
+        <option name="Species">Optional setting to specify the species to restrict the search to (e.g. HUMAN).</option>
     </fullDescription>
     
     <ports>
