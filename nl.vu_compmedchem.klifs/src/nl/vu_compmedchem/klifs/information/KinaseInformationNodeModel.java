@@ -39,8 +39,10 @@ import org.knime.core.node.port.PortType;
  */
 public class KinaseInformationNodeModel extends NodeModel {
 
-	public static final String CFGKEY_INPUTCOLUMNNAME = "(Optional) Input Column";
+	public static final String CFGKEY_INPUTCOLUMNNAME = "Input Column (optional)";
+	public static final String CFGKEY_INPUTSPECIES = "Species (optional)";
 	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, null);
+	private final SettingsModelString m_inputSpecies = new SettingsModelString(CFGKEY_INPUTSPECIES, null);
 	
     // the logger instance
     private static final NodeLogger logger = NodeLogger
@@ -73,7 +75,7 @@ public class KinaseInformationNodeModel extends NodeModel {
         }
         	
         InformationApi client = new InformationApi();
-        List<KinaseInformation> kinaseInfos = client.kinaseInformationGet(kinaseIDs);
+        List<KinaseInformation> kinaseInfos = client.kinaseInformationGet(kinaseIDs, m_inputSpecies.getStringValue());
         
         // the data table spec of the single output table, 
         // the table will have eleven columns: all kinase information
@@ -152,6 +154,7 @@ public class KinaseInformationNodeModel extends NodeModel {
     protected void saveSettingsTo(final NodeSettingsWO settings) {
 
     	m_inputColumnName.saveSettingsTo(settings);
+    	m_inputSpecies.saveSettingsTo(settings);
 
     }
 
@@ -163,6 +166,7 @@ public class KinaseInformationNodeModel extends NodeModel {
             throws InvalidSettingsException {
                   
     	m_inputColumnName.loadSettingsFrom(settings);
+    	m_inputSpecies.loadSettingsFrom(settings);
 
     }
 
@@ -174,6 +178,7 @@ public class KinaseInformationNodeModel extends NodeModel {
             throws InvalidSettingsException {
             
     	m_inputColumnName.validateSettings(settings);
+    	m_inputSpecies.validateSettings(settings);
 
     }
     

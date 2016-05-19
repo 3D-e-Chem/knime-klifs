@@ -3,6 +3,7 @@ package nl.vu_compmedchem.klifs.information;
 import org.knime.core.data.IntValue;
 import org.knime.core.node.defaultnodesettings.DefaultNodeSettingsPane;
 import org.knime.core.node.defaultnodesettings.DialogComponentColumnNameSelection;
+import org.knime.core.node.defaultnodesettings.DialogComponentString;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
 /**
@@ -28,7 +29,10 @@ public class KinaseInformationNodeDialog extends DefaultNodeSettingsPane {
         addDialogComponent(new DialogComponentColumnNameSelection(
                 new SettingsModelString(KinaseInformationNodeModel.CFGKEY_INPUTCOLUMNNAME, "Kinase IDs"),
                 "Input column with kinase IDs", 0, false, IntValue.class));
-                    
+        
+        addDialogComponent(new DialogComponentString(
+        		new SettingsModelString(KinaseInformationNodeModel.CFGKEY_INPUTSPECIES, ""),
+        		"Species (e.g. HUMAN)"));
     }
 }
 

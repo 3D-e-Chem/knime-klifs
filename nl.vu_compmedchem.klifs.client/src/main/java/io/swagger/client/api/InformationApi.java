@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-18T09:34:14.459Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-05-19T07:51:24.422Z")
 public class InformationApi {
   private ApiClient apiClient;
 
@@ -178,10 +178,11 @@ public class InformationApi {
    * Kinase information
    * The Kinase information endpoint returns a list of information related to the requested kinase (Uniprot, pocket sequence, etc.).\n
    * @param kinaseID ID (or IDs separated by a comma) of the kinase for which the kinase information is requested. (optional)
+   * @param species Optional: Species for which the kinase names are requested (e.g. HUMAN OR MOUSE). (optional)
    * @return List<KinaseInformation>
    * @throws ApiException if fails to make API call
    */
-  public List<KinaseInformation> kinaseInformationGet(List<Integer> kinaseID) throws ApiException {
+  public List<KinaseInformation> kinaseInformationGet(List<Integer> kinaseID, String species) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -194,6 +195,8 @@ public class InformationApi {
 
     
     localVarQueryParams.addAll(apiClient.parameterToPairs("csv", "kinase_ID", kinaseID));
+    
+    localVarQueryParams.addAll(apiClient.parameterToPairs("", "species", species));
     
 
     
