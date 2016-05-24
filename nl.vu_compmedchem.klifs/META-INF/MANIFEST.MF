@@ -2,10 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: KLIFS KNIME nodes
 Bundle-SymbolicName: nl.vu_compmedchem.klifs;singleton:=true
-Bundle-Version: 1.0.7
+Bundle-Version: 1.0.8
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Bundle-ClassPath: kinaseid.jar,
- lib/jackson-annotations-2.4.2.jar,
+Bundle-ClassPath: lib/jackson-annotations-2.4.2.jar,
  lib/jackson-core-2.4.2.jar,
  lib/jackson-databind-2.4.2.jar,
  lib/jackson-datatype-joda-2.1.5.jar,
@@ -20,7 +19,8 @@ Bundle-ClassPath: kinaseid.jar,
  lib/migbase64-2.2.jar,
  lib/mimepull-1.9.3.jar,
  lib/swagger-annotations-1.5.8.jar,
- lib/swagger-java-client-1.0.0.jar
+ lib/swagger-java-client-1.0.0.jar,
+ .
 Bundle-Activator: nl.vu_compmedchem.klifs.information.KinaseIDNodePlugin
 Bundle-Vendor: 3D-e-Chem
 Require-Bundle: org.eclipse.core.runtime,

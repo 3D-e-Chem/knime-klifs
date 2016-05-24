@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/nl.vu_compmedchem.klifs.feature-1.0.8.jar" id="nl.vu_compmedchem.klifs.feature" version="1.0.8">
+      <category name="nl.vu_compmedchem.klifs"/>
+   </feature>
+   <feature url="features/nl.vu_compmedchem.klifs.feature.source_1.0.8.jar" id="nl.vu_compmedchem.klifs.feature.source" version="1.0.8">
+      <category name="nl.vu_compmedchem.klifs.sources"/>
+   </feature>
+   <category-def name="nl.vu_compmedchem.klifs" label="KLIFS KNIME nodes"/>
+   <category-def name="nl.vu_compmedchem.klifs.sources" label="KLIFS KNIME nodes source"/>
+</site>
