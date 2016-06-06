@@ -1,4 +1,7 @@
 # KLIFS knime nodes
+
+[![DOI](https://zenodo.org/badge/20180/3D-e-Chem/knime-klifs.svg)](https://zenodo.org/badge/latestdoi/20180/3D-e-Chem/knime-klifs)
+
 Knime plugin for retrieving data from KLIFS (http://klifs.vu-compmedchem.nl). KLIFS is a structural kinase-ligand interaction database. For more information regarding KLIFS see [the website](http://klifs.vu-compmedchem.nl) and the references at the bottom.
 
 # Installation
