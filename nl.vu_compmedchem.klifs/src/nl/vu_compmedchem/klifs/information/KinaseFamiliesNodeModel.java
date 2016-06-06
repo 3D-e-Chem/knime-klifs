@@ -65,13 +65,18 @@ public class KinaseFamiliesNodeModel extends NodeModel {
         String kinaseGroups = null;
         if (inData.length > 0 && inData[0] != null){
         	int columnIndex = inData[0].getDataTableSpec().findColumnIndex(m_inputColumnName.getStringValue());
-        	for (DataRow inrow : inData[0]) {
-        		String kinaseGroup = ((StringCell) inrow.getCell(columnIndex)).getStringValue();
-        		if (kinaseGroups!=null){
-        			kinaseGroups += ","+kinaseGroup;
-        		} else {
-        			kinaseGroups = kinaseGroup;
-        		}
+        	if (columnIndex >= 0){
+	        	for (DataRow inrow : inData[0]) {
+	        		String kinaseGroup = ((StringCell) inrow.getCell(columnIndex)).getStringValue();
+	        		if (kinaseGroups!=null){
+	        			kinaseGroups += ","+kinaseGroup;
+	        		} else {
+	        			kinaseGroups = kinaseGroup;
+	        		}
+	        	}
+        	} else {
+        		setWarningMessage("No valid input column selected");
+        		throw new CanceledExecutionException("No valid input column selected");
         	}
         } else {
         	kinaseGroups = "";

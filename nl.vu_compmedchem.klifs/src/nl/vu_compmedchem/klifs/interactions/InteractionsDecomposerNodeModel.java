@@ -68,7 +68,7 @@ public class InteractionsDecomposerNodeModel extends NodeModel {
     	logger.info("Executing KLIFS IFP Decomposer node - decomposing interaction fingerprints.");
 
     	// Check input data and execute query
-        if (inData.length > 0 && inData[0] != null && inData[1] != null){
+        if (inData.length > 1 && inData[0] != null && inData[1] != null){
         	
         	// Create List of interaction types from input 1
         	String[] interactions = new String[(int) inData[1].size()];
@@ -105,61 +105,67 @@ public class InteractionsDecomposerNodeModel extends NodeModel {
         	// Grab each IFP and match the 
         	int columnIndexStructures = inData[0].getDataTableSpec().findColumnIndex(m_inputColumnNameStructure.getStringValue());
         	int columnIndexIFPs = inData[0].getDataTableSpec().findColumnIndex(m_inputColumnNameIFP.getStringValue());
-        	int currentRow = 1;
-        	for (DataRow inrow : inData[0]) {
-        		int structureID = ((IntCell) inrow.getCell(columnIndexStructures)).getIntValue();
-        		String IFP = ((StringCell) inrow.getCell(columnIndexIFPs)).getStringValue();
-        		
-        		// Grab X-ray and KLIFS residue matching from KLIFS server
-        		List<MatchList> matchList = null;
-        		if (m_inputBooleanMatch.getBooleanValue())
-        			matchList = client.interactionsMatchResiduesGet(structureID);
-        		
-        		// check length IFP if OK -> decompose IFP
-        		if (IFP.length()>0 && ((IFP.length() % interactions.length) == 0)){
-        			for (int r=0; r < (IFP.length()/interactions.length); r++){
-        				for (int i=0; i < interactions.length; i++){
-        					int bitPosition=r*interactions.length+i;
-        					boolean interacting = IFP.substring(bitPosition, bitPosition+1).equals("1");
-
-        					if (!m_inputBooleanActives.getBooleanValue() || interacting){
-        						// Structure ID, residue, interaction type, interaction yes/no, X-ray position, KLIFS position
-        						DataCell[] cells = new DataCell[specLength];
-        						cells[0] = new IntCell(structureID);
-        		                cells[1] = new IntCell(r+1);
-        		                cells[2] = new StringCell(interactions[i]);
-        		                if (!m_inputBooleanActives.getBooleanValue())
-        		                	cells[3] = BooleanCell.BooleanCellFactory.create(interacting);
-        		                if (m_inputBooleanMatch.getBooleanValue()){
-        		                	cells[specLength-2] = new StringCell(matchList.get(r).getXrayPosition());
-        		                	cells[specLength-1] = new StringCell(matchList.get(r).getKLIFSPosition());
-        		                }
-
-        		                // Add row
-        		                DataRow row = new DefaultRow(new RowKey(new Integer((int) container.size()).toString()), cells);
-        		        		container.addRowToTable(row);
-        					}
-        				}
-        			}
-        		} else {
-        			// error wrong IFP length or wrong interaction types length
-        			return null;
-        		}
-        		
-                // report progress
-                exec.setProgress((double) currentRow / inData[0].size(), " processing row " + currentRow);
-                currentRow++;
-                
-                // Check if process has been cancelled
-                exec.checkCanceled();
+        	if (columnIndexStructures>=0 && columnIndexIFPs>=0){
+	        	int currentRow = 1;
+	        	for (DataRow inrow : inData[0]) {
+	        		int structureID = ((IntCell) inrow.getCell(columnIndexStructures)).getIntValue();
+	        		String IFP = ((StringCell) inrow.getCell(columnIndexIFPs)).getStringValue();
+	        		
+	        		// Grab X-ray and KLIFS residue matching from KLIFS server
+	        		List<MatchList> matchList = null;
+	        		if (m_inputBooleanMatch.getBooleanValue())
+	        			matchList = client.interactionsMatchResiduesGet(structureID);
+	        		
+	        		// check length IFP if OK -> decompose IFP
+	        		if (IFP.length()>0 && ((IFP.length() % interactions.length) == 0)){
+	        			for (int r=0; r < (IFP.length()/interactions.length); r++){
+	        				for (int i=0; i < interactions.length; i++){
+	        					int bitPosition=r*interactions.length+i;
+	        					boolean interacting = IFP.substring(bitPosition, bitPosition+1).equals("1");
+	
+	        					if (!m_inputBooleanActives.getBooleanValue() || interacting){
+	        						// Structure ID, residue, interaction type, interaction yes/no, X-ray position, KLIFS position
+	        						DataCell[] cells = new DataCell[specLength];
+	        						cells[0] = new IntCell(structureID);
+	        		                cells[1] = new IntCell(r+1);
+	        		                cells[2] = new StringCell(interactions[i]);
+	        		                if (!m_inputBooleanActives.getBooleanValue())
+	        		                	cells[3] = BooleanCell.BooleanCellFactory.create(interacting);
+	        		                if (m_inputBooleanMatch.getBooleanValue()){
+	        		                	cells[specLength-2] = new StringCell(matchList.get(r).getXrayPosition());
+	        		                	cells[specLength-1] = new StringCell(matchList.get(r).getKLIFSPosition());
+	        		                }
+	
+	        		                // Add row
+	        		                DataRow row = new DefaultRow(new RowKey(new Integer((int) container.size()).toString()), cells);
+	        		        		container.addRowToTable(row);
+	        					}
+	        				}
+	        			}
+	        		} else {
+	        			// error wrong IFP length or wrong interaction types length
+	        			throw new CanceledExecutionException("Invalid length of IFP or list of interactions");
+	        		}
+	        		
+	                // report progress
+	                exec.setProgress((double) currentRow / inData[0].size(), " processing row " + currentRow);
+	                currentRow++;
+	                
+	                // Check if process has been cancelled
+	                exec.checkCanceled();
+	        	}
+	        	
+	            // Done: close and return
+	            container.close();
+	            BufferedDataTable out = container.getTable();
+	            return new BufferedDataTable[]{out};
+        	} else {
+        		setWarningMessage("No valid input column selected");
+        		throw new CanceledExecutionException("No valid input column selected");
         	}
-        	
-            // Done: close and return
-            container.close();
-            BufferedDataTable out = container.getTable();
-            return new BufferedDataTable[]{out};
         } else {
-        	return null;
+        	setWarningMessage("No input stream available");
+        	throw new CanceledExecutionException("No input stream available");
         }
     }
 

@@ -70,55 +70,61 @@ public class InteractionsGetIFPNodeModel extends NodeModel {
         if (inData.length > 0 && inData[0] != null){
         	List<Integer> structureIDs = new ArrayList<Integer>();
         	int columnIndex = inData[0].getDataTableSpec().findColumnIndex(m_inputColumnName.getStringValue());
-        	for (DataRow inrow : inData[0]) {
-        		int structureID = ((IntCell) inrow.getCell(columnIndex)).getIntValue();
-        		structureIDs.add(structureID);
+        	if (columnIndex >= 0){
+	        	for (DataRow inrow : inData[0]) {
+	        		int structureID = ((IntCell) inrow.getCell(columnIndex)).getIntValue();
+	        		structureIDs.add(structureID);
+	        	}
+	        	
+	            InteractionsApi client = new InteractionsApi();
+	            List<IFPList> structureIFPs = client.interactionsGetIFPGet(structureIDs);
+	            
+	            // the data table spec of the single output table, 
+	            // the table will have eleven columns: all kinase information
+	            DataColumnSpec[] allColSpecs = new DataColumnSpec[3];
+	            allColSpecs[0] = new DataColumnSpecCreator("Structure ID", IntCell.TYPE).createSpec();
+	            allColSpecs[1] = new DataColumnSpecCreator("IFP", StringCell.TYPE).createSpec();
+	            allColSpecs[2] = new DataColumnSpecCreator("Binary IFP", DenseBitVectorCell.TYPE).createSpec();
+	                     
+	            DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
+	            BufferedDataContainer container = exec.createDataContainer(outputSpec);
+	            for (IFPList ifp: structureIFPs) {
+	                RowKey key = new RowKey(ifp.getStructureID().toString());
+	                
+	                // the cells of the current row, the types of the cells must match
+	                // the column spec (see above)
+	                DataCell[] cells = new DataCell[3];
+	                cells[0] = new IntCell(ifp.getStructureID());
+	                cells[1] = new StringCell(ifp.getIFP());
+	                // pad the IFP with zeroes to match multiple of 4 for hex conversion
+	                String IFP = ifp.getIFP();
+	                while (IFP.length() % 4 != 0)
+	                	IFP = "0"+IFP;
+	                
+	                // convert binary string IFP to hexadecimal string
+	                String hexIFP = "";
+	                // ToDo - make more efficient
+	                for (int i = 0; i < IFP.length() / 4; i++) {
+	                	// per block as conversion does not pad hexademicals
+	                	String subIFP = IFP.substring(i*4, (i+1)*4);
+	                	hexIFP += Integer.toString(Integer.parseInt(subIFP, 2), 16);
+	                }
+	                cells[2] = new DenseBitVectorCellFactory(hexIFP).createDataCell();  
+	                DataRow row = new DefaultRow(key, cells);
+	                container.addRowToTable(row);
+	            }
+	            
+	            // Done: close and return
+	            container.close();
+	            BufferedDataTable out = container.getTable();
+	            return new BufferedDataTable[]{out};
+        	} else {
+        		setWarningMessage("No valid input column selected");
+        		throw new CanceledExecutionException("No valid input column selected");
         	}
-        	
-            InteractionsApi client = new InteractionsApi();
-            List<IFPList> structureIFPs = client.interactionsGetIFPGet(structureIDs);
-            
-            // the data table spec of the single output table, 
-            // the table will have eleven columns: all kinase information
-            DataColumnSpec[] allColSpecs = new DataColumnSpec[3];
-            allColSpecs[0] = new DataColumnSpecCreator("Structure ID", IntCell.TYPE).createSpec();
-            allColSpecs[1] = new DataColumnSpecCreator("IFP", StringCell.TYPE).createSpec();
-            allColSpecs[2] = new DataColumnSpecCreator("Binary IFP", DenseBitVectorCell.TYPE).createSpec();
-                     
-            DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
-            BufferedDataContainer container = exec.createDataContainer(outputSpec);
-            for (IFPList ifp: structureIFPs) {
-                RowKey key = new RowKey(ifp.getStructureID().toString());
-                
-                // the cells of the current row, the types of the cells must match
-                // the column spec (see above)
-                DataCell[] cells = new DataCell[3];
-                cells[0] = new IntCell(ifp.getStructureID());
-                cells[1] = new StringCell(ifp.getIFP());
-                // pad the IFP with zeroes to match multiple of 4 for hex conversion
-                String IFP = ifp.getIFP();
-                while (IFP.length() % 4 != 0)
-                	IFP = "0"+IFP;
-                
-                // convert binary string IFP to hexadecimal string
-                String hexIFP = "";
-                // ToDo - make more efficient
-                for (int i = 0; i < IFP.length() / 4; i++) {
-                	// per block as conversion does not pad hexademicals
-                	String subIFP = IFP.substring(i*4, (i+1)*4);
-                	hexIFP += Integer.toString(Integer.parseInt(subIFP, 2), 16);
-                }
-                cells[2] = new DenseBitVectorCellFactory(hexIFP).createDataCell();  
-                DataRow row = new DefaultRow(key, cells);
-                container.addRowToTable(row);
-            }
-            
-            // Done: close and return
-            container.close();
-            BufferedDataTable out = container.getTable();
-            return new BufferedDataTable[]{out};
         } else {
-        	return null;
+        	setWarningMessage("No input stream available");
+        	throw new CanceledExecutionException("No input stream available");
         }
     }
 

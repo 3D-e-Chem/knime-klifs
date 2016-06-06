@@ -68,9 +68,14 @@ public class LigandsListNodeModel extends NodeModel {
     	List<Integer> kinaseIDs = new ArrayList<Integer>();
         if (inData.length > 0 && inData[0] != null){
         	int columnIndex = inData[0].getDataTableSpec().findColumnIndex(m_inputColumnName.getStringValue());
-        	for (DataRow inrow : inData[0]) {
-        		int kinaseID = ((IntCell) inrow.getCell(columnIndex)).getIntValue();
-      			kinaseIDs.add(kinaseID);
+        	if (columnIndex >= 0){
+        		for (DataRow inrow : inData[0]) {
+        			int kinaseID = ((IntCell) inrow.getCell(columnIndex)).getIntValue();
+        			kinaseIDs.add(kinaseID);
+        		}
+        	} else {
+        		setWarningMessage("No valid input column selected");
+        		throw new CanceledExecutionException("No valid input column selected");
         	}
         }
         	

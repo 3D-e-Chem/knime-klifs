@@ -69,35 +69,40 @@ public class StructuresGetMOL2NodeModel extends NodeModel {
     	// Check input data and execute query
         if (inData.length > 0 && inData[0] != null){
         	int columnIndex = inData[0].getDataTableSpec().findColumnIndex(m_inputColumnName.getStringValue());
-        	           
-            // the data table spec of the single output table, 
-            // the table will have eleven columns: all kinase information
-            DataColumnSpec[] allColSpecs = new DataColumnSpec[2];
-            allColSpecs[0] = new DataColumnSpecCreator("Structure ID", IntCell.TYPE).createSpec();
-            allColSpecs[1] = new DataColumnSpecCreator("Structure", Mol2Cell.TYPE).createSpec();
-                     
-            DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
-            BufferedDataContainer container = exec.createDataContainer(outputSpec);
-            long rowCount = inData[0].size();
-            long currentRow = 0;
-        	for (DataRow inrow : inData[0]) {
-        		int structureID = ((IntCell) inrow.getCell(columnIndex)).getIntValue();
-        		getMol2Structures(structureID, container);
-
-                // report progress
-                exec.setProgress((double) currentRow / rowCount, " processing row " + currentRow);
-                currentRow++;
-                
-                // Check if process has been cancelled
-                exec.checkCanceled();
-            }
-            
-            // Done: close and return
-            container.close();
-            BufferedDataTable out = container.getTable();
-            return new BufferedDataTable[]{out};
+        	if (columnIndex >= 0){
+	            // the data table spec of the single output table, 
+	            // the table will have eleven columns: all kinase information
+	            DataColumnSpec[] allColSpecs = new DataColumnSpec[2];
+	            allColSpecs[0] = new DataColumnSpecCreator("Structure ID", IntCell.TYPE).createSpec();
+	            allColSpecs[1] = new DataColumnSpecCreator("Structure", Mol2Cell.TYPE).createSpec();
+	                     
+	            DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
+	            BufferedDataContainer container = exec.createDataContainer(outputSpec);
+	            long rowCount = inData[0].size();
+	            long currentRow = 0;
+	        	for (DataRow inrow : inData[0]) {
+	        		int structureID = ((IntCell) inrow.getCell(columnIndex)).getIntValue();
+	        		getMol2Structures(structureID, container);
+	
+	                // report progress
+	                exec.setProgress((double) currentRow / rowCount, " processing row " + currentRow);
+	                currentRow++;
+	                
+	                // Check if process has been cancelled
+	                exec.checkCanceled();
+	            }
+	            
+	            // Done: close and return
+	            container.close();
+	            BufferedDataTable out = container.getTable();
+	            return new BufferedDataTable[]{out};
+        	} else {
+        		setWarningMessage("No valid input column selected");
+        		throw new CanceledExecutionException("No valid input column selected");
+        	}
         } else {
-        	return null;
+        	setWarningMessage("No input stream available");
+        	throw new CanceledExecutionException("No input stream available");
         }
     }
     
