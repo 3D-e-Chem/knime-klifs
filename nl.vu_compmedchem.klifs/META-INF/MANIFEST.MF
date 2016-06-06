@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: KLIFS KNIME nodes
+Bundle-Name: KNIME 3D-e-Chem Contributions
 Bundle-SymbolicName: nl.vu_compmedchem.klifs;singleton:=true
 Bundle-Version: 1.0.10
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
