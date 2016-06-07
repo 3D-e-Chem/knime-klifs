@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>nl.vu_compmedchem.klifs</groupId>
 		<artifactId>nl.vu_compmedchem</artifactId>
-		<version>1.0.10</version>
+		<version>1.0.11</version>
 	</parent>
 	<artifactId>nl.vu_compmedchem.klifs</artifactId>
 	<packaging>eclipse-plugin</packaging>

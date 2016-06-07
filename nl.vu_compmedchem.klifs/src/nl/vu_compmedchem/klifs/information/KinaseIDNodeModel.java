@@ -81,51 +81,41 @@ public class KinaseIDNodeModel extends NodeModel {
         BufferedDataContainer container = exec.createDataContainer(outputSpec);
     	
         // Check input data and execute query
-        if (inData.length > 0 && inData[0] != null){
-        	String kinaseNames = null;
-        	int columnIndex = inData[0].getDataTableSpec().findColumnIndex(m_inputColumnName.getStringValue());
-        	if (columnIndex >= 0){
-	        	for (DataRow inrow : inData[0]) {
-	        		String kinaseName = ((StringCell) inrow.getCell(columnIndex)).getStringValue();
-	        		if (kinaseNames!=null){
-	        			kinaseNames += ","+kinaseName;
-	        		} else {
-	        			kinaseNames = kinaseName;
-	        		}
-	        	}
-	        	
-	            InformationApi client = new InformationApi();
-	            List<KinaseInformation> kinaseInfos = client.kinaseIDGet(kinaseNames, m_inputSpecies.getStringValue());
-	            
-	            for (KinaseInformation info: kinaseInfos) {
-	                RowKey key = new RowKey(info.getKinaseID().toString());
-	                
-	                // the cells of the current row, the types of the cells must match
-	                // the column spec (see above)
-	                DataCell[] cells = new DataCell[11];
-	                cells[0] = new IntCell(info.getKinaseID());
-	                cells[1] = new StringCell(info.getName());
-	                cells[2] = new StringCell(info.getHGNC());
-	                cells[3] = new StringCell(info.getFamily());
-	                cells[4] = new StringCell(info.getGroup());
-	                cells[5] = new StringCell(info.getKinaseClass());
-	                cells[6] = new StringCell(info.getSpecies());
-	                cells[7] = new StringCell(info.getFullName());
-	                cells[8] = new StringCell(info.getUniprot());
-	                cells[9] = new StringCell(info.getIuphar());
-	                cells[10] = new StringCell(info.getPocket());
-	                DataRow row = new DefaultRow(key, cells);
-	                container.addRowToTable(row);
-	            }
-        	} else {
-        		setWarningMessage("No valid input column selected");
-        		throw new CanceledExecutionException("No valid input column selected");
-        	}
-        } else {
-        	setWarningMessage("No input stream available");
-        	throw new CanceledExecutionException("No input stream available");
-        }
+    	String kinaseNames = null;
+    	int columnIndex = inData[0].getDataTableSpec().findColumnIndex(m_inputColumnName.getStringValue());
+    	for (DataRow inrow : inData[0]) {
+    		String kinaseName = ((StringCell) inrow.getCell(columnIndex)).getStringValue();
+    		if (kinaseNames!=null){
+    			kinaseNames += ","+kinaseName;
+    		} else {
+    			kinaseNames = kinaseName;
+    		}
+    	}
+    	
+        InformationApi client = new InformationApi();
+        List<KinaseInformation> kinaseInfos = client.kinaseIDGet(kinaseNames, m_inputSpecies.getStringValue());
         
+        for (KinaseInformation info: kinaseInfos) {
+            RowKey key = new RowKey(info.getKinaseID().toString());
+            
+            // the cells of the current row, the types of the cells must match
+            // the column spec (see above)
+            DataCell[] cells = new DataCell[11];
+            cells[0] = new IntCell(info.getKinaseID());
+            cells[1] = new StringCell(info.getName());
+            cells[2] = new StringCell(info.getHGNC());
+            cells[3] = new StringCell(info.getFamily());
+            cells[4] = new StringCell(info.getGroup());
+            cells[5] = new StringCell(info.getKinaseClass());
+            cells[6] = new StringCell(info.getSpecies());
+            cells[7] = new StringCell(info.getFullName());
+            cells[8] = new StringCell(info.getUniprot());
+            cells[9] = new StringCell(info.getIuphar());
+            cells[10] = new StringCell(info.getPocket());
+            DataRow row = new DefaultRow(key, cells);
+            container.addRowToTable(row);
+        }
+
         // Done: close and return
         container.close();
         BufferedDataTable out = container.getTable();
@@ -149,11 +139,12 @@ public class KinaseIDNodeModel extends NodeModel {
     protected DataTableSpec[] configure(final DataTableSpec[] inSpecs)
             throws InvalidSettingsException {
         
-        // TODO: check if user settings are available, fit to the incoming
-        // table structure, and the incoming types are feasible for the node
-        // to execute. If the node can execute in its current state return
-        // the spec of its output data table(s) (if you can, otherwise an array
-        // with null elements), or throw an exception with a useful user message
+    	if (inSpecs.length > 0 && inSpecs[0] != null){
+        	int columnIndex = inSpecs[0].findColumnIndex(m_inputColumnName.getStringValue());
+        	if (columnIndex < 0){
+        		throw new InvalidSettingsException("No valid input column selected");
+        	}
+        }
 
         return new DataTableSpec[]{null};
     }

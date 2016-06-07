@@ -67,43 +67,33 @@ public class StructuresGetMOL2NodeModel extends NodeModel {
     	logger.info("Executing KLIFS Structures get MOL2 node - retrieving structures from the KLIFS server.");
 
     	// Check input data and execute query
-        if (inData.length > 0 && inData[0] != null){
-        	int columnIndex = inData[0].getDataTableSpec().findColumnIndex(m_inputColumnName.getStringValue());
-        	if (columnIndex >= 0){
-	            // the data table spec of the single output table, 
-	            // the table will have eleven columns: all kinase information
-	            DataColumnSpec[] allColSpecs = new DataColumnSpec[2];
-	            allColSpecs[0] = new DataColumnSpecCreator("Structure ID", IntCell.TYPE).createSpec();
-	            allColSpecs[1] = new DataColumnSpecCreator("Structure", Mol2Cell.TYPE).createSpec();
-	                     
-	            DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
-	            BufferedDataContainer container = exec.createDataContainer(outputSpec);
-	            long rowCount = inData[0].size();
-	            long currentRow = 0;
-	        	for (DataRow inrow : inData[0]) {
-	        		int structureID = ((IntCell) inrow.getCell(columnIndex)).getIntValue();
-	        		getMol2Structures(structureID, container);
-	
-	                // report progress
-	                exec.setProgress((double) currentRow / rowCount, " processing row " + currentRow);
-	                currentRow++;
-	                
-	                // Check if process has been cancelled
-	                exec.checkCanceled();
-	            }
-	            
-	            // Done: close and return
-	            container.close();
-	            BufferedDataTable out = container.getTable();
-	            return new BufferedDataTable[]{out};
-        	} else {
-        		setWarningMessage("No valid input column selected");
-        		throw new CanceledExecutionException("No valid input column selected");
-        	}
-        } else {
-        	setWarningMessage("No input stream available");
-        	throw new CanceledExecutionException("No input stream available");
+    	int columnIndex = inData[0].getDataTableSpec().findColumnIndex(m_inputColumnName.getStringValue());
+        // the data table spec of the single output table, 
+        // the table will have eleven columns: all kinase information
+        DataColumnSpec[] allColSpecs = new DataColumnSpec[2];
+        allColSpecs[0] = new DataColumnSpecCreator("Structure ID", IntCell.TYPE).createSpec();
+        allColSpecs[1] = new DataColumnSpecCreator("Structure", Mol2Cell.TYPE).createSpec();
+                 
+        DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
+        BufferedDataContainer container = exec.createDataContainer(outputSpec);
+        long rowCount = inData[0].size();
+        long currentRow = 0;
+    	for (DataRow inrow : inData[0]) {
+    		int structureID = ((IntCell) inrow.getCell(columnIndex)).getIntValue();
+    		getMol2Structures(structureID, container);
+
+            // report progress
+            exec.setProgress((double) currentRow / rowCount, " processing row " + currentRow);
+            currentRow++;
+            
+            // Check if process has been cancelled
+            exec.checkCanceled();
         }
+        
+        // Done: close and return
+        container.close();
+        BufferedDataTable out = container.getTable();
+        return new BufferedDataTable[]{out};
     }
     
     private void getMol2Structures(int structureID, BufferedDataContainer container) throws Exception {
@@ -153,11 +143,12 @@ public class StructuresGetMOL2NodeModel extends NodeModel {
     protected DataTableSpec[] configure(final DataTableSpec[] inSpecs)
             throws InvalidSettingsException {
         
-        // TODO: check if user settings are available, fit to the incoming
-        // table structure, and the incoming types are feasible for the node
-        // to execute. If the node can execute in its current state return
-        // the spec of its output data table(s) (if you can, otherwise an array
-        // with null elements), or throw an exception with a useful user message
+    	if (inSpecs.length > 0 && inSpecs[0] != null){
+        	int columnIndex = inSpecs[0].findColumnIndex(m_inputColumnName.getStringValue());
+        	if (columnIndex < 0){
+        		throw new InvalidSettingsException("No valid input column selected");
+        	}
+        }
 
         return new DataTableSpec[]{null};
     }
