@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: KNIME 3D-e-Chem Contributions
 Bundle-SymbolicName: nl.vu_compmedchem.klifs;singleton:=true
-Bundle-Version: 1.0.11
+Bundle-Version: 1.0.12
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: lib/jackson-annotations-2.4.2.jar,
  lib/jackson-core-2.4.2.jar,
@@ -23,12 +23,10 @@ Bundle-ClassPath: lib/jackson-annotations-2.4.2.jar,
  .
 Bundle-Activator: nl.vu_compmedchem.klifs.information.KinaseIDNodePlugin
 Bundle-Vendor: 3D-e-Chem
-Require-Bundle: org.eclipse.core.runtime,
- org.knime.workbench.core,
- org.knime.workbench.repository,
- org.knime.base,
- org.knime.core,
- org.knime.chem.types;bundle-version="3.1.0"
+Require-Bundle: org.knime.core;bundle-version="[3.1.0,4.0.0)",
+ org.knime.base;bundle-version="[3.1.0,4.0.0)",
+ org.knime.chem.types;bundle-version="[3.1.0,4.0.0)",
+ nl.esciencecenter.e3dchem.plugin;bundle-version="[1.0.0,2.0.0)"
 Bundle-ActivationPolicy: lazy
 Export-Package: nl.vu_compmedchem.klifs.information;
   uses:="org.osgi.framework,
