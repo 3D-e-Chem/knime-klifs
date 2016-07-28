@@ -21,7 +21,7 @@ Steps to get KLIFS nodes inside KNIME:
 
 # Usage
 
-See example workflow in `examples` folder.
+See the example workflow in `examples` folder.
 
 # Build
 
