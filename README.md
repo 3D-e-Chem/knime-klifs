@@ -1,5 +1,6 @@
 # KLIFS knime nodes
 
+[![Build Status](https://travis-ci.org/3D-e-Chem/knime-klifs.svg?branch=master)](https://travis-ci.org/3D-e-Chem/knime-klifs)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e48d6b99a76d479ea37f13f6f3189b5b)](https://www.codacy.com/app/AJK-dev/knime-klifs?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=3D-e-Chem/knime-klifs&amp;utm_campaign=Badge_Grade)
 [![DOI](https://zenodo.org/badge/20180/3D-e-Chem/knime-klifs.svg)](https://zenodo.org/badge/latestdoi/20180/3D-e-Chem/knime-klifs)
 
