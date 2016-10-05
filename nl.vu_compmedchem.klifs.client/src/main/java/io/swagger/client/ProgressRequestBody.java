@@ -37,16 +37,14 @@ import okio.Okio;
 import okio.Sink;
 
 public class ProgressRequestBody extends RequestBody {
+    private final RequestBody requestBody;
+    private final ProgressRequestListener progressListener;
+    private BufferedSink bufferedSink;
 
     public interface ProgressRequestListener {
         void onRequestProgress(long bytesWritten, long contentLength, boolean done);
     }
 
-    private final RequestBody requestBody;
-
-    private final ProgressRequestListener progressListener;
-
-    private BufferedSink bufferedSink;
 
     public ProgressRequestBody(RequestBody requestBody, ProgressRequestListener progressListener) {
         this.requestBody = requestBody;
