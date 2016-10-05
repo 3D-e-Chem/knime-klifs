@@ -116,7 +116,7 @@ public class InteractionsGetTypesNodeModel extends NodeModel {
      */
     @Override
     protected void saveSettingsTo(final NodeSettingsWO settings) {
-
+	// empty as there are no settings
     }
 
     /**
@@ -125,7 +125,7 @@ public class InteractionsGetTypesNodeModel extends NodeModel {
     @Override
     protected void loadValidatedSettingsFrom(final NodeSettingsRO settings)
             throws InvalidSettingsException {
-
+	// empty as there are no settings
     }
 
     /**

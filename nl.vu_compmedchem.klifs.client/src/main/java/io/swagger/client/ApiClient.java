@@ -1269,9 +1269,13 @@ public class ApiClient {
             if (!verifyingSsl) {
                 TrustManager trustAll = new X509TrustManager() {
                     @Override
-                    public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
+                    public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException { 
+			// emtpy
+		    }
                     @Override
-                    public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
+                    public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException { 
+			// empty 
+		    }
                     @Override
                     public X509Certificate[] getAcceptedIssuers() { return null; }
                 };
