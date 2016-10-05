@@ -77,12 +77,14 @@ public class StructuresListNodeModel extends NodeModel {
     	}
     	
     	List<StructureDetails> structureList = null;
-    	if (m_selectInputType.getStringValue().equals("Ligand IDs")){
-    		LigandsApi client = new LigandsApi();
-    		structureList = client.ligandsListStructuresGet(listIDs);
-    	} else {
-    		StructuresApi client = new StructuresApi();
-    		structureList = client.structuresListGet(listIDs);
+    	if (!listIDs.isEmpty()){
+	    	if (m_selectInputType.getStringValue().equals("Ligand IDs")){
+	    		LigandsApi client = new LigandsApi();
+	    		structureList = client.ligandsListStructuresGet(listIDs);
+	    	} else {
+	    		StructuresApi client = new StructuresApi();
+	    		structureList = client.structuresListGet(listIDs);
+	    	}
     	}
         
         // the data table spec of the single output table, 

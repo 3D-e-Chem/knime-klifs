@@ -92,30 +92,32 @@ public class KinaseIDNodeModel extends NodeModel {
     		}
     	}
     	
-        InformationApi client = new InformationApi();
-        List<KinaseInformation> kinaseInfos = client.kinaseIDGet(kinaseNames, m_inputSpecies.getStringValue());
-        
-        for (KinaseInformation info: kinaseInfos) {
-            RowKey key = new RowKey(info.getKinaseID().toString());
-            
-            // the cells of the current row, the types of the cells must match
-            // the column spec (see above)
-            DataCell[] cells = new DataCell[11];
-            cells[0] = new IntCell(info.getKinaseID());
-            cells[1] = new StringCell(info.getName());
-            cells[2] = new StringCell(info.getHGNC());
-            cells[3] = new StringCell(info.getFamily());
-            cells[4] = new StringCell(info.getGroup());
-            cells[5] = new StringCell(info.getKinaseClass());
-            cells[6] = new StringCell(info.getSpecies());
-            cells[7] = new StringCell(info.getFullName());
-            cells[8] = new StringCell(info.getUniprot());
-            cells[9] = new StringCell(info.getIuphar());
-            cells[10] = new StringCell(info.getPocket());
-            DataRow row = new DefaultRow(key, cells);
-            container.addRowToTable(row);
-        }
-
+    	if (kinaseNames != null){
+	        InformationApi client = new InformationApi();
+	        List<KinaseInformation> kinaseInfos = client.kinaseIDGet(kinaseNames, m_inputSpecies.getStringValue());
+	        
+	        for (KinaseInformation info: kinaseInfos) {
+	            RowKey key = new RowKey(info.getKinaseID().toString());
+	            
+	            // the cells of the current row, the types of the cells must match
+	            // the column spec (see above)
+	            DataCell[] cells = new DataCell[11];
+	            cells[0] = new IntCell(info.getKinaseID());
+	            cells[1] = new StringCell(info.getName());
+	            cells[2] = new StringCell(info.getHGNC());
+	            cells[3] = new StringCell(info.getFamily());
+	            cells[4] = new StringCell(info.getGroup());
+	            cells[5] = new StringCell(info.getKinaseClass());
+	            cells[6] = new StringCell(info.getSpecies());
+	            cells[7] = new StringCell(info.getFullName());
+	            cells[8] = new StringCell(info.getUniprot());
+	            cells[9] = new StringCell(info.getIuphar());
+	            cells[10] = new StringCell(info.getPocket());
+	            DataRow row = new DefaultRow(key, cells);
+	            container.addRowToTable(row);
+	        }
+    	}
+    	
         // Done: close and return
         container.close();
         BufferedDataTable out = container.getTable();

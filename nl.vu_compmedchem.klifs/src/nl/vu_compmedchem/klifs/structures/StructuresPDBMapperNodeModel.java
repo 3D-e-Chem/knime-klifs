@@ -73,10 +73,6 @@ public class StructuresPDBMapperNodeModel extends NodeModel {
     		pdbCodes.add(pdbCode);
     	}
     	
-    	
-    	StructuresApi client = new StructuresApi();
-        List<StructureDetails> structureList = client.structuresPdbListGet(pdbCodes);
-        
         // the data table spec of the single output table, 
         // the table will have many columns: all structure information
         DataColumnSpec[] allColSpecs = new DataColumnSpec[36];
@@ -119,51 +115,55 @@ public class StructuresPDBMapperNodeModel extends NodeModel {
         
         DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
         BufferedDataContainer container = exec.createDataContainer(outputSpec);
-        for (StructureDetails structureEntry: structureList) {
-            RowKey key = new RowKey(structureEntry.getStructureID().toString());
-            
-            // the cells of the current row, the types of the cells must match
-            // the column spec (see above)
-            DataCell[] cells = new DataCell[36];
-            cells[0] = new IntCell(structureEntry.getStructureID());
-            cells[1] = new StringCell(structureEntry.getKinase());
-            cells[2] = new StringCell(structureEntry.getSpecies());
-            cells[3] = new IntCell(structureEntry.getKinaseID());
-            cells[4] = new StringCell(structureEntry.getPdb());
-            cells[5] = new StringCell(structureEntry.getAlt());
-            cells[6] = new StringCell(structureEntry.getChain());
-            cells[7] = new DoubleCell(structureEntry.getRmsd1());
-            cells[8] = new DoubleCell(structureEntry.getRmsd2());
-            cells[9] = new StringCell(structureEntry.getPocket());
-            cells[10] = new DoubleCell(structureEntry.getResolution());
-            cells[11] = new DoubleCell(structureEntry.getQualityScore());
-            cells[12] = new IntCell(structureEntry.getMissingResidues());
-            cells[13] = new IntCell(structureEntry.getMissingAtoms());
-            cells[14] = new StringCell(structureEntry.getLigand());
-            cells[15] = new StringCell(structureEntry.getAllostericLigand());
-            cells[16] = new StringCell(structureEntry.getDFG());
-            cells[17] = new StringCell(structureEntry.getACHelix());
-            cells[18] = new DoubleCell(structureEntry.getGrichDistance());
-            cells[19] = new DoubleCell(structureEntry.getGrichAngle());
-            cells[20] = new DoubleCell(structureEntry.getGrichRotation());
-            cells[21] = BooleanCell.BooleanCellFactory.create(structureEntry.getFront());
-            cells[22] = BooleanCell.BooleanCellFactory.create(structureEntry.getGate());
-            cells[23] = BooleanCell.BooleanCellFactory.create(structureEntry.getBack());
-            cells[24] = BooleanCell.BooleanCellFactory.create(structureEntry.getFpI());
-            cells[25] = BooleanCell.BooleanCellFactory.create(structureEntry.getFpII());
-            cells[26] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIA());
-            cells[27] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIB());
-            cells[28] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIIn());
-            cells[29] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIAIn());
-            cells[30] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIBIn());
-            cells[31] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIOut());
-            cells[32] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIB());
-            cells[33] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIII());
-            cells[34] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIV());
-            cells[35] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpV());
-            
-            DataRow row = new DefaultRow(key, cells);
-            container.addRowToTable(row);
+        if (!pdbCodes.isEmpty()) {
+	        StructuresApi client = new StructuresApi();
+	        List<StructureDetails> structureList = client.structuresPdbListGet(pdbCodes);
+	        for (StructureDetails structureEntry: structureList) {
+	            RowKey key = new RowKey(structureEntry.getStructureID().toString());
+	            
+	            // the cells of the current row, the types of the cells must match
+	            // the column spec (see above)
+	            DataCell[] cells = new DataCell[36];
+	            cells[0] = new IntCell(structureEntry.getStructureID());
+	            cells[1] = new StringCell(structureEntry.getKinase());
+	            cells[2] = new StringCell(structureEntry.getSpecies());
+	            cells[3] = new IntCell(structureEntry.getKinaseID());
+	            cells[4] = new StringCell(structureEntry.getPdb());
+	            cells[5] = new StringCell(structureEntry.getAlt());
+	            cells[6] = new StringCell(structureEntry.getChain());
+	            cells[7] = new DoubleCell(structureEntry.getRmsd1());
+	            cells[8] = new DoubleCell(structureEntry.getRmsd2());
+	            cells[9] = new StringCell(structureEntry.getPocket());
+	            cells[10] = new DoubleCell(structureEntry.getResolution());
+	            cells[11] = new DoubleCell(structureEntry.getQualityScore());
+	            cells[12] = new IntCell(structureEntry.getMissingResidues());
+	            cells[13] = new IntCell(structureEntry.getMissingAtoms());
+	            cells[14] = new StringCell(structureEntry.getLigand());
+	            cells[15] = new StringCell(structureEntry.getAllostericLigand());
+	            cells[16] = new StringCell(structureEntry.getDFG());
+	            cells[17] = new StringCell(structureEntry.getACHelix());
+	            cells[18] = new DoubleCell(structureEntry.getGrichDistance());
+	            cells[19] = new DoubleCell(structureEntry.getGrichAngle());
+	            cells[20] = new DoubleCell(structureEntry.getGrichRotation());
+	            cells[21] = BooleanCell.BooleanCellFactory.create(structureEntry.getFront());
+	            cells[22] = BooleanCell.BooleanCellFactory.create(structureEntry.getGate());
+	            cells[23] = BooleanCell.BooleanCellFactory.create(structureEntry.getBack());
+	            cells[24] = BooleanCell.BooleanCellFactory.create(structureEntry.getFpI());
+	            cells[25] = BooleanCell.BooleanCellFactory.create(structureEntry.getFpII());
+	            cells[26] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIA());
+	            cells[27] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIB());
+	            cells[28] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIIn());
+	            cells[29] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIAIn());
+	            cells[30] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIBIn());
+	            cells[31] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIOut());
+	            cells[32] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIB());
+	            cells[33] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIII());
+	            cells[34] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIV());
+	            cells[35] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpV());
+	            
+	            DataRow row = new DefaultRow(key, cells);
+	            container.addRowToTable(row);
+	        }
         }
         
         // Done: close and return

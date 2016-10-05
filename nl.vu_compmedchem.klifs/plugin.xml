@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?eclipse version="3.0"?><plugin>
+<?eclipse version="3.0"?>
+<plugin>
 
    <extension point="org.knime.workbench.repository.categories">
       <category description="Category containing KLIFS Nodes" icon="icons/klifs.png" level-id="klifs" name="KLIFS nodes" path="/community/3d-e-chem"/>

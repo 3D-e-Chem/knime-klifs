@@ -86,30 +86,32 @@ public class InteractionsGetIFPNodeModel extends NodeModel {
                  
         DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
         BufferedDataContainer container = exec.createDataContainer(outputSpec);
-        for (IFPList ifp: structureIFPs) {
-            RowKey key = new RowKey(ifp.getStructureID().toString());
-            
-            // the cells of the current row, the types of the cells must match
-            // the column spec (see above)
-            DataCell[] cells = new DataCell[3];
-            cells[0] = new IntCell(ifp.getStructureID());
-            cells[1] = new StringCell(ifp.getIFP());
-            // pad the IFP with zeroes to match multiple of 4 for hex conversion
-            String IFP = ifp.getIFP();
-            while (IFP.length() % 4 != 0)
-            	IFP = "0"+IFP;
-            
-            // convert binary string IFP to hexadecimal string
-            String hexIFP = "";
-            // ToDo - make more efficient
-            for (int i = 0; i < IFP.length() / 4; i++) {
-            	// per block as conversion does not pad hexademicals
-            	String subIFP = IFP.substring(i*4, (i+1)*4);
-            	hexIFP += Integer.toString(Integer.parseInt(subIFP, 2), 16);
-            }
-            cells[2] = new DenseBitVectorCellFactory(hexIFP).createDataCell();  
-            DataRow row = new DefaultRow(key, cells);
-            container.addRowToTable(row);
+        if (!structureIDs.isEmpty()){
+	        for (IFPList ifp: structureIFPs) {
+	            RowKey key = new RowKey(ifp.getStructureID().toString());
+	            
+	            // the cells of the current row, the types of the cells must match
+	            // the column spec (see above)
+	            DataCell[] cells = new DataCell[3];
+	            cells[0] = new IntCell(ifp.getStructureID());
+	            cells[1] = new StringCell(ifp.getIFP());
+	            // pad the IFP with zeroes to match multiple of 4 for hex conversion
+	            String IFP = ifp.getIFP();
+	            while (IFP.length() % 4 != 0)
+	            	IFP = "0"+IFP;
+	            
+	            // convert binary string IFP to hexadecimal string
+	            String hexIFP = "";
+	            // ToDo - make more efficient
+	            for (int i = 0; i < IFP.length() / 4; i++) {
+	            	// per block as conversion does not pad hexademicals
+	            	String subIFP = IFP.substring(i*4, (i+1)*4);
+	            	hexIFP += Integer.toString(Integer.parseInt(subIFP, 2), 16);
+	            }
+	            cells[2] = new DenseBitVectorCellFactory(hexIFP).createDataCell();  
+	            DataRow row = new DefaultRow(key, cells);
+	            container.addRowToTable(row);
+	        }
         }
         
         // Done: close and return
