@@ -796,12 +796,11 @@ public class StructureDetails   {
   public boolean equals(java.lang.Object o) {
     if (this == o) {
       return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
+    } else if (o == null || getClass() != o.getClass()) {
       return false;
-    }
-    StructureDetails structureDetails = (StructureDetails) o;
-    return Objects.equals(this.structureID, structureDetails.structureID) &&
+    } else {
+      StructureDetails structureDetails = (StructureDetails) o;
+      return Objects.equals(this.structureID, structureDetails.structureID) &&
         Objects.equals(this.kinase, structureDetails.kinase) &&
         Objects.equals(this.species, structureDetails.species) &&
         Objects.equals(this.kinaseID, structureDetails.kinaseID) &&
@@ -837,6 +836,7 @@ public class StructureDetails   {
         Objects.equals(this.bpIII, structureDetails.bpIII) &&
         Objects.equals(this.bpIV, structureDetails.bpIV) &&
         Objects.equals(this.bpV, structureDetails.bpV);
+     }
   }
 
   @Override
