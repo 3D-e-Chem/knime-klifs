@@ -38,7 +38,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
-import io.swagger.client.model.Error;
 import io.swagger.client.model.KinaseInformation;
 import io.swagger.client.model.IDlist;
 

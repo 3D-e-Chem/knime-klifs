@@ -76,7 +76,6 @@ import java.text.ParseException;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.KeyManager;
-import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
@@ -357,6 +356,7 @@ public class ApiClient {
         if (str == null)
             return null;
 
+	String copy = str;
         DateFormat format;
         if (lenientDatetimeFormat) {
             /*
@@ -366,21 +366,21 @@ public class ApiClient {
              */
             // normalize time zone
             //   trailing "Z": 2015-08-16T08:20:05Z => 2015-08-16T08:20:05+0000
-            str = str.replaceAll("[zZ]\\z", "+0000");
+            copy = copy.replaceAll("[zZ]\\z", "+0000");
             //   remove colon in time zone: 2015-08-16T08:20:05+00:00 => 2015-08-16T08:20:05+0000
-            str = str.replaceAll("([+-]\\d{2}):(\\d{2})\\z", "$1$2");
+            copy = copy.replaceAll("([+-]\\d{2}):(\\d{2})\\z", "$1$2");
             //   expand time zone: 2015-08-16T08:20:05+00 => 2015-08-16T08:20:05+0000
-            str = str.replaceAll("([+-]\\d{2})\\z", "$100");
+            copy = copy.replaceAll("([+-]\\d{2})\\z", "$100");
             // add milliseconds when missing
             //   2015-08-16T08:20:05+0000 => 2015-08-16T08:20:05.000+0000
-            str = str.replaceAll("(:\\d{1,2})([+-]\\d{4})\\z", "$1.000$2");
+            copy = copy.replaceAll("(:\\d{1,2})([+-]\\d{4})\\z", "$1.000$2");
             format = new SimpleDateFormat(LENIENT_DATETIME_FORMAT);
         } else {
             format = this.datetimeFormat;
         }
 
         try {
-            return format.parse(str);
+            return format.parse(copy);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -684,10 +684,10 @@ public class ApiClient {
         }
 
         // get the collection format
-        collectionFormat = (collectionFormat == null || collectionFormat.isEmpty() ? "csv" : collectionFormat); // default: csv
+        String format = (collectionFormat == null || collectionFormat.isEmpty() ? "csv" : collectionFormat); // default: csv
 
         // create the params based on the collection format
-        if (collectionFormat.equals("multi")) {
+        if ("multi".equals(format)) {
             for (Object item : valueCollection) {
                 params.add(new Pair(name, parameterToString(item)));
             }
@@ -697,13 +697,13 @@ public class ApiClient {
 
         String delimiter = ",";
 
-        if (collectionFormat.equals("csv")) {
+        if ("csv".equals(format)) {
             delimiter = ",";
-        } else if (collectionFormat.equals("ssv")) {
+        } else if ("ssv".equals(format)) {
             delimiter = " ";
-        } else if (collectionFormat.equals("tsv")) {
+        } else if ("tsv".equals(format)) {
             delimiter = "\t";
-        } else if (collectionFormat.equals("pipes")) {
+        } else if ("pipes".equals(format)) {
             delimiter = "|";
         }
 
@@ -1275,7 +1275,6 @@ public class ApiClient {
                     @Override
                     public X509Certificate[] getAcceptedIssuers() { return null; }
                 };
-                SSLContext sslContext = SSLContext.getInstance("TLS");
                 trustManagers = new TrustManager[]{ trustAll };
                 hostnameVerifier = new HostnameVerifier() {
                     @Override
