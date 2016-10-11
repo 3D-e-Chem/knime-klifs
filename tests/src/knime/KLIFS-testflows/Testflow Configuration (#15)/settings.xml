@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="settings.xml">
+<entry key="node_file" type="xstring" value="settings.xml"/>
+<config key="flow_stack"/>
+<config key="internal_node_subsettings">
+<entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
+</config>
+<config key="model">
+<entry key="owner" type="xstring" value="a.j.kooistra@vu.nl"/>
+<config key="requiredLogErrors">
+<entry key="array-size" type="xint" value="0"/>
+</config>
+<config key="requiredLogWarnings">
+<entry key="array-size" type="xint" value="0"/>
+</config>
+<config key="requiredLogInfos">
+<entry key="array-size" type="xint" value="0"/>
+</config>
+<config key="failingNodes">
+<entry key="array-size" type="xint" value="6"/>
+<entry key="0" type="xstring" value="88"/>
+<entry key="1" type="xstring" value="89"/>
+<entry key="2" type="xstring" value="90"/>
+<entry key="3" type="xstring" value="91"/>
+<entry key="4" type="xstring" value="92"/>
+<entry key="5" type="xstring" value="94"/>
+</config>
+<config key="requiredNodeWarnings">
+<entry key="nodeID_0" type="xstring" value="99"/>
+<entry key="message_0" type="xstring" value="Node created an empty data table."/>
+<entry key="nodeID_1" type="xstring" value="100"/>
+<entry key="message_1" type="xstring" value="Node created an empty data table."/>
+<entry key="nodeID_2" type="xstring" value="101"/>
+<entry key="message_2" type="xstring" value="Node created an empty data table."/>
+<entry key="nodeID_3" type="xstring" value="102"/>
+<entry key="message_3" type="xstring" value="Node created an empty data table."/>
+<entry key="nodeID_4" type="xstring" value="9"/>
+<entry key="message_4" type="xstring" value="Node created an empty data table."/>
+<entry key="nodeID_5" type="xstring" value="95"/>
+<entry key="message_5" type="xstring" value="Node created an empty data table."/>
+<entry key="nodeID_6" type="xstring" value="97"/>
+<entry key="message_6" type="xstring" value="Node created an empty data table."/>
+<entry key="nodeID_7" type="xstring" value="98"/>
+<entry key="message_7" type="xstring" value="Node created an empty data table."/>
+<entry key="count" type="xint" value="8"/>
+</config>
+<config key="requiredNodeErrors">
+<entry key="nodeID_0" type="xstring" value="88"/>
+<entry key="message_0" type="xstring" value="Execute failed: Bad Request"/>
+<entry key="nodeID_1" type="xstring" value="89"/>
+<entry key="message_1" type="xstring" value="Execute failed: Bad Request"/>
+<entry key="nodeID_2" type="xstring" value="90"/>
+<entry key="message_2" type="xstring" value="Execute failed: Bad Request"/>
+<entry key="nodeID_3" type="xstring" value="91"/>
+<entry key="message_3" type="xstring" value="Execute failed: Bad Request"/>
+<entry key="nodeID_4" type="xstring" value="92"/>
+<entry key="message_4" type="xstring" value="Execute failed: Bad Request"/>
+<entry key="nodeID_5" type="xstring" value="94"/>
+<entry key="message_5" type="xstring" value="Execute failed: Bad Request"/>
+<entry key="count" type="xint" value="6"/>
+</config>
+<entry key="timeout" type="xint" value="300"/>
+<entry key="maxHilitedRows" type="xint" value="2500"/>
+<config key="usedJanitors">
+<entry key="array-size" type="xint" value="0"/>
+</config>
+<entry key="streamingTest" type="xboolean" value="false"/>
+</config>
+<entry key="customDescription" type="xstring" isnull="true" value=""/>
+<entry key="state" type="xstring" value="EXECUTED"/>
+<entry key="factory" type="xstring" value="org.knime.testing.node.config.TestConfigNodeFactory"/>
+<entry key="node-name" type="xstring" value="Testflow Configuration"/>
+<entry key="node-bundle-name" type="xstring" value="Test-Node extension for KNIME Workbench"/>
+<entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.testing"/>
+<entry key="node-bundle-vendor" type="xstring" value="KNIME GmbH, Konstanz, Germany"/>
+<entry key="node-bundle-version" type="xstring" value="3.2.1.v201608182043"/>
+<entry key="node-feature-name" type="xstring" value="KNIME Testing Framework"/>
+<entry key="node-feature-symbolic-name" type="xstring" value="org.knime.features.testingapplication.feature.group"/>
+<entry key="node-feature-vendor" type="xstring" value="KNIME GmbH, Konstanz, Germany"/>
+<entry key="node-feature-version" type="xstring" value="3.2.1.v201608182043"/>
+<config key="factory_settings"/>
+<entry key="name" type="xstring" value="Testflow Configuration"/>
+<entry key="hasContent" type="xboolean" value="true"/>
+<entry key="isInactive" type="xboolean" value="false"/>
+<config key="ports"/>
+<config key="filestores">
+<entry key="file_store_location" type="xstring" isnull="true" value=""/>
+<entry key="file_store_id" type="xstring" value="2a8a59ca-3d40-4a83-9461-82b235c976c9"/>
+</config>
+</config>

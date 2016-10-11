@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>nl.vu_compmedchem.klifs</groupId>
+		<artifactId>nl.vu_compmedchem</artifactId>
+		<version>1.0.13</version>
+	</parent>
+
+	<artifactId>nl.vu_compmedchem.klifs.tests</artifactId>
+	<packaging>eclipse-test-plugin</packaging>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<argLine>${tycho.test.jvmArgs}</argLine>
+				</configuration>
+
+			</plugin>
+		</plugins>
+	</build>
+	<properties>
+		<!-- kill test JVM if tests take more than 5 minutes (300 seconds) to finish -->
+		<surefire.timeout>300</surefire.timeout>
+	</properties>
+	<profiles>
+		<profile>
+    <id>macosx</id>
+    <activation>
+     <os>
+      <name>mac os x</name>
+      <family>mac</family>
+     </os>
+    </activation>
+    <properties>
+     <tycho.test.jvmArgs>-XstartOnFirstThread</tycho.test.jvmArgs>
+    </properties>
+   </profile>
+   </profiles>
+</project>

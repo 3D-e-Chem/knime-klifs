@@ -186,6 +186,7 @@
   <modules>
     <module>nl.vu_compmedchem.klifs</module>
     <module>nl.vu_compmedchem.klifs.feature</module>
+    <module>tests</module>
     <module>p2</module>
   </modules>
 </project>

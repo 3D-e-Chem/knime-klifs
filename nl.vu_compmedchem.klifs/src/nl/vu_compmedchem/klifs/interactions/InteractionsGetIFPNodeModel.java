@@ -73,9 +73,6 @@ public class InteractionsGetIFPNodeModel extends NodeModel {
     		int structureID = ((IntCell) inrow.getCell(columnIndex)).getIntValue();
     		structureIDs.add(structureID);
     	}
-    	
-        InteractionsApi client = new InteractionsApi();
-        List<IFPList> structureIFPs = client.interactionsGetIFPGet(structureIDs);
         
         // the data table spec of the single output table, 
         // the table will have eleven columns: all kinase information
@@ -87,6 +84,8 @@ public class InteractionsGetIFPNodeModel extends NodeModel {
         DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
         BufferedDataContainer container = exec.createDataContainer(outputSpec);
         if (!structureIDs.isEmpty()){
+            InteractionsApi client = new InteractionsApi();
+            List<IFPList> structureIFPs = client.interactionsGetIFPGet(structureIDs);
 	        for (IFPList ifp: structureIFPs) {
 	            RowKey key = new RowKey(ifp.getStructureID().toString());
 	            
