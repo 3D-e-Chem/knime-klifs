@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 Formatted as described on http://keepachangelog.com/.
 
-## Unreleased
+## [1.0.14] - 2016-10-21
 
 ### Changed
 
