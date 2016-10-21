@@ -2,6 +2,7 @@ package nl.vu_compmedchem.klifs.interactions;
 
 import java.io.File;
 import java.io.IOException;
+import javax.swing.SwingUtilities;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -19,6 +20,7 @@ public class InteractionsGetTypesNodeModelTest {
 	@Rule
 	public ErrorCollector collector = new ErrorCollector();
 	private TestFlowRunner runner;
+	private boolean testCompleted = false;
 	
 	@Before
 	public void setUp() {
