@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 Formatted as described on http://keepachangelog.com/.
 
+## [1.0.15] - 2016-12-20
+
+### Added
+- Base URL option to specify the location the KLIFS web services (e.g. for proxy/forwarding settings)
+
+### Changed
+- Updated testflows
+- Type of SMILES columns from the "Ligands Overview Retriever" from StringCell to SmilesCell
+
 ## [1.0.14] - 2016-10-21
 
 ### Changed
