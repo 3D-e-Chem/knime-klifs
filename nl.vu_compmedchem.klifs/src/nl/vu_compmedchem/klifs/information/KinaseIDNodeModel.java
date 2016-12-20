@@ -20,6 +20,7 @@ import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
 import io.swagger.client.api.InformationApi;
 import io.swagger.client.model.KinaseInformation;
+import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
 import org.knime.core.node.ExecutionContext;
 import org.knime.core.node.ExecutionMonitor;
@@ -35,7 +36,7 @@ import org.knime.core.node.NodeSettingsWO;
  *
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
-public class KinaseIDNodeModel extends NodeModel {
+public class KinaseIDNodeModel extends KlifsNodeModel {
 
 	public static final String CFGKEY_INPUTCOLUMNNAME = "Input Column";
 	public static final String CFGKEY_INPUTSPECIES = "Species (optional)";
@@ -94,6 +95,7 @@ public class KinaseIDNodeModel extends NodeModel {
     	
     	if (kinaseNames != null){
 	        InformationApi client = new InformationApi();
+                client.setApiClient(getApiClient());
 	        List<KinaseInformation> kinaseInfos = client.kinaseIDGet(kinaseNames, m_inputSpecies.getStringValue());
 	        
 	        for (KinaseInformation info: kinaseInfos) {
@@ -156,6 +158,7 @@ public class KinaseIDNodeModel extends NodeModel {
      */
     @Override
     protected void saveSettingsTo(final NodeSettingsWO settings) {
+        super.saveSettingsTo(settings);
 
     	m_inputColumnName.saveSettingsTo(settings);
     	m_inputSpecies.saveSettingsTo(settings);
@@ -168,6 +171,7 @@ public class KinaseIDNodeModel extends NodeModel {
     @Override
     protected void loadValidatedSettingsFrom(final NodeSettingsRO settings)
             throws InvalidSettingsException {
+        super.loadValidatedSettingsFrom(settings);
             
     	m_inputColumnName.loadSettingsFrom(settings);
     	m_inputSpecies.loadSettingsFrom(settings);
@@ -180,6 +184,7 @@ public class KinaseIDNodeModel extends NodeModel {
     @Override
     protected void validateSettings(final NodeSettingsRO settings)
             throws InvalidSettingsException {
+        super.loadValidatedSettingsFrom(settings);
             
     	m_inputColumnName.validateSettings(settings);
     	m_inputSpecies.validateSettings(settings);

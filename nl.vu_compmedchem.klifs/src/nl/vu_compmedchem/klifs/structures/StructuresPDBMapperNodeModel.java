@@ -23,6 +23,7 @@ import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
 import io.swagger.client.api.StructuresApi;
 import io.swagger.client.model.StructureDetails;
+import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
 import org.knime.core.node.ExecutionContext;
 import org.knime.core.node.ExecutionMonitor;
@@ -39,7 +40,7 @@ import org.knime.core.node.NodeSettingsWO;
  *
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
-public class StructuresPDBMapperNodeModel extends NodeModel {
+public class StructuresPDBMapperNodeModel extends KlifsNodeModel {
 	public static final String CFGKEY_INPUTCOLUMNNAME = "Input column with 4-letter PDB-codes";
 	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, null);
 	
@@ -117,6 +118,7 @@ public class StructuresPDBMapperNodeModel extends NodeModel {
         BufferedDataContainer container = exec.createDataContainer(outputSpec);
         if (!pdbCodes.isEmpty()) {
 	        StructuresApi client = new StructuresApi();
+                client.setApiClient(getApiClient());
 	        List<StructureDetails> structureList = client.structuresPdbListGet(pdbCodes);
 	        for (StructureDetails structureEntry: structureList) {
 	            RowKey key = new RowKey(structureEntry.getStructureID().toString());
@@ -204,6 +206,7 @@ public class StructuresPDBMapperNodeModel extends NodeModel {
      */
     @Override
     protected void saveSettingsTo(final NodeSettingsWO settings) {
+        super.saveSettingsTo(settings);
 
     	m_inputColumnName.saveSettingsTo(settings);
 
@@ -215,11 +218,8 @@ public class StructuresPDBMapperNodeModel extends NodeModel {
     @Override
     protected void loadValidatedSettingsFrom(final NodeSettingsRO settings)
             throws InvalidSettingsException {
+        super.loadValidatedSettingsFrom(settings);
             
-        // TODO load (valid) settings from the config object.
-        // It can be safely assumed that the settings are valided by the 
-        // method below.
-        
     	m_inputColumnName.loadSettingsFrom(settings);
 
     }
@@ -230,6 +230,7 @@ public class StructuresPDBMapperNodeModel extends NodeModel {
     @Override
     protected void validateSettings(final NodeSettingsRO settings)
             throws InvalidSettingsException {
+        super.loadValidatedSettingsFrom(settings);
             
     	m_inputColumnName.validateSettings(settings);
 

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.knime.chem.types.SmilesCell;
 import org.knime.core.data.DataCell;
 import org.knime.core.data.DataColumnSpec;
 import org.knime.core.data.DataColumnSpecCreator;
@@ -22,6 +23,7 @@ import org.knime.core.node.port.PortType;
 
 import io.swagger.client.api.LigandsApi;
 import io.swagger.client.model.LigandDetails;
+import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
 import org.knime.core.node.ExecutionContext;
 import org.knime.core.node.ExecutionMonitor;
@@ -37,7 +39,7 @@ import org.knime.core.node.NodeSettingsWO;
  *
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
-public class LigandsListNodeModel extends NodeModel {
+public class LigandsListNodeModel extends KlifsNodeModel {
 
 	public static final String CFGKEY_INPUTCOLUMNNAME = "(Optional) Kinase ID column";
 	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, null);
@@ -75,6 +77,7 @@ public class LigandsListNodeModel extends NodeModel {
        }
         	
         LigandsApi client = new LigandsApi();
+        client.setApiClient(getApiClient());
         List<LigandDetails> ligandInfos = client.ligandsListGet(kinaseIDs);
         
         // the data table spec of the single output table, 
@@ -83,7 +86,7 @@ public class LigandsListNodeModel extends NodeModel {
         allColSpecs[0] = new DataColumnSpecCreator("Ligand ID", IntCell.TYPE).createSpec();
         allColSpecs[1] = new DataColumnSpecCreator("PDB-code", StringCell.TYPE).createSpec();
         allColSpecs[2] = new DataColumnSpecCreator("Name", StringCell.TYPE).createSpec();
-        allColSpecs[3] = new DataColumnSpecCreator("SMILES", StringCell.TYPE).createSpec();
+        allColSpecs[3] = new DataColumnSpecCreator("SMILES", SmilesCell.TYPE).createSpec();
         allColSpecs[4] = new DataColumnSpecCreator("InChiKey", StringCell.TYPE).createSpec();
                  
         DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
@@ -95,7 +98,7 @@ public class LigandsListNodeModel extends NodeModel {
             cells[0] = new IntCell(info.getLigandID());
             cells[1] = new StringCell(info.getPDBCode());
             cells[2] = new StringCell(info.getName());
-            cells[3] = new StringCell(info.getSMILES());
+            cells[3] = new SmilesCell(info.getSMILES());
             cells[4] = new StringCell(info.getInChIKey());
 
             DataRow row = new DefaultRow(key, cells);
@@ -140,9 +143,8 @@ public class LigandsListNodeModel extends NodeModel {
      */
     @Override
     protected void saveSettingsTo(final NodeSettingsWO settings) {
+        super.saveSettingsTo(settings);
 
-        // TODO save user settings to the config object.
-        
     	m_inputColumnName.saveSettingsTo(settings);
 
     }
@@ -153,6 +155,7 @@ public class LigandsListNodeModel extends NodeModel {
     @Override
     protected void loadValidatedSettingsFrom(final NodeSettingsRO settings)
             throws InvalidSettingsException {
+        super.loadValidatedSettingsFrom(settings);
             
     	m_inputColumnName.loadSettingsFrom(settings);
 
@@ -164,6 +167,7 @@ public class LigandsListNodeModel extends NodeModel {
     @Override
     protected void validateSettings(final NodeSettingsRO settings)
             throws InvalidSettingsException {
+        super.loadValidatedSettingsFrom(settings);
             
     	m_inputColumnName.validateSettings(settings);
 

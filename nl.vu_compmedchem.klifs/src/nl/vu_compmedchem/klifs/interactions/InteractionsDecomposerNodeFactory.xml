@@ -13,6 +13,10 @@
         <option name="Column with IFPs">Select the column with IFPs</option>
         <option name="Only output interactions">Only output the interactions that are present</option>
         <option name="Match X-ray and KLIFS">Add X-ray residue numbering and KLIFS position classification. Turn this off if you want a quick decomposition.</option>
+
+        <tab name="Advanced Options">
+	        <option name="Base path">Url to use as base path for KLIFS webservice</option>
+        </tab>
     </fullDescription>
     
     <ports>

@@ -11,6 +11,10 @@
         
         <option name="Column Kinase IDs">Optional input column with kinase IDs.</option>
         <option name="Species">Optional setting to specify the species to restrict the search to (e.g. HUMAN).</option>
+
+        <tab name="Advanced Options">
+	        <option name="Base path">Url to use as base path for KLIFS webservice</option>
+        </tab>
     </fullDescription>
     
     <ports>

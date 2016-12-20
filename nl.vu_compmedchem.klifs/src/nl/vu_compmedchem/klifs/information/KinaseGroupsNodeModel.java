@@ -17,6 +17,7 @@ import org.knime.core.node.BufferedDataTable;
 import org.knime.core.node.CanceledExecutionException;
 
 import io.swagger.client.api.InformationApi;
+import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
 import org.knime.core.node.ExecutionContext;
 import org.knime.core.node.ExecutionMonitor;
@@ -32,7 +33,7 @@ import org.knime.core.node.NodeSettingsWO;
  *
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
-public class KinaseGroupsNodeModel extends NodeModel {
+public class KinaseGroupsNodeModel extends KlifsNodeModel {
     
     // the logger instance
     private static final NodeLogger logger = NodeLogger
@@ -58,6 +59,7 @@ public class KinaseGroupsNodeModel extends NodeModel {
         
         // Retrieve data from server
         InformationApi client = new InformationApi();
+        client.setApiClient(getApiClient());
         List<String> groups = client.kinaseGroupsGet();
          
         // the table will have one columns: kinase group
@@ -116,6 +118,7 @@ public class KinaseGroupsNodeModel extends NodeModel {
     @Override
     protected void saveSettingsTo(final NodeSettingsWO settings) {
         // No settings
+        super.saveSettingsTo(settings);
     }
 
     /**
@@ -125,6 +128,7 @@ public class KinaseGroupsNodeModel extends NodeModel {
     protected void loadValidatedSettingsFrom(final NodeSettingsRO settings)
             throws InvalidSettingsException {
             // No settings
+        super.loadValidatedSettingsFrom(settings);
     }
 
     /**
@@ -134,6 +138,7 @@ public class KinaseGroupsNodeModel extends NodeModel {
     protected void validateSettings(final NodeSettingsRO settings)
             throws InvalidSettingsException {
         // No settings
+        super.loadValidatedSettingsFrom(settings);
     }
     
     /**

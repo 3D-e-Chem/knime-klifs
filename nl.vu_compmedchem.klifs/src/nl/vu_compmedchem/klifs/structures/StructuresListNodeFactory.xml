@@ -11,6 +11,10 @@
         
         <option name="Kinase IDs column">Column from the input stream with the kinase IDs</option>
         <option name="Type selection">Select what type of IDs are provides: kinase IDs (default) or ligand IDs</option>
+
+        <tab name="Advanced Options">
+	        <option name="Base path">Url to use as base path for KLIFS webservice</option>
+        </tab>
     </fullDescription>
     
     <ports>

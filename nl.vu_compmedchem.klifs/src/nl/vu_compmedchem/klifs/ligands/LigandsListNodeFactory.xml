@@ -10,6 +10,10 @@
         <intro>KNIME node to retrieve a list of all co-crystallized ligands (optionally for a given set of kinase IDs) from KLIFS. This node provides a list of ligand IDs, three-letter PDB-codes, Names, molecular structures (SMILES), InChIKeys, and (if available) a ChEMBL ID for all ligands from kinase-ligand complexes within KLIFS. The node can optionally be restricted to ligands that are in complex with specific kinases based on a list of kinase IDs. This node can, for example, be used to perform chemical similarity analyses of kinase inhibitors or substructure searches to subsequently retrieve kinase structures with the matching ligands using the Structures Overview Retriever node.</intro>
         
         <option name="Kinase IDs">(Optional) Column with kinase IDs</option>
+
+        <tab name="Advanced Options">
+	        <option name="Base path">Url to use as base path for KLIFS webservice</option>
+        </tab>
     </fullDescription>
     
     <ports>

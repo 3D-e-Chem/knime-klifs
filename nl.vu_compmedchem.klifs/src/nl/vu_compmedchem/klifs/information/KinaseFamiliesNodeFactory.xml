@@ -10,6 +10,10 @@
         <intro>Knime node to retrieve all kinase families from KLIFS</intro>
 
         <option name="Column">(Optional) input column with kinase groups to restrict the kinase family search.</option>
+
+        <tab name="Advanced Options">
+	        <option name="Base path">Url to use as base path for KLIFS webservice</option>
+        </tab>
     </fullDescription>
     
     <ports>

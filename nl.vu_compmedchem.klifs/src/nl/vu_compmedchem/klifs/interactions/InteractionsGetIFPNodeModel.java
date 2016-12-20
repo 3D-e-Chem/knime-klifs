@@ -23,6 +23,7 @@ import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
 import io.swagger.client.api.InteractionsApi;
 import io.swagger.client.model.IFPList;
+import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
 import org.knime.core.node.ExecutionContext;
 import org.knime.core.node.ExecutionMonitor;
@@ -38,7 +39,7 @@ import org.knime.core.node.NodeSettingsWO;
  *
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
-public class InteractionsGetIFPNodeModel extends NodeModel {
+public class InteractionsGetIFPNodeModel extends KlifsNodeModel {
     
 	public static final String CFGKEY_INPUTCOLUMNNAME = "Input Column";
 	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, null);
@@ -85,6 +86,7 @@ public class InteractionsGetIFPNodeModel extends NodeModel {
         BufferedDataContainer container = exec.createDataContainer(outputSpec);
         if (!structureIDs.isEmpty()){
             InteractionsApi client = new InteractionsApi();
+            client.setApiClient(getApiClient());
             List<IFPList> structureIFPs = client.interactionsGetIFPGet(structureIDs);
 	        for (IFPList ifp: structureIFPs) {
 	            RowKey key = new RowKey(ifp.getStructureID().toString());
@@ -150,6 +152,7 @@ public class InteractionsGetIFPNodeModel extends NodeModel {
      */
     @Override
     protected void saveSettingsTo(final NodeSettingsWO settings) {
+        super.saveSettingsTo(settings);
 
     	m_inputColumnName.saveSettingsTo(settings);
 
@@ -161,6 +164,7 @@ public class InteractionsGetIFPNodeModel extends NodeModel {
     @Override
     protected void loadValidatedSettingsFrom(final NodeSettingsRO settings)
             throws InvalidSettingsException {
+        super.loadValidatedSettingsFrom(settings);
             
     	m_inputColumnName.loadSettingsFrom(settings);
 
@@ -172,6 +176,7 @@ public class InteractionsGetIFPNodeModel extends NodeModel {
     @Override
     protected void validateSettings(final NodeSettingsRO settings)
             throws InvalidSettingsException {
+        super.loadValidatedSettingsFrom(settings);
             
     	m_inputColumnName.validateSettings(settings);
 

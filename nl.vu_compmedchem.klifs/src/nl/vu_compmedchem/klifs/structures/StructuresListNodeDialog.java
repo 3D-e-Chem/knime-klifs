@@ -1,7 +1,8 @@
 package nl.vu_compmedchem.klifs.structures;
 
+import nl.vu_compmedchem.klifs.KlifsNodeDialog;
+
 import org.knime.core.data.IntValue;
-import org.knime.core.node.defaultnodesettings.DefaultNodeSettingsPane;
 import org.knime.core.node.defaultnodesettings.DialogComponentColumnNameSelection;
 import org.knime.core.node.defaultnodesettings.DialogComponentStringSelection;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
@@ -12,7 +13,7 @@ import org.knime.core.node.defaultnodesettings.SettingsModelString;
  *
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
-public class StructuresListNodeDialog extends DefaultNodeSettingsPane {
+public class StructuresListNodeDialog extends KlifsNodeDialog {
 
     /**
      * New pane for configuring StructuresList node dialog.
@@ -29,6 +30,10 @@ public class StructuresListNodeDialog extends DefaultNodeSettingsPane {
         		new SettingsModelString(StructuresListNodeModel.CFGKEY_INPUTTYPE, "Kinase IDs"), 
         		"Select the type of input IDs", "Kinase IDs", "Ligand IDs")
         	);  
+
+        createNewTab("Advanced");
+
+        addBasePath();
                     
     }
 }

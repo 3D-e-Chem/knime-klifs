@@ -8,6 +8,10 @@
     
     <fullDescription>
         <intro>Knime node to retrieve all kinase groups from KLIFS</intro>
+
+        <tab name="Advanced Options">
+	        <option name="Base path">Url to use as base path for KLIFS webservice</option>
+        </tab>
     </fullDescription>
     
     <ports>

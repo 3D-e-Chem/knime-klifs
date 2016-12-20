@@ -21,6 +21,7 @@ import org.knime.core.node.port.PortType;
 
 import io.swagger.client.api.InformationApi;
 import io.swagger.client.model.IDlist;
+import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
 import org.knime.core.node.ExecutionContext;
 import org.knime.core.node.ExecutionMonitor;
@@ -36,7 +37,7 @@ import org.knime.core.node.NodeSettingsWO;
  *
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
-public class KinaseNamesNodeModel extends NodeModel {
+public class KinaseNamesNodeModel extends KlifsNodeModel {
 	public static final String CFGKEY_INPUTCOLUMNNAME_GROUPS = "(Optional) input Column Kinase Groups";
 	public static final String CFGKEY_INPUTCOLUMNNAME_FAMILIES = "(Optional) input Column Kinase Families";
 	public static final String CFGKEY_INPUTSPECIES = "Species (optional)";
@@ -99,6 +100,7 @@ public class KinaseNamesNodeModel extends NodeModel {
         
         // Retrieve data from server
         InformationApi client = new InformationApi();
+        client.setApiClient(getApiClient());
         List<IDlist> kinaseNames = client.kinaseNamesGet(kinaseGroups, kinaseFamilies, m_inputSpecies.getStringValue());
         
         // the data table spec of the single output table, 
@@ -162,6 +164,7 @@ public class KinaseNamesNodeModel extends NodeModel {
      */
     @Override
     protected void saveSettingsTo(final NodeSettingsWO settings) {
+        super.saveSettingsTo(settings);
 
     	m_inputColumnNameGroups.saveSettingsTo(settings);
     	m_inputColumnNameFamilies.saveSettingsTo(settings);
@@ -175,6 +178,7 @@ public class KinaseNamesNodeModel extends NodeModel {
     @Override
     protected void loadValidatedSettingsFrom(final NodeSettingsRO settings)
             throws InvalidSettingsException {
+        super.loadValidatedSettingsFrom(settings);
             
     	m_inputColumnNameGroups.loadSettingsFrom(settings);
     	m_inputColumnNameFamilies.loadSettingsFrom(settings);
@@ -188,6 +192,7 @@ public class KinaseNamesNodeModel extends NodeModel {
     @Override
     protected void validateSettings(final NodeSettingsRO settings)
             throws InvalidSettingsException {
+        super.loadValidatedSettingsFrom(settings);
             
     	m_inputColumnNameGroups.validateSettings(settings);
     	m_inputColumnNameFamilies.validateSettings(settings);

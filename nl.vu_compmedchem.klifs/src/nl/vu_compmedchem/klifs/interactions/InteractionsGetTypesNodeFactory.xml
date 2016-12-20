@@ -8,6 +8,10 @@
     
     <fullDescription>
         <intro>KNIME node to retrieve the different interaction types that are encoded for each pocket residue in the interaction fingerprint. This node retrieves the different interaction types for each bit position of the interaction fingerprint (IFP) method and can, for example, be used in combination with the Interaction Fingerprint Decomposer to identify what kinase-ligand interactions are present in specific structures.</intro>
+
+        <tab name="Advanced Options">
+	        <option name="Base path">Url to use as base path for KLIFS webservice</option>
+        </tab>
     </fullDescription>
     
     <ports>

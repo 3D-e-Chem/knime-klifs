@@ -23,6 +23,7 @@ import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
 import io.swagger.client.api.LigandsApi;
 import io.swagger.client.model.StructureDetails;
+import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
 import org.knime.core.node.ExecutionContext;
 import org.knime.core.node.ExecutionMonitor;
@@ -38,7 +39,7 @@ import org.knime.core.node.NodeSettingsWO;
  *
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
-public class LigandsGetStructuresNodeModel extends NodeModel {
+public class LigandsGetStructuresNodeModel extends KlifsNodeModel {
     
 	public static final String CFGKEY_INPUTCOLUMNNAME = "Ligand ID column";
 	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, null);
@@ -73,6 +74,7 @@ public class LigandsGetStructuresNodeModel extends NodeModel {
     	
     	
     	LigandsApi client = new LigandsApi();
+        client.setApiClient(getApiClient());
         List<StructureDetails> structureList = client.ligandsListStructuresGet(ligandIDs);
         
         // the data table spec of the single output table, 
@@ -202,6 +204,7 @@ public class LigandsGetStructuresNodeModel extends NodeModel {
      */
     @Override
     protected void saveSettingsTo(final NodeSettingsWO settings) {
+        super.saveSettingsTo(settings);
 
     	m_inputColumnName.saveSettingsTo(settings);
 
@@ -213,6 +216,7 @@ public class LigandsGetStructuresNodeModel extends NodeModel {
     @Override
     protected void loadValidatedSettingsFrom(final NodeSettingsRO settings)
             throws InvalidSettingsException {
+        super.loadValidatedSettingsFrom(settings);
             
     	m_inputColumnName.loadSettingsFrom(settings);
 
@@ -224,6 +228,7 @@ public class LigandsGetStructuresNodeModel extends NodeModel {
     @Override
     protected void validateSettings(final NodeSettingsRO settings)
             throws InvalidSettingsException {
+        super.loadValidatedSettingsFrom(settings);
             
     	m_inputColumnName.validateSettings(settings);
 

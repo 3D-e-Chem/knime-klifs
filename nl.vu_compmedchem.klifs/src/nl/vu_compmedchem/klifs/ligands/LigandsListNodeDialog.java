@@ -1,7 +1,8 @@
 package nl.vu_compmedchem.klifs.ligands;
 
+import nl.vu_compmedchem.klifs.KlifsNodeDialog;
+
 import org.knime.core.data.IntValue;
-import org.knime.core.node.defaultnodesettings.DefaultNodeSettingsPane;
 import org.knime.core.node.defaultnodesettings.DialogComponentColumnNameSelection;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
@@ -11,7 +12,7 @@ import org.knime.core.node.defaultnodesettings.SettingsModelString;
  * 
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
-public class LigandsListNodeDialog extends DefaultNodeSettingsPane {
+public class LigandsListNodeDialog extends KlifsNodeDialog {
 
     /**
      * New pane for configuring LigandsList node dialog.
@@ -23,6 +24,10 @@ public class LigandsListNodeDialog extends DefaultNodeSettingsPane {
         addDialogComponent(new DialogComponentColumnNameSelection(
                 new SettingsModelString(LigandsListNodeModel.CFGKEY_INPUTCOLUMNNAME, "Kinase ID"),
                 "(Optional) Column with Kinase IDs", 0, false, IntValue.class));
+
+        createNewTab("Advanced");
+
+        addBasePath();
                     
     }
 }

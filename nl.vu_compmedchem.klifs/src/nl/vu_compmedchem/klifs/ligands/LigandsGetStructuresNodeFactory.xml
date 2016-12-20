@@ -11,6 +11,10 @@
         
         
         <option name="ligand IDs">Select column name from the input containing ligand IDs</option>
+
+        <tab name="Advanced Options">
+	        <option name="Base path">Url to use as base path for KLIFS webservice</option>
+        </tab>
     </fullDescription>
     
     <ports>

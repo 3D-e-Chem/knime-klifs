@@ -19,6 +19,7 @@ import org.knime.core.node.CanceledExecutionException;
 
 import io.swagger.client.api.InteractionsApi;
 import io.swagger.client.model.InteractionList;
+import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
 import org.knime.core.node.ExecutionContext;
 import org.knime.core.node.ExecutionMonitor;
@@ -34,7 +35,7 @@ import org.knime.core.node.NodeSettingsWO;
  *
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
-public class InteractionsGetTypesNodeModel extends NodeModel {
+public class InteractionsGetTypesNodeModel extends KlifsNodeModel {
     
     // the logger instance
     private static final NodeLogger logger = NodeLogger
@@ -59,6 +60,7 @@ public class InteractionsGetTypesNodeModel extends NodeModel {
         
         // Retrieve data from server
     	InteractionsApi client = new InteractionsApi();
+        client.setApiClient(getApiClient());
         List<InteractionList> types = client.interactionsGetTypesGet();
          
         // the table will have two columns: bit position and interaction type
@@ -117,6 +119,7 @@ public class InteractionsGetTypesNodeModel extends NodeModel {
     @Override
     protected void saveSettingsTo(final NodeSettingsWO settings) {
 	// empty as there are no settings
+        super.saveSettingsTo(settings);
     }
 
     /**
@@ -126,6 +129,7 @@ public class InteractionsGetTypesNodeModel extends NodeModel {
     protected void loadValidatedSettingsFrom(final NodeSettingsRO settings)
             throws InvalidSettingsException {
 	// empty as there are no settings
+        super.loadValidatedSettingsFrom(settings);
     }
 
     /**
@@ -134,6 +138,7 @@ public class InteractionsGetTypesNodeModel extends NodeModel {
     @Override
     protected void validateSettings(final NodeSettingsRO settings)
             throws InvalidSettingsException {
+        super.loadValidatedSettingsFrom(settings);
 
     }
     

@@ -22,6 +22,7 @@ import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
 import io.swagger.client.api.InteractionsApi;
 import io.swagger.client.model.MatchList;
+import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
 import org.knime.core.node.ExecutionContext;
 import org.knime.core.node.ExecutionMonitor;
@@ -37,7 +38,7 @@ import org.knime.core.node.NodeSettingsWO;
  *
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
-public class InteractionsDecomposerNodeModel extends NodeModel {
+public class InteractionsDecomposerNodeModel extends KlifsNodeModel {
 	public static final String CFGKEY_INPUTCOLUMNNAME_STRUCTURE = "Column with structure IDs";
 	private final SettingsModelString m_inputColumnNameStructure = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME_STRUCTURE, null);
 	public static final String CFGKEY_INPUTCOLUMNNAME_IFP = "Column with IFPs";
@@ -77,6 +78,7 @@ public class InteractionsDecomposerNodeModel extends NodeModel {
     	
     	// create interactions API client 
         InteractionsApi client = new InteractionsApi();
+        client.setApiClient(getApiClient());
         
         // Create specification for the output Table
         int specLength = 3;
@@ -198,6 +200,7 @@ public class InteractionsDecomposerNodeModel extends NodeModel {
      */
     @Override
     protected void saveSettingsTo(final NodeSettingsWO settings) {
+        super.saveSettingsTo(settings);
 
         m_inputColumnNameStructure.saveSettingsTo(settings);
     	m_inputColumnNameIFP.saveSettingsTo(settings);
@@ -212,6 +215,7 @@ public class InteractionsDecomposerNodeModel extends NodeModel {
     @Override
     protected void loadValidatedSettingsFrom(final NodeSettingsRO settings)
             throws InvalidSettingsException {
+        super.loadValidatedSettingsFrom(settings);
             
         m_inputColumnNameStructure.loadSettingsFrom(settings);
     	m_inputColumnNameIFP.loadSettingsFrom(settings);
@@ -226,6 +230,7 @@ public class InteractionsDecomposerNodeModel extends NodeModel {
     @Override
     protected void validateSettings(final NodeSettingsRO settings)
             throws InvalidSettingsException {
+        super.loadValidatedSettingsFrom(settings);
             
         m_inputColumnNameStructure.validateSettings(settings);
     	m_inputColumnNameIFP.validateSettings(settings);

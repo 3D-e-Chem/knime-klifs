@@ -8,6 +8,10 @@
     
     <fullDescription>
         <intro>KNIME node to map a set of 4-letter PDB-codes to structure IDs from KLIFS. This node maps a set of user-supplied 4-letter structure PDB-codes to the KLIFS structure IDs and additionally provides all related structural information from KLIFS (see the description of the Structures Overview Retriever node for a detailed listing). The mapping functionality of this node can, for example, be used to selectively retrieve KLIFS information for a set of PDBs, or to link external data to KLIFS information using PDB-codes.</intro>
+
+        <tab name="Advanced Options">
+	        <option name="Base path">Url to use as base path for KLIFS webservice</option>
+        </tab>
     </fullDescription>
     
     <ports>

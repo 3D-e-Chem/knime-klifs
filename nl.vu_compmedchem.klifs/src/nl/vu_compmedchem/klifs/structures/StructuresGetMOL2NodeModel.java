@@ -20,6 +20,7 @@ import org.knime.core.node.CanceledExecutionException;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
 import io.swagger.client.api.StructuresApi;
+import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
 import org.knime.core.node.ExecutionContext;
 import org.knime.core.node.ExecutionMonitor;
@@ -35,7 +36,7 @@ import org.knime.core.node.NodeSettingsWO;
  *
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
-public class StructuresGetMOL2NodeModel extends NodeModel {
+public class StructuresGetMOL2NodeModel extends KlifsNodeModel {
 	public static final String CFGKEY_INPUTCOLUMNNAME = "Structure ID column";
 	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, null);
 
@@ -55,6 +56,7 @@ public class StructuresGetMOL2NodeModel extends NodeModel {
      */
     protected StructuresGetMOL2NodeModel() {
         super(1, 1);
+        client.setApiClient(getApiClient());
     }
 
     /**
@@ -158,6 +160,7 @@ public class StructuresGetMOL2NodeModel extends NodeModel {
      */
     @Override
     protected void saveSettingsTo(final NodeSettingsWO settings) {
+        super.saveSettingsTo(settings);
 
     	m_inputColumnName.saveSettingsTo(settings);
     	m_selectStructureType.saveSettingsTo(settings);
@@ -170,6 +173,7 @@ public class StructuresGetMOL2NodeModel extends NodeModel {
     @Override
     protected void loadValidatedSettingsFrom(final NodeSettingsRO settings)
             throws InvalidSettingsException {
+        super.loadValidatedSettingsFrom(settings);
             
     	m_inputColumnName.loadSettingsFrom(settings);
     	m_selectStructureType.loadSettingsFrom(settings);
@@ -182,6 +186,7 @@ public class StructuresGetMOL2NodeModel extends NodeModel {
     @Override
     protected void validateSettings(final NodeSettingsRO settings)
             throws InvalidSettingsException {
+        super.loadValidatedSettingsFrom(settings);
             
     	m_inputColumnName.validateSettings(settings);
     	m_selectStructureType.validateSettings(settings);

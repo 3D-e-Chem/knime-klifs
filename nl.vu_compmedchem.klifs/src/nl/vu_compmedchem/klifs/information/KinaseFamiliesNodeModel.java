@@ -18,6 +18,7 @@ import org.knime.core.node.CanceledExecutionException;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
 import io.swagger.client.api.InformationApi;
+import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
 import org.knime.core.node.ExecutionContext;
 import org.knime.core.node.ExecutionMonitor;
@@ -34,7 +35,7 @@ import org.knime.core.node.port.PortType;
  *
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
-public class KinaseFamiliesNodeModel extends NodeModel {
+public class KinaseFamiliesNodeModel extends KlifsNodeModel {
 	
 	public static final String CFGKEY_INPUTCOLUMNNAME = "(Optional) input column Kinase Groups";
 	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, null);
@@ -84,6 +85,7 @@ public class KinaseFamiliesNodeModel extends NodeModel {
         
         // Retrieve data from server
         InformationApi client = new InformationApi();
+        client.setApiClient(getApiClient());
         List<String> groups = client.kinaseFamiliesGet(kinaseGroups);
         
         // the data table spec of the single output table, 
@@ -141,6 +143,7 @@ public class KinaseFamiliesNodeModel extends NodeModel {
      */
     @Override
     protected void saveSettingsTo(final NodeSettingsWO settings) {
+        super.saveSettingsTo(settings);
 
         m_inputColumnName.saveSettingsTo(settings);
 
@@ -152,7 +155,7 @@ public class KinaseFamiliesNodeModel extends NodeModel {
     @Override
     protected void loadValidatedSettingsFrom(final NodeSettingsRO settings)
             throws InvalidSettingsException {
-                   
+        super.loadValidatedSettingsFrom(settings);
     	m_inputColumnName.loadSettingsFrom(settings);
 
     }
@@ -163,6 +166,7 @@ public class KinaseFamiliesNodeModel extends NodeModel {
     @Override
     protected void validateSettings(final NodeSettingsRO settings)
             throws InvalidSettingsException {
+        super.loadValidatedSettingsFrom(settings);
             
         m_inputColumnName.validateSettings(settings);
 
