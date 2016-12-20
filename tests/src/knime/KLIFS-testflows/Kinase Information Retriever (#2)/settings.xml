@@ -19,6 +19,10 @@
 </config>
 <entry key="customDescription" type="xstring" isnull="true" value=""/>
 <entry key="state" type="xstring" value="EXECUTED"/>
+<config key="nodecontainer_message">
+<entry key="type" type="xstring" value="WARNING"/>
+<entry key="message" type="xstring" value="Loading model settings failed: String for key &quot;Base path&quot; not found."/>
+</config>
 <entry key="factory" type="xstring" value="nl.vu_compmedchem.klifs.information.KinaseInformationNodeFactory"/>
 <entry key="node-name" type="xstring" value="Kinase Information Retriever"/>
 <entry key="node-bundle-name" type="xstring" value="KNIME 3D-e-Chem Contributions"/>
@@ -44,6 +48,6 @@
 </config>
 <config key="filestores">
 <entry key="file_store_location" type="xstring" isnull="true" value=""/>
-<entry key="file_store_id" type="xstring" value="40667f97-7ea5-4740-8af5-8ed60de87904"/>
+<entry key="file_store_id" type="xstring" isnull="true" value=""/>
 </config>
 </config>

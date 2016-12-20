@@ -38,11 +38,11 @@
 <entry key="node-bundle-name" type="xstring" value="KNIME Base Nodes"/>
 <entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.base"/>
 <entry key="node-bundle-vendor" type="xstring" value="KNIME GmbH, Konstanz, Germany"/>
-<entry key="node-bundle-version" type="xstring" value="3.2.0.v201607050924"/>
-<entry key="node-feature-name" type="xstring" value="BioSolveIT FTrees Distance Matrix Feature"/>
-<entry key="node-feature-symbolic-name" type="xstring" value="com.biosolveit.optional.ftrees.distmatrix.interface.feature.group"/>
-<entry key="node-feature-vendor" type="xstring" value="BioSolveIT GmbH"/>
-<entry key="node-feature-version" type="xstring" value="2.0.0.0000983"/>
+<entry key="node-bundle-version" type="xstring" value="3.2.2.v201610031220"/>
+<entry key="node-feature-name" type="xstring" value="BfR Network Mining Extensions"/>
+<entry key="node-feature-symbolic-name" type="xstring" value="de.bund.bfr.knime.network.feature.feature.group"/>
+<entry key="node-feature-vendor" type="xstring" value="German Federal Institute for Risk Assessment (BfR)"/>
+<entry key="node-feature-version" type="xstring" value="1.1.7.201608311623"/>
 <config key="factory_settings"/>
 <entry key="name" type="xstring" value="Row Filter"/>
 <entry key="hasContent" type="xboolean" value="true"/>
@@ -58,6 +58,6 @@
 </config>
 <config key="filestores">
 <entry key="file_store_location" type="xstring" isnull="true" value=""/>
-<entry key="file_store_id" type="xstring" isnull="true" value=""/>
+<entry key="file_store_id" type="xstring" value="f7b544ea-0e67-40b9-b863-49e6ce88f8ce"/>
 </config>
 </config>

@@ -86,25 +86,9 @@
 <entry key="array-size" type="xint" value="0"/>
 </config>
 <config key="column_type">
-<entry key="cell_class" type="xstring" value="org.knime.core.data.def.StringCell"/>
+<entry key="cell_class" type="xstring" value="org.knime.chem.types.SmilesCell"/>
 </config>
-<config key="column_domain">
-<config key="possible_values">
-<entry key="array-size" type="xint" value="2"/>
-<config key="0">
-<entry key="datacell" type="xstring" value="org.knime.core.data.def.StringCell"/>
-<config key="org.knime.core.data.def.StringCell">
-<entry key="StringCell" type="xstring" value="O=C(Nc1c2c(c(OCCN3CCOCC3)cc1)cccc2)NC=4N(N=C(C4)C(C)(C)C)c5ccc(cc5)C"/>
-</config>
-</config>
-<config key="1">
-<entry key="datacell" type="xstring" value="org.knime.core.data.def.StringCell"/>
-<config key="org.knime.core.data.def.StringCell">
-<entry key="StringCell" type="xstring" value="O=C(Nc1cc(ccc1)C2=NNc3c2cc(cc3)C4=NNC=N4)C=5OC=CC5"/>
-</config>
-</config>
-</config>
-</config>
+<config key="column_domain"/>
 <config key="column_properties"/>
 </config>
 <config key="column_spec_4">
