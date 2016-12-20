@@ -6,6 +6,11 @@
 <entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
 </config>
 <config key="model">
+<config key="Base path_Internals">
+<entry key="SettingsModelID" type="xstring" value="SMID_string"/>
+<entry key="EnabledStatus" type="xboolean" value="true"/>
+</config>
+<entry key="Base path" type="xstring" value="http://klifs.vu-compmedchem.nl/api"/>
 <config key="Kinase or Ligand ID column_Internals">
 <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
 <entry key="EnabledStatus" type="xboolean" value="true"/>
@@ -16,11 +21,6 @@
 <entry key="EnabledStatus" type="xboolean" value="true"/>
 </config>
 <entry key="Select the type of input IDs" type="xstring" value="Kinase IDs"/>
-<config key="Base path_Internals">
-<entry key="SettingsModelID" type="xstring" value="SMID_string"/>
-<entry key="EnabledStatus" type="xboolean" value="true"/>
-</config>
-<entry key="Base path" type="xstring" value="http://klifs.vu-compmedchem.nl/api"/>
 </config>
 <config key="nodeAnnotation">
 <entry key="text" type="xstring" value="Reference"/>
@@ -63,6 +63,6 @@
 </config>
 <config key="filestores">
 <entry key="file_store_location" type="xstring" isnull="true" value=""/>
-<entry key="file_store_id" type="xstring" value="0aa726e6-5ef3-4a32-93d1-0dd7694478dc"/>
+<entry key="file_store_id" type="xstring" value="5fe3497d-7370-4b80-91d5-c069f3c41557"/>
 </config>
 </config>
