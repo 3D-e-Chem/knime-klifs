@@ -19,6 +19,7 @@ import org.knime.core.node.BufferedDataTable;
 import org.knime.core.node.CanceledExecutionException;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
+import io.swagger.client.ApiException;
 import io.swagger.client.api.StructuresApi;
 import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
@@ -46,10 +47,10 @@ public class StructuresGetMOL2NodeModel extends KlifsNodeModel {
     // the logger instance
     private static final NodeLogger logger = NodeLogger
             .getLogger(StructuresGetMOL2NodeModel.class);
-        
+
     // the API client
     private static final StructuresApi client = new StructuresApi();
-    
+
 
     /**
      * Constructor for the node model.
@@ -70,12 +71,12 @@ public class StructuresGetMOL2NodeModel extends KlifsNodeModel {
 
     	// Check input data and execute query
     	int columnIndex = inData[0].getDataTableSpec().findColumnIndex(m_inputColumnName.getStringValue());
-        // the data table spec of the single output table, 
+        // the data table spec of the single output table,
         // the table will have eleven columns: all kinase information
         DataColumnSpec[] allColSpecs = new DataColumnSpec[2];
         allColSpecs[0] = new DataColumnSpecCreator("Structure ID", IntCell.TYPE).createSpec();
         allColSpecs[1] = new DataColumnSpecCreator("Structure", Mol2Cell.TYPE).createSpec();
-                 
+
         DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
         BufferedDataContainer container = exec.createDataContainer(outputSpec);
         long rowCount = inData[0].size();
@@ -87,45 +88,46 @@ public class StructuresGetMOL2NodeModel extends KlifsNodeModel {
             // report progress
             exec.setProgress((double) currentRow / rowCount, " processing row " + currentRow);
             currentRow++;
-            
+
             // Check if process has been cancelled
             exec.checkCanceled();
         }
-        
+
         // Done: close and return
         container.close();
         BufferedDataTable out = container.getTable();
         return new BufferedDataTable[]{out};
     }
-    
+
     private void getMol2Structures(int structureID, BufferedDataContainer container) throws Exception {
     	RowKey key = new RowKey(new Integer(structureID).toString());
-    	
+
         DataCell[] cells = new DataCell[2];
         cells[0] = new IntCell(structureID);
-    	if(m_selectStructureType.getStringValue().equals("Complex")){
-    		File structure = client.structureGetComplexGet(structureID);
-    		cells[1] = Mol2CellFactory.create(FileUtils.readFileToString(structure));
+        try {
+            File structure;
+            switch(m_selectStructureType.getStringValue()) {
+            	case "Complex":
+            		structure = client.structureGetComplexGet(structureID);
+                break;
+            	case "Protein":
+            		structure = client.structureGetProteinGet(structureID);
+                break;
+            	case "Pocket":
+            		structure = client.structureGetPocketGet(structureID);
+                break;
+            	case "Ligand":
+            		structure = client.structureGetLigandGet(structureID);
+                break;
+            	default:
+            		throw new Exception();
+            }
+            cells[1] = Mol2CellFactory.create(FileUtils.readFileToString(structure));
             DataRow row = new DefaultRow(key, cells);
             container.addRowToTable(row);
-    	} else if(m_selectStructureType.getStringValue().equals("Protein")){
-    		File structure = client.structureGetProteinGet(structureID);
-    		cells[1] = Mol2CellFactory.create(FileUtils.readFileToString(structure));
-    		DataRow row = new DefaultRow(key, cells);
-    		container.addRowToTable(row);
-    	} else if(m_selectStructureType.getStringValue().equals("Pocket")){
-    		File structure = client.structureGetPocketGet(structureID);
-    		cells[1] = Mol2CellFactory.create(FileUtils.readFileToString(structure));
-    		DataRow row = new DefaultRow(key, cells);
-    		container.addRowToTable(row);
-    	} else if(m_selectStructureType.getStringValue().equals("Ligand")){
-    		File structure = client.structureGetLigandGet(structureID);
-    		cells[1] = Mol2CellFactory.create(FileUtils.readFileToString(structure));
-    		DataRow row = new DefaultRow(key, cells);
-    		container.addRowToTable(row);
-    	} else {
-    		throw new Exception();
-    	}
+        } catch (ApiException e) {
+            handleApiException(e);
+        }
     }
 
     /**
@@ -144,7 +146,7 @@ public class StructuresGetMOL2NodeModel extends KlifsNodeModel {
     @Override
     protected DataTableSpec[] configure(final DataTableSpec[] inSpecs)
             throws InvalidSettingsException {
-        
+
     	if (inSpecs.length > 0 && inSpecs[0] != null){
         	int columnIndex = inSpecs[0].findColumnIndex(m_inputColumnName.getStringValue());
         	if (columnIndex < 0){
@@ -174,7 +176,7 @@ public class StructuresGetMOL2NodeModel extends KlifsNodeModel {
     protected void loadValidatedSettingsFrom(final NodeSettingsRO settings)
             throws InvalidSettingsException {
         super.loadValidatedSettingsFrom(settings);
-            
+
     	m_inputColumnName.loadSettingsFrom(settings);
     	m_selectStructureType.loadSettingsFrom(settings);
 
@@ -187,12 +189,12 @@ public class StructuresGetMOL2NodeModel extends KlifsNodeModel {
     protected void validateSettings(final NodeSettingsRO settings)
             throws InvalidSettingsException {
         super.loadValidatedSettingsFrom(settings);
-            
+
     	m_inputColumnName.validateSettings(settings);
     	m_selectStructureType.validateSettings(settings);
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -200,16 +202,16 @@ public class StructuresGetMOL2NodeModel extends KlifsNodeModel {
     protected void loadInternals(final File internDir,
             final ExecutionMonitor exec) throws IOException,
             CanceledExecutionException {
-        
-        // TODO load internal data. 
+
+        // TODO load internal data.
         // Everything handed to output ports is loaded automatically (data
         // returned by the execute method, models loaded in loadModelContent,
-        // and user settings set through loadSettingsFrom - is all taken care 
+        // and user settings set through loadSettingsFrom - is all taken care
         // of). Load here only the other internals that need to be restored
         // (e.g. data used by the views).
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -217,11 +219,11 @@ public class StructuresGetMOL2NodeModel extends KlifsNodeModel {
     protected void saveInternals(final File internDir,
             final ExecutionMonitor exec) throws IOException,
             CanceledExecutionException {
-       
-        // TODO save internal models. 
+
+        // TODO save internal models.
         // Everything written to output ports is saved automatically (data
         // returned by the execute method, models saved in the saveModelContent,
-        // and user settings saved through saveSettingsTo - is all taken care 
+        // and user settings saved through saveSettingsTo - is all taken care
         // of). Save here only the other internals that need to be preserved
         // (e.g. data used by the views).
 

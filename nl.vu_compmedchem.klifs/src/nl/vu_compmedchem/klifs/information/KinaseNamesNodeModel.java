@@ -19,6 +19,7 @@ import org.knime.core.node.CanceledExecutionException;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 import org.knime.core.node.port.PortType;
 
+import io.swagger.client.ApiException;
 import io.swagger.client.api.InformationApi;
 import io.swagger.client.model.IDlist;
 import nl.vu_compmedchem.klifs.KlifsNodeModel;
@@ -44,7 +45,7 @@ public class KinaseNamesNodeModel extends KlifsNodeModel {
 	private final SettingsModelString m_inputColumnNameGroups = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME_GROUPS, null);
 	private final SettingsModelString m_inputColumnNameFamilies = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME_FAMILIES, null);
 	private final SettingsModelString m_inputSpecies = new SettingsModelString(CFGKEY_INPUTSPECIES, null);
-	
+
     // the logger instance
     private static final NodeLogger logger = NodeLogger
             .getLogger(KinaseNamesNodeModel.class);
@@ -62,9 +63,9 @@ public class KinaseNamesNodeModel extends KlifsNodeModel {
     @Override
     protected BufferedDataTable[] execute(final BufferedDataTable[] inData,
             final ExecutionContext exec) throws Exception {
-    	
+
     	logger.info("Executing KLIFS Kinase Names node - retrieving kinase names from KLIFS server.");
-        
+
         // Check optional input data
         // When kinase groups are provided restrict retrieval
         String kinaseGroups = null;
@@ -81,7 +82,7 @@ public class KinaseNamesNodeModel extends KlifsNodeModel {
         } else {
         	kinaseGroups = "";
         }
-        
+
         // When kinase groups are provided restrict retrieval
         String kinaseFamilies = null;
         if (inData.length > 1 && inData[1] != null){
@@ -97,34 +98,40 @@ public class KinaseNamesNodeModel extends KlifsNodeModel {
         } else {
         	kinaseFamilies = "";
         }
-        
-        // Retrieve data from server
-        InformationApi client = new InformationApi();
-        client.setApiClient(getApiClient());
-        List<IDlist> kinaseNames = client.kinaseNamesGet(kinaseGroups, kinaseFamilies, m_inputSpecies.getStringValue());
-        
-        // the data table spec of the single output table, 
+
+
+        // the data table spec of the single output table,
         // the table will have four columns:
         DataColumnSpec[] allColSpecs = new DataColumnSpec[4];
         allColSpecs[0] = new DataColumnSpecCreator("Kinase ID", IntCell.TYPE).createSpec();
         allColSpecs[1] = new DataColumnSpecCreator("Kinase name", StringCell.TYPE).createSpec();
         allColSpecs[2] = new DataColumnSpecCreator("Full name", StringCell.TYPE).createSpec();
         allColSpecs[3] = new DataColumnSpecCreator("Species", StringCell.TYPE).createSpec();
-        
+
         DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
         BufferedDataContainer container = exec.createDataContainer(outputSpec);
-        for (IDlist kinaseName: kinaseNames) {
-            RowKey key = new RowKey(kinaseName.getKinaseID().toString());
-            
-            // the cells of the current row, the types of the cells must match
-            // the column spec (see above)
-            DataCell[] cells = new DataCell[4];
-            cells[0] = new IntCell(kinaseName.getKinaseID());
-            cells[1] = new StringCell(kinaseName.getName());
-            cells[2] = new StringCell(kinaseName.getFullName());
-            cells[3] = new StringCell(kinaseName.getSpecies());
-            DataRow row = new DefaultRow(key, cells);
-            container.addRowToTable(row);
+
+        try {
+            // Retrieve data from server
+            InformationApi client = new InformationApi();
+            client.setApiClient(getApiClient());
+            List<IDlist> kinaseNames = client.kinaseNamesGet(kinaseGroups, kinaseFamilies, m_inputSpecies.getStringValue());
+
+            for (IDlist kinaseName: kinaseNames) {
+                RowKey key = new RowKey(kinaseName.getKinaseID().toString());
+
+                // the cells of the current row, the types of the cells must match
+                // the column spec (see above)
+                DataCell[] cells = new DataCell[4];
+                cells[0] = new IntCell(kinaseName.getKinaseID());
+                cells[1] = new StringCell(kinaseName.getName());
+                cells[2] = new StringCell(kinaseName.getFullName());
+                cells[3] = new StringCell(kinaseName.getSpecies());
+                DataRow row = new DefaultRow(key, cells);
+                container.addRowToTable(row);
+            }
+        } catch (ApiException e){
+            handleApiException(e);
         }
         
         // Done: close and return
@@ -149,7 +156,7 @@ public class KinaseNamesNodeModel extends KlifsNodeModel {
     @Override
     protected DataTableSpec[] configure(final DataTableSpec[] inSpecs)
             throws InvalidSettingsException {
-        
+
         // TODO: check if user settings are available, fit to the incoming
         // table structure, and the incoming types are feasible for the node
         // to execute. If the node can execute in its current state return
@@ -179,7 +186,7 @@ public class KinaseNamesNodeModel extends KlifsNodeModel {
     protected void loadValidatedSettingsFrom(final NodeSettingsRO settings)
             throws InvalidSettingsException {
         super.loadValidatedSettingsFrom(settings);
-            
+
     	m_inputColumnNameGroups.loadSettingsFrom(settings);
     	m_inputColumnNameFamilies.loadSettingsFrom(settings);
     	m_inputSpecies.loadSettingsFrom(settings);
@@ -193,13 +200,13 @@ public class KinaseNamesNodeModel extends KlifsNodeModel {
     protected void validateSettings(final NodeSettingsRO settings)
             throws InvalidSettingsException {
         super.loadValidatedSettingsFrom(settings);
-            
+
     	m_inputColumnNameGroups.validateSettings(settings);
     	m_inputColumnNameFamilies.validateSettings(settings);
     	m_inputSpecies.validateSettings(settings);
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -207,16 +214,16 @@ public class KinaseNamesNodeModel extends KlifsNodeModel {
     protected void loadInternals(final File internDir,
             final ExecutionMonitor exec) throws IOException,
             CanceledExecutionException {
-        
-        // TODO load internal data. 
+
+        // TODO load internal data.
         // Everything handed to output ports is loaded automatically (data
         // returned by the execute method, models loaded in loadModelContent,
-        // and user settings set through loadSettingsFrom - is all taken care 
+        // and user settings set through loadSettingsFrom - is all taken care
         // of). Load here only the other internals that need to be restored
         // (e.g. data used by the views).
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -224,11 +231,11 @@ public class KinaseNamesNodeModel extends KlifsNodeModel {
     protected void saveInternals(final File internDir,
             final ExecutionMonitor exec) throws IOException,
             CanceledExecutionException {
-       
-        // TODO save internal models. 
+
+        // TODO save internal models.
         // Everything written to output ports is saved automatically (data
         // returned by the execute method, models saved in the saveModelContent,
-        // and user settings saved through saveSettingsTo - is all taken care 
+        // and user settings saved through saveSettingsTo - is all taken care
         // of). Save here only the other internals that need to be preserved
         // (e.g. data used by the views).
 

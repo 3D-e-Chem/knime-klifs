@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 Formatted as described on http://keepachangelog.com/.
 
+## [1.0.16] - 2016-12-21
+
+### Changed
+- Error messages handling KLIFS server
+- Cleaned code
+- Updated testflow
+
 ## [1.0.15] - 2016-12-20
 
 ### Added

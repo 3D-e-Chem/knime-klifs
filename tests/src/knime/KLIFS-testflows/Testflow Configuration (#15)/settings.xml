@@ -46,17 +46,17 @@
 </config>
 <config key="requiredNodeErrors">
 <entry key="nodeID_0" type="xstring" value="88"/>
-<entry key="message_0" type="xstring" value="Execute failed: Bad Request"/>
+<entry key="message_0" type="xstring" value="Execute failed: Code 400 - KLIFS error: An unknown kinase name was provided"/>
 <entry key="nodeID_1" type="xstring" value="89"/>
-<entry key="message_1" type="xstring" value="Execute failed: Bad Request"/>
+<entry key="message_1" type="xstring" value="Execute failed: Code 400 - KLIFS error: An unknown structure ID was provided"/>
 <entry key="nodeID_2" type="xstring" value="90"/>
-<entry key="message_2" type="xstring" value="Execute failed: Bad Request"/>
+<entry key="message_2" type="xstring" value="Execute failed: Code 400 - KLIFS error: The provided kinase ID(s) is/are invalid"/>
 <entry key="nodeID_3" type="xstring" value="91"/>
-<entry key="message_3" type="xstring" value="Execute failed: Bad Request"/>
+<entry key="message_3" type="xstring" value="Execute failed: Code 400 - KLIFS error: An unknown ligand ID was provided"/>
 <entry key="nodeID_4" type="xstring" value="92"/>
-<entry key="message_4" type="xstring" value="Execute failed: Bad Request"/>
+<entry key="message_4" type="xstring" value="Execute failed: Code 400 - KLIFS error: An unknown ligand ID was provided"/>
 <entry key="nodeID_5" type="xstring" value="94"/>
-<entry key="message_5" type="xstring" value="Execute failed: Bad Request"/>
+<entry key="message_5" type="xstring" value="Execute failed: Code 400 - KLIFS error: A (list of) correct structure ID(s) is required"/>
 <entry key="count" type="xint" value="6"/>
 </config>
 <entry key="timeout" type="xint" value="300"/>
@@ -65,26 +65,27 @@
 <entry key="array-size" type="xint" value="0"/>
 </config>
 <entry key="streamingTest" type="xboolean" value="false"/>
+<entry key="requiredLoadVersion" type="xstring" value="&lt;future&gt;"/>
 </config>
 <entry key="customDescription" type="xstring" isnull="true" value=""/>
-<entry key="state" type="xstring" value="EXECUTED"/>
+<entry key="state" type="xstring" value="CONFIGURED"/>
 <entry key="factory" type="xstring" value="org.knime.testing.node.config.TestConfigNodeFactory"/>
 <entry key="node-name" type="xstring" value="Testflow Configuration"/>
 <entry key="node-bundle-name" type="xstring" value="Test-Node extension for KNIME Workbench"/>
 <entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.testing"/>
 <entry key="node-bundle-vendor" type="xstring" value="KNIME GmbH, Konstanz, Germany"/>
-<entry key="node-bundle-version" type="xstring" value="3.2.1.v201608182043"/>
+<entry key="node-bundle-version" type="xstring" value="3.3.0.v201612012034"/>
 <entry key="node-feature-name" type="xstring" value="KNIME Testing Framework"/>
 <entry key="node-feature-symbolic-name" type="xstring" value="org.knime.features.testingapplication.feature.group"/>
 <entry key="node-feature-vendor" type="xstring" value="KNIME GmbH, Konstanz, Germany"/>
-<entry key="node-feature-version" type="xstring" value="3.2.1.v201608182043"/>
+<entry key="node-feature-version" type="xstring" value="3.3.0.v201612012034"/>
 <config key="factory_settings"/>
 <entry key="name" type="xstring" value="Testflow Configuration"/>
-<entry key="hasContent" type="xboolean" value="true"/>
+<entry key="hasContent" type="xboolean" value="false"/>
 <entry key="isInactive" type="xboolean" value="false"/>
 <config key="ports"/>
 <config key="filestores">
 <entry key="file_store_location" type="xstring" isnull="true" value=""/>
-<entry key="file_store_id" type="xstring" value="2a8a59ca-3d40-4a83-9461-82b235c976c9"/>
+<entry key="file_store_id" type="xstring" isnull="true" value=""/>
 </config>
 </config>

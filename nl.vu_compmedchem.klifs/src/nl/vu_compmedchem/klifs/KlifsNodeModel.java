@@ -8,6 +8,9 @@ import org.knime.core.node.port.PortType;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
 import io.swagger.client.ApiClient;
+import io.swagger.client.ApiException;
+
+import java.util.List;
 
 public abstract class KlifsNodeModel extends NodeModel {
 
@@ -74,5 +77,21 @@ public abstract class KlifsNodeModel extends NodeModel {
 	
 	public void setBasePath(String basePath) {
 		m_basePath.setStringValue(basePath);
+	}
+
+	@SuppressWarnings("unchecked")
+	public void handleApiException(ApiException e) throws Exception {
+		if (e.getResponseBody()!=null && e.getResponseBody().length()>0){
+			List<Object> result =  apiClient.getJSON().getGson().fromJson(e.getResponseBody(), List.class);
+			if (result.size()==2) {
+				int code = Double.valueOf(result.get(0).toString()).intValue();
+				String message = result.get(1).toString();
+				throw new Exception("Code "+code+" - "+message);
+			} else {
+				throw e;
+			}
+		} else {
+			throw e;
+		}
 	}
 }

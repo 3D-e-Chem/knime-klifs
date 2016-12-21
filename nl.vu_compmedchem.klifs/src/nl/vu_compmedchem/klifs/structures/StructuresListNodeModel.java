@@ -21,6 +21,7 @@ import org.knime.core.node.BufferedDataTable;
 import org.knime.core.node.CanceledExecutionException;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
+import io.swagger.client.ApiException;
 import io.swagger.client.api.LigandsApi;
 import io.swagger.client.api.StructuresApi;
 import io.swagger.client.model.StructureDetails;
@@ -41,17 +42,17 @@ import org.knime.core.node.NodeSettingsWO;
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
 public class StructuresListNodeModel extends KlifsNodeModel {
-	
+
 	public static final String CFGKEY_INPUTCOLUMNNAME = "Kinase or Ligand ID column";
 	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, null);
-	
+
 	public static final String CFGKEY_INPUTTYPE = "Select the type of input IDs";
 	private final SettingsModelString m_selectInputType = new SettingsModelString(CFGKEY_INPUTTYPE, null);
-	
+
     // the logger instance
     private static final NodeLogger logger = NodeLogger
             .getLogger(StructuresListNodeModel.class);
-    
+
 
     /**
      * Constructor for the node model.
@@ -76,20 +77,24 @@ public class StructuresListNodeModel extends KlifsNodeModel {
     		int listID = ((IntCell) inrow.getCell(columnIndex)).getIntValue();
     		listIDs.add(listID);
     	}
-    	
+
     	List<StructureDetails> structureList = null;
-    	if (!listIDs.isEmpty()){
-	    	if (m_selectInputType.getStringValue().equals("Ligand IDs")){
-	    		LigandsApi client = new LigandsApi();
-                        client.setApiClient(getApiClient());
-	    		structureList = client.ligandsListStructuresGet(listIDs);
-	    	} else {
-	    		StructuresApi client = new StructuresApi();
-                        client.setApiClient(getApiClient());
-	    		structureList = client.structuresListGet(listIDs);
-	    	}
-    	}
-        
+        try {
+        	if (!listIDs.isEmpty()){
+    	    	if (m_selectInputType.getStringValue().equals("Ligand IDs")){
+    	    		LigandsApi client = new LigandsApi();
+                            client.setApiClient(getApiClient());
+    	    		structureList = client.ligandsListStructuresGet(listIDs);
+    	    	} else {
+    	    		StructuresApi client = new StructuresApi();
+                            client.setApiClient(getApiClient());
+    	    		structureList = client.structuresListGet(listIDs);
+    	    	}
+        	}
+        } catch (ApiException e){
+            handleApiException(e);
+        }
+
         // the data table spec of the single output table, 
         // the table will have many columns: all structure information
         DataColumnSpec[] allColSpecs = new DataColumnSpec[36];
@@ -129,13 +134,13 @@ public class StructuresListNodeModel extends KlifsNodeModel {
         allColSpecs[33] = new DataColumnSpecCreator("BP-III", BooleanCell.TYPE).createSpec();
         allColSpecs[34] = new DataColumnSpecCreator("BP-IV", BooleanCell.TYPE).createSpec();
         allColSpecs[35] = new DataColumnSpecCreator("BP-V", BooleanCell.TYPE).createSpec();
-        
+
         DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
         BufferedDataContainer container = exec.createDataContainer(outputSpec);
         if (structureList != null){
             for (StructureDetails structureEntry: structureList) {
                 RowKey key = new RowKey(structureEntry.getStructureID().toString());
-                
+
                 // the cells of the current row, the types of the cells must match
                 // the column spec (see above)
                 DataCell[] cells = new DataCell[36];
@@ -175,12 +180,12 @@ public class StructuresListNodeModel extends KlifsNodeModel {
                 cells[33] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIII());
                 cells[34] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIV());
                 cells[35] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpV());
-                
+
                 DataRow row = new DefaultRow(key, cells);
                 container.addRowToTable(row);
             }
         }
-        
+
         // Done: close and return
         container.close();
         BufferedDataTable out = container.getTable();
@@ -203,7 +208,7 @@ public class StructuresListNodeModel extends KlifsNodeModel {
     @Override
     protected DataTableSpec[] configure(final DataTableSpec[] inSpecs)
             throws InvalidSettingsException {
-        
+
     	if (inSpecs.length > 0 && inSpecs[0] != null){
         	int columnIndex = inSpecs[0].findColumnIndex(m_inputColumnName.getStringValue());
         	if (columnIndex < 0){
@@ -232,7 +237,7 @@ public class StructuresListNodeModel extends KlifsNodeModel {
     protected void loadValidatedSettingsFrom(final NodeSettingsRO settings)
             throws InvalidSettingsException {
         super.loadValidatedSettingsFrom(settings);
-                   
+
     	m_inputColumnName.loadSettingsFrom(settings);
     	m_selectInputType.loadSettingsFrom(settings);
 
@@ -245,12 +250,12 @@ public class StructuresListNodeModel extends KlifsNodeModel {
     protected void validateSettings(final NodeSettingsRO settings)
             throws InvalidSettingsException {
         super.loadValidatedSettingsFrom(settings);
-            
+
     	m_inputColumnName.validateSettings(settings);
     	m_selectInputType.validateSettings(settings);
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -258,16 +263,16 @@ public class StructuresListNodeModel extends KlifsNodeModel {
     protected void loadInternals(final File internDir,
             final ExecutionMonitor exec) throws IOException,
             CanceledExecutionException {
-        
-        // TODO load internal data. 
+
+        // TODO load internal data.
         // Everything handed to output ports is loaded automatically (data
         // returned by the execute method, models loaded in loadModelContent,
-        // and user settings set through loadSettingsFrom - is all taken care 
+        // and user settings set through loadSettingsFrom - is all taken care
         // of). Load here only the other internals that need to be restored
         // (e.g. data used by the views).
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -275,15 +280,14 @@ public class StructuresListNodeModel extends KlifsNodeModel {
     protected void saveInternals(final File internDir,
             final ExecutionMonitor exec) throws IOException,
             CanceledExecutionException {
-       
-        // TODO save internal models. 
+
+        // TODO save internal models.
         // Everything written to output ports is saved automatically (data
         // returned by the execute method, models saved in the saveModelContent,
-        // and user settings saved through saveSettingsTo - is all taken care 
+        // and user settings saved through saveSettingsTo - is all taken care
         // of). Save here only the other internals that need to be preserved
         // (e.g. data used by the views).
 
     }
 
 }
-

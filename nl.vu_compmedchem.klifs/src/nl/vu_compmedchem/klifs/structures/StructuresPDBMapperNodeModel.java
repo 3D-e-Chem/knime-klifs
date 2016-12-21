@@ -21,6 +21,7 @@ import org.knime.core.node.BufferedDataTable;
 import org.knime.core.node.CanceledExecutionException;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
+import io.swagger.client.ApiException;
 import io.swagger.client.api.StructuresApi;
 import io.swagger.client.model.StructureDetails;
 import nl.vu_compmedchem.klifs.KlifsNodeModel;
@@ -43,7 +44,7 @@ import org.knime.core.node.NodeSettingsWO;
 public class StructuresPDBMapperNodeModel extends KlifsNodeModel {
 	public static final String CFGKEY_INPUTCOLUMNNAME = "Input column with 4-letter PDB-codes";
 	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, null);
-	
+
     // the logger instance
     private static final NodeLogger logger = NodeLogger
             .getLogger(StructuresPDBMapperNodeModel.class);
@@ -52,7 +53,6 @@ public class StructuresPDBMapperNodeModel extends KlifsNodeModel {
      * Constructor for the node model.
      */
     protected StructuresPDBMapperNodeModel() {
-    
         super(1, 1);
     }
 
@@ -73,8 +73,8 @@ public class StructuresPDBMapperNodeModel extends KlifsNodeModel {
     		String pdbCode = ((StringCell) inrow.getCell(columnIndex)).getStringValue();
     		pdbCodes.add(pdbCode);
     	}
-    	
-        // the data table spec of the single output table, 
+
+        // the data table spec of the single output table,
         // the table will have many columns: all structure information
         DataColumnSpec[] allColSpecs = new DataColumnSpec[36];
         allColSpecs[0] = new DataColumnSpecCreator("Structure ID", IntCell.TYPE).createSpec();
@@ -113,67 +113,71 @@ public class StructuresPDBMapperNodeModel extends KlifsNodeModel {
         allColSpecs[33] = new DataColumnSpecCreator("BP-III", BooleanCell.TYPE).createSpec();
         allColSpecs[34] = new DataColumnSpecCreator("BP-IV", BooleanCell.TYPE).createSpec();
         allColSpecs[35] = new DataColumnSpecCreator("BP-V", BooleanCell.TYPE).createSpec();
-        
+
         DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
         BufferedDataContainer container = exec.createDataContainer(outputSpec);
         if (!pdbCodes.isEmpty()) {
 	        StructuresApi client = new StructuresApi();
                 client.setApiClient(getApiClient());
-	        List<StructureDetails> structureList = client.structuresPdbListGet(pdbCodes);
-	        for (StructureDetails structureEntry: structureList) {
-	            RowKey key = new RowKey(structureEntry.getStructureID().toString());
-	            
-	            // the cells of the current row, the types of the cells must match
-	            // the column spec (see above)
-	            DataCell[] cells = new DataCell[36];
-	            cells[0] = new IntCell(structureEntry.getStructureID());
-	            cells[1] = new StringCell(structureEntry.getKinase());
-	            cells[2] = new StringCell(structureEntry.getSpecies());
-	            cells[3] = new IntCell(structureEntry.getKinaseID());
-	            cells[4] = new StringCell(structureEntry.getPdb());
-	            cells[5] = new StringCell(structureEntry.getAlt());
-	            cells[6] = new StringCell(structureEntry.getChain());
-	            cells[7] = new DoubleCell(structureEntry.getRmsd1());
-	            cells[8] = new DoubleCell(structureEntry.getRmsd2());
-	            cells[9] = new StringCell(structureEntry.getPocket());
-	            cells[10] = new DoubleCell(structureEntry.getResolution());
-	            cells[11] = new DoubleCell(structureEntry.getQualityScore());
-	            cells[12] = new IntCell(structureEntry.getMissingResidues());
-	            cells[13] = new IntCell(structureEntry.getMissingAtoms());
-	            cells[14] = new StringCell(structureEntry.getLigand());
-	            cells[15] = new StringCell(structureEntry.getAllostericLigand());
-	            cells[16] = new StringCell(structureEntry.getDFG());
-	            cells[17] = new StringCell(structureEntry.getACHelix());
-	            cells[18] = new DoubleCell(structureEntry.getGrichDistance());
-	            cells[19] = new DoubleCell(structureEntry.getGrichAngle());
-	            cells[20] = new DoubleCell(structureEntry.getGrichRotation());
-	            cells[21] = BooleanCell.BooleanCellFactory.create(structureEntry.getFront());
-	            cells[22] = BooleanCell.BooleanCellFactory.create(structureEntry.getGate());
-	            cells[23] = BooleanCell.BooleanCellFactory.create(structureEntry.getBack());
-	            cells[24] = BooleanCell.BooleanCellFactory.create(structureEntry.getFpI());
-	            cells[25] = BooleanCell.BooleanCellFactory.create(structureEntry.getFpII());
-	            cells[26] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIA());
-	            cells[27] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIB());
-	            cells[28] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIIn());
-	            cells[29] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIAIn());
-	            cells[30] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIBIn());
-	            cells[31] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIOut());
-	            cells[32] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIB());
-	            cells[33] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIII());
-	            cells[34] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIV());
-	            cells[35] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpV());
-	            
-	            DataRow row = new DefaultRow(key, cells);
-	            container.addRowToTable(row);
-	        }
+            try {
+    	        List<StructureDetails> structureList = client.structuresPdbListGet(pdbCodes);
+    	        for (StructureDetails structureEntry: structureList) {
+    	            RowKey key = new RowKey(structureEntry.getStructureID().toString());
+
+    	            // the cells of the current row, the types of the cells must match
+    	            // the column spec (see above)
+    	            DataCell[] cells = new DataCell[36];
+    	            cells[0] = new IntCell(structureEntry.getStructureID());
+    	            cells[1] = new StringCell(structureEntry.getKinase());
+    	            cells[2] = new StringCell(structureEntry.getSpecies());
+    	            cells[3] = new IntCell(structureEntry.getKinaseID());
+    	            cells[4] = new StringCell(structureEntry.getPdb());
+    	            cells[5] = new StringCell(structureEntry.getAlt());
+    	            cells[6] = new StringCell(structureEntry.getChain());
+    	            cells[7] = new DoubleCell(structureEntry.getRmsd1());
+    	            cells[8] = new DoubleCell(structureEntry.getRmsd2());
+    	            cells[9] = new StringCell(structureEntry.getPocket());
+    	            cells[10] = new DoubleCell(structureEntry.getResolution());
+    	            cells[11] = new DoubleCell(structureEntry.getQualityScore());
+    	            cells[12] = new IntCell(structureEntry.getMissingResidues());
+    	            cells[13] = new IntCell(structureEntry.getMissingAtoms());
+    	            cells[14] = new StringCell(structureEntry.getLigand());
+    	            cells[15] = new StringCell(structureEntry.getAllostericLigand());
+    	            cells[16] = new StringCell(structureEntry.getDFG());
+    	            cells[17] = new StringCell(structureEntry.getACHelix());
+    	            cells[18] = new DoubleCell(structureEntry.getGrichDistance());
+    	            cells[19] = new DoubleCell(structureEntry.getGrichAngle());
+    	            cells[20] = new DoubleCell(structureEntry.getGrichRotation());
+    	            cells[21] = BooleanCell.BooleanCellFactory.create(structureEntry.getFront());
+    	            cells[22] = BooleanCell.BooleanCellFactory.create(structureEntry.getGate());
+    	            cells[23] = BooleanCell.BooleanCellFactory.create(structureEntry.getBack());
+    	            cells[24] = BooleanCell.BooleanCellFactory.create(structureEntry.getFpI());
+    	            cells[25] = BooleanCell.BooleanCellFactory.create(structureEntry.getFpII());
+    	            cells[26] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIA());
+    	            cells[27] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIB());
+    	            cells[28] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIIn());
+    	            cells[29] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIAIn());
+    	            cells[30] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIBIn());
+    	            cells[31] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIOut());
+    	            cells[32] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIIB());
+    	            cells[33] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIII());
+    	            cells[34] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpIV());
+    	            cells[35] = BooleanCell.BooleanCellFactory.create(structureEntry.getBpV());
+
+    	            DataRow row = new DefaultRow(key, cells);
+    	            container.addRowToTable(row);
+    	        }
+            } catch (ApiException e) {
+                handleApiException(e);
+            }
         }
-        
+
         // Done: close and return
         container.close();
         BufferedDataTable out = container.getTable();
         return new BufferedDataTable[]{out};
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -190,10 +194,10 @@ public class StructuresPDBMapperNodeModel extends KlifsNodeModel {
     @Override
     protected DataTableSpec[] configure(final DataTableSpec[] inSpecs)
             throws InvalidSettingsException {
-        
-    	if (inSpecs.length > 0 && inSpecs[0] != null){
+
+    	if (inSpecs.length > 0 && inSpecs[0] != null) {
         	int columnIndex = inSpecs[0].findColumnIndex(m_inputColumnName.getStringValue());
-        	if (columnIndex < 0){
+        	if (columnIndex < 0) {
         		throw new InvalidSettingsException("No valid input column selected");
         	}
         }
@@ -219,7 +223,7 @@ public class StructuresPDBMapperNodeModel extends KlifsNodeModel {
     protected void loadValidatedSettingsFrom(final NodeSettingsRO settings)
             throws InvalidSettingsException {
         super.loadValidatedSettingsFrom(settings);
-            
+
     	m_inputColumnName.loadSettingsFrom(settings);
 
     }
@@ -231,11 +235,11 @@ public class StructuresPDBMapperNodeModel extends KlifsNodeModel {
     protected void validateSettings(final NodeSettingsRO settings)
             throws InvalidSettingsException {
         super.loadValidatedSettingsFrom(settings);
-            
+
     	m_inputColumnName.validateSettings(settings);
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -243,16 +247,16 @@ public class StructuresPDBMapperNodeModel extends KlifsNodeModel {
     protected void loadInternals(final File internDir,
             final ExecutionMonitor exec) throws IOException,
             CanceledExecutionException {
-        
-        // TODO load internal data. 
+
+        // TODO load internal data.
         // Everything handed to output ports is loaded automatically (data
         // returned by the execute method, models loaded in loadModelContent,
-        // and user settings set through loadSettingsFrom - is all taken care 
+        // and user settings set through loadSettingsFrom - is all taken care
         // of). Load here only the other internals that need to be restored
         // (e.g. data used by the views).
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -260,11 +264,11 @@ public class StructuresPDBMapperNodeModel extends KlifsNodeModel {
     protected void saveInternals(final File internDir,
             final ExecutionMonitor exec) throws IOException,
             CanceledExecutionException {
-       
-        // TODO save internal models. 
+
+        // TODO save internal models.
         // Everything written to output ports is saved automatically (data
         // returned by the execute method, models saved in the saveModelContent,
-        // and user settings saved through saveSettingsTo - is all taken care 
+        // and user settings saved through saveSettingsTo - is all taken care
         // of). Save here only the other internals that need to be preserved
         // (e.g. data used by the views).
 

@@ -17,6 +17,7 @@ import org.knime.core.node.BufferedDataTable;
 import org.knime.core.node.CanceledExecutionException;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
+import io.swagger.client.ApiException;
 import io.swagger.client.api.InformationApi;
 import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
@@ -36,13 +37,13 @@ import org.knime.core.node.port.PortType;
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
 public class KinaseFamiliesNodeModel extends KlifsNodeModel {
-	
+
 	public static final String CFGKEY_INPUTCOLUMNNAME = "(Optional) input column Kinase Groups";
 	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, null);
-    
+
     // the logger instance
     private static final NodeLogger logger = NodeLogger
-            .getLogger(KinaseFamiliesNodeModel.class); 
+            .getLogger(KinaseFamiliesNodeModel.class);
 
     /**
      * Constructor for the node model.
@@ -60,7 +61,7 @@ public class KinaseFamiliesNodeModel extends KlifsNodeModel {
             final ExecutionContext exec) throws Exception {
 
         logger.info("Executing KLIFS Kinase Families node - retrieving families from KLIFS server.");
-        
+
         // Check optional input data
         // When kinase groups are provided restrict retrieval
         String kinaseGroups = null;
@@ -82,30 +83,36 @@ public class KinaseFamiliesNodeModel extends KlifsNodeModel {
         } else {
         	kinaseGroups = "";
         }
-        
-        // Retrieve data from server
-        InformationApi client = new InformationApi();
-        client.setApiClient(getApiClient());
-        List<String> groups = client.kinaseFamiliesGet(kinaseGroups);
-        
-        // the data table spec of the single output table, 
+
+
+        // the data table spec of the single output table,
         // the table will have one columns: kinase family
         DataColumnSpec[] allColSpecs = new DataColumnSpec[1];
         allColSpecs[0] = 
             new DataColumnSpecCreator("Kinase Family", StringCell.TYPE).createSpec();
-        
+
         DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
         BufferedDataContainer container = exec.createDataContainer(outputSpec);
-        for (String group: groups) {        
-            RowKey key = new RowKey(new Long(container.size()).toString());
-            // the cells of the current row, the types of the cells must match
-            // the column spec (see above)
-            DataCell[] cells = new DataCell[1];
-            cells[0] = new StringCell(group); 
-            DataRow row = new DefaultRow(key, cells);
-            container.addRowToTable(row);
+        try {
+            // Retrieve data from server
+            InformationApi client = new InformationApi();
+            client.setApiClient(getApiClient());
+            List<String> groups = client.kinaseFamiliesGet(kinaseGroups);
+
+            for (String group: groups) {
+                RowKey key = new RowKey(new Long(container.size()).toString());
+                // the cells of the current row, the types of the cells must match
+                // the column spec (see above)
+                DataCell[] cells = new DataCell[1];
+                cells[0] = new StringCell(group);
+                DataRow row = new DefaultRow(key, cells);
+                container.addRowToTable(row);
+            }
+
+        } catch (ApiException e){
+            handleApiException(e);
         }
-        
+
         // Done: close and return
         container.close();
         BufferedDataTable out = container.getTable();
@@ -128,7 +135,7 @@ public class KinaseFamiliesNodeModel extends KlifsNodeModel {
     @Override
     protected DataTableSpec[] configure(final DataTableSpec[] inSpecs)
             throws InvalidSettingsException {
-        
+
         // TODO: check if user settings are available, fit to the incoming
         // table structure, and the incoming types are feasible for the node
         // to execute. If the node can execute in its current state return
@@ -167,11 +174,11 @@ public class KinaseFamiliesNodeModel extends KlifsNodeModel {
     protected void validateSettings(final NodeSettingsRO settings)
             throws InvalidSettingsException {
         super.loadValidatedSettingsFrom(settings);
-            
+
         m_inputColumnName.validateSettings(settings);
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -179,16 +186,16 @@ public class KinaseFamiliesNodeModel extends KlifsNodeModel {
     protected void loadInternals(final File internDir,
             final ExecutionMonitor exec) throws IOException,
             CanceledExecutionException {
-        
-        // TODO load internal data. 
+
+        // TODO load internal data.
         // Everything handed to output ports is loaded automatically (data
         // returned by the execute method, models loaded in loadModelContent,
-        // and user settings set through loadSettingsFrom - is all taken care 
+        // and user settings set through loadSettingsFrom - is all taken care
         // of). Load here only the other internals that need to be restored
         // (e.g. data used by the views).
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -196,11 +203,11 @@ public class KinaseFamiliesNodeModel extends KlifsNodeModel {
     protected void saveInternals(final File internDir,
             final ExecutionMonitor exec) throws IOException,
             CanceledExecutionException {
-       
-        // TODO save internal models. 
+
+        // TODO save internal models.
         // Everything written to output ports is saved automatically (data
         // returned by the execute method, models saved in the saveModelContent,
-        // and user settings saved through saveSettingsTo - is all taken care 
+        // and user settings saved through saveSettingsTo - is all taken care
         // of). Save here only the other internals that need to be preserved
         // (e.g. data used by the views).
 

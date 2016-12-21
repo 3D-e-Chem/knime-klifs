@@ -17,6 +17,7 @@ import org.knime.core.node.BufferedDataContainer;
 import org.knime.core.node.BufferedDataTable;
 import org.knime.core.node.CanceledExecutionException;
 
+import io.swagger.client.ApiException;
 import io.swagger.client.api.InteractionsApi;
 import io.swagger.client.model.InteractionList;
 import nl.vu_compmedchem.klifs.KlifsNodeModel;
@@ -36,16 +37,16 @@ import org.knime.core.node.NodeSettingsWO;
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
 public class InteractionsGetTypesNodeModel extends KlifsNodeModel {
-    
+
     // the logger instance
     private static final NodeLogger logger = NodeLogger
             .getLogger(InteractionsGetTypesNodeModel.class);
-          
+
     /**
      * Constructor for the node model.
      */
     protected InteractionsGetTypesNodeModel() {
-    
+
         super(0, 1);
     }
 
@@ -57,30 +58,36 @@ public class InteractionsGetTypesNodeModel extends KlifsNodeModel {
             final ExecutionContext exec) throws Exception {
 
     	logger.info("Executing KLIFS Interactions get Types node - retrieving interaction types from the KLIFS server.");
-        
-        // Retrieve data from server
-    	InteractionsApi client = new InteractionsApi();
-        client.setApiClient(getApiClient());
-        List<InteractionList> types = client.interactionsGetTypesGet();
-         
+
+
         // the table will have two columns: bit position and interaction type
         DataColumnSpec[] allColSpecs = new DataColumnSpec[2];
         allColSpecs[0] = new DataColumnSpecCreator("Bit position", IntCell.TYPE).createSpec();
         allColSpecs[1] = new DataColumnSpecCreator("Interaction type", StringCell.TYPE).createSpec();
-        
+
         DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
         BufferedDataContainer container = exec.createDataContainer(outputSpec);
-        for (InteractionList type: types) {        
-            RowKey key = new RowKey(type.getPosition().toString());
-            // the cells of the current row, the types of the cells must match
-            // the column spec (see above)
-            DataCell[] cells = new DataCell[2];
-            cells[0] = new IntCell(type.getPosition());
-            cells[1] = new StringCell(type.getName());             
-            DataRow row = new DefaultRow(key, cells);
-            container.addRowToTable(row);
+        try {
+            // Retrieve data from server
+        	InteractionsApi client = new InteractionsApi();
+            client.setApiClient(getApiClient());
+            List<InteractionList> types = client.interactionsGetTypesGet();
+
+            for (InteractionList type: types) {
+                RowKey key = new RowKey(type.getPosition().toString());
+                // the cells of the current row, the types of the cells must match
+                // the column spec (see above)
+                DataCell[] cells = new DataCell[2];
+                cells[0] = new IntCell(type.getPosition());
+                cells[1] = new StringCell(type.getName());
+                DataRow row = new DefaultRow(key, cells);
+                container.addRowToTable(row);
+            }
+
+        } catch (ApiException e){
+            handleApiException(e);
         }
-        
+
         // Done: close and return
         container.close();
         BufferedDataTable out = container.getTable();
@@ -141,7 +148,7 @@ public class InteractionsGetTypesNodeModel extends KlifsNodeModel {
         super.loadValidatedSettingsFrom(settings);
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -149,16 +156,16 @@ public class InteractionsGetTypesNodeModel extends KlifsNodeModel {
     protected void loadInternals(final File internDir,
             final ExecutionMonitor exec) throws IOException,
             CanceledExecutionException {
-        
-        // TODO load internal data. 
+
+        // TODO load internal data.
         // Everything handed to output ports is loaded automatically (data
         // returned by the execute method, models loaded in loadModelContent,
-        // and user settings set through loadSettingsFrom - is all taken care 
+        // and user settings set through loadSettingsFrom - is all taken care
         // of). Load here only the other internals that need to be restored
         // (e.g. data used by the views).
 
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -166,11 +173,11 @@ public class InteractionsGetTypesNodeModel extends KlifsNodeModel {
     protected void saveInternals(final File internDir,
             final ExecutionMonitor exec) throws IOException,
             CanceledExecutionException {
-       
-        // TODO save internal models. 
+
+        // TODO save internal models.
         // Everything written to output ports is saved automatically (data
         // returned by the execute method, models saved in the saveModelContent,
-        // and user settings saved through saveSettingsTo - is all taken care 
+        // and user settings saved through saveSettingsTo - is all taken care
         // of). Save here only the other internals that need to be preserved
         // (e.g. data used by the views).
 
