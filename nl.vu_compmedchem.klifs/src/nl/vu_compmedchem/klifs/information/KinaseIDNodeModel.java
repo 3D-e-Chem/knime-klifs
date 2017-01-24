@@ -41,7 +41,7 @@ public class KinaseIDNodeModel extends KlifsNodeModel {
 
 	public static final String CFGKEY_INPUTCOLUMNNAME = "Input Column";
 	public static final String CFGKEY_INPUTSPECIES = "Species (optional)";
-	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, null);
+	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, "Name");
 	private final SettingsModelString m_inputSpecies = new SettingsModelString(CFGKEY_INPUTSPECIES, null);
 
     // the logger instance

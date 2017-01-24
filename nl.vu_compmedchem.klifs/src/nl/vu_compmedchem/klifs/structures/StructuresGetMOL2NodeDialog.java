@@ -33,7 +33,7 @@ public class StructuresGetMOL2NodeDialog extends KlifsNodeDialog {
 
         createNewTab("Advanced");
 
-        addBasePath();
+        addAdvancedSettings();
     }
 }
 

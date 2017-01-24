@@ -27,7 +27,7 @@ public class LigandsGetStructuresNodeDialog extends KlifsNodeDialog {
 
         createNewTab("Advanced");
 
-        addBasePath(); 
+        addAdvancedSettings(); 
     }
 }
 

@@ -43,7 +43,7 @@ import org.knime.core.node.NodeSettingsWO;
 public class LigandsListNodeModel extends KlifsNodeModel {
 
 	public static final String CFGKEY_INPUTCOLUMNNAME = "(Optional) Kinase ID column";
-	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, null);
+	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, "Kinase ID");
 
     // the logger instance
     private static final NodeLogger logger = NodeLogger

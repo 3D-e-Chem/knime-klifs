@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 Formatted as described on http://keepachangelog.com/.
 
+## [1.1.0] - 2017-01-20
+- Time-out option (#1)
+- Usual suspects for settings configuration (#2)
+
 ## [1.0.16] - 2016-12-21
 
 ### Changed

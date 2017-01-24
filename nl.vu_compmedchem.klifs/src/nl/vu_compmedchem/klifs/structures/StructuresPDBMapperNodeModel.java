@@ -43,7 +43,7 @@ import org.knime.core.node.NodeSettingsWO;
  */
 public class StructuresPDBMapperNodeModel extends KlifsNodeModel {
 	public static final String CFGKEY_INPUTCOLUMNNAME = "Input column with 4-letter PDB-codes";
-	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, null);
+	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, "PDB");
 
     // the logger instance
     private static final NodeLogger logger = NodeLogger
@@ -198,7 +198,7 @@ public class StructuresPDBMapperNodeModel extends KlifsNodeModel {
     	if (inSpecs.length > 0 && inSpecs[0] != null) {
         	int columnIndex = inSpecs[0].findColumnIndex(m_inputColumnName.getStringValue());
         	if (columnIndex < 0) {
-        		throw new InvalidSettingsException("No valid input column selected");
+        	    throw new InvalidSettingsException("No valid input column availabe");
         	}
         }
 

@@ -29,7 +29,7 @@ public class StructuresPDBMapperNodeDialog extends KlifsNodeDialog {
 
         createNewTab("Advanced");
 
-        addBasePath();
+        addAdvancedSettings();
                     
     }
 }

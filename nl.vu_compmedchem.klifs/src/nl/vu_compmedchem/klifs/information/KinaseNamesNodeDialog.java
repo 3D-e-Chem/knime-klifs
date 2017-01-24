@@ -36,7 +36,7 @@ public class KinaseNamesNodeDialog extends KlifsNodeDialog {
 
         createNewTab("Advanced");
 
-        addBasePath();
+        addAdvancedSettings();
     }
 }
 

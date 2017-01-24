@@ -41,9 +41,9 @@ import org.knime.core.node.NodeSettingsWO;
  */
 public class InteractionsDecomposerNodeModel extends KlifsNodeModel {
 	public static final String CFGKEY_INPUTCOLUMNNAME_STRUCTURE = "Column with structure IDs";
-	private final SettingsModelString m_inputColumnNameStructure = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME_STRUCTURE, null);
+	private final SettingsModelString m_inputColumnNameStructure = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME_STRUCTURE, "Structure ID");
 	public static final String CFGKEY_INPUTCOLUMNNAME_IFP = "Column with IFPs";
-	private final SettingsModelString m_inputColumnNameIFP = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME_IFP, null);
+	private final SettingsModelString m_inputColumnNameIFP = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME_IFP, "IFP");
 	public static final String CFGKEY_INPUTBOOLEAN_ACTIVES = "Only output interactions";
 	private final SettingsModelBoolean m_inputBooleanActives = new SettingsModelBoolean(CFGKEY_INPUTBOOLEAN_ACTIVES, true);
 	public static final String CFGKEY_INPUTBOOLEAN_MATCH = "Match X-ray and KLIFS";

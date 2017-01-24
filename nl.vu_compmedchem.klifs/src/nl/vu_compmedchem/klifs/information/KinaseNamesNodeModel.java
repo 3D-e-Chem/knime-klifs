@@ -42,8 +42,8 @@ public class KinaseNamesNodeModel extends KlifsNodeModel {
 	public static final String CFGKEY_INPUTCOLUMNNAME_GROUPS = "(Optional) input Column Kinase Groups";
 	public static final String CFGKEY_INPUTCOLUMNNAME_FAMILIES = "(Optional) input Column Kinase Families";
 	public static final String CFGKEY_INPUTSPECIES = "Species (optional)";
-	private final SettingsModelString m_inputColumnNameGroups = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME_GROUPS, null);
-	private final SettingsModelString m_inputColumnNameFamilies = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME_FAMILIES, null);
+	private final SettingsModelString m_inputColumnNameGroups = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME_GROUPS, "Group");
+	private final SettingsModelString m_inputColumnNameFamilies = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME_FAMILIES, "Family");
 	private final SettingsModelString m_inputSpecies = new SettingsModelString(CFGKEY_INPUTSPECIES, null);
 
     // the logger instance

@@ -39,10 +39,10 @@ import org.knime.core.node.NodeSettingsWO;
  */
 public class StructuresGetMOL2NodeModel extends KlifsNodeModel {
 	public static final String CFGKEY_INPUTCOLUMNNAME = "Structure ID column";
-	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, null);
+	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, "Structure ID");
 
 	public static final String CFGKEY_STRUCTURE_TYPE = "Select structure type";
-	private final SettingsModelString m_selectStructureType = new SettingsModelString(CFGKEY_STRUCTURE_TYPE, null);
+	private final SettingsModelString m_selectStructureType = new SettingsModelString(CFGKEY_STRUCTURE_TYPE, "Complex");
 
     // the logger instance
     private static final NodeLogger logger = NodeLogger

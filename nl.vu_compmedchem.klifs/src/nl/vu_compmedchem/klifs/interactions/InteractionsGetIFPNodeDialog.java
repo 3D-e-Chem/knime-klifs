@@ -27,7 +27,7 @@ public class InteractionsGetIFPNodeDialog extends KlifsNodeDialog {
 
         createNewTab("Advanced");
 
-        addBasePath();
+        addAdvancedSettings();
                     
     }
 }

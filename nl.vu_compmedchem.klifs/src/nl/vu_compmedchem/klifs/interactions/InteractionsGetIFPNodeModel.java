@@ -43,7 +43,7 @@ import org.knime.core.node.NodeSettingsWO;
 public class InteractionsGetIFPNodeModel extends KlifsNodeModel {
 
 	public static final String CFGKEY_INPUTCOLUMNNAME = "Input Column";
-	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, null);
+	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, "Structure ID");
 
     // the logger instance
     private static final NodeLogger logger = NodeLogger

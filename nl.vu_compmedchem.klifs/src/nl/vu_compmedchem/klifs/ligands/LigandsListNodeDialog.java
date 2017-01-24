@@ -27,7 +27,7 @@ public class LigandsListNodeDialog extends KlifsNodeDialog {
 
         createNewTab("Advanced");
 
-        addBasePath();
+        addAdvancedSettings();
                     
     }
 }

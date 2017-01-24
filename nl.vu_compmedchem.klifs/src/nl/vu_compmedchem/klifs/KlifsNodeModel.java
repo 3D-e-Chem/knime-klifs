@@ -1,35 +1,45 @@
 package nl.vu_compmedchem.klifs;
 
+
 import org.knime.core.node.InvalidSettingsException;
 import org.knime.core.node.NodeModel;
 import org.knime.core.node.NodeSettingsRO;
 import org.knime.core.node.NodeSettingsWO;
+import org.knime.core.node.defaultnodesettings.SettingsModelInteger;
 import org.knime.core.node.port.PortType;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
 import io.swagger.client.ApiClient;
 import io.swagger.client.ApiException;
 
+import java.util.concurrent.TimeUnit;
 import java.util.List;
 
 public abstract class KlifsNodeModel extends NodeModel {
 
 	public static final String CFGKEY_BASEPATH = "Base path";
-
 	public static final String DEFAULT_BASEPATH = "http://klifs.vu-compmedchem.nl/api";
-
 	private final SettingsModelString m_basePath = basePathSettings();
+
+	public static final String CFGKEY_TIMEOUT = "Timeout";
+	public static final int DEFAULT_TIMEOUT = 10;
+	private final SettingsModelInteger m_timeout = timeoutSettings();
 
 	private ApiClient apiClient;
 
 	public static SettingsModelString basePathSettings() {
 		return new SettingsModelString(CFGKEY_BASEPATH,	DEFAULT_BASEPATH);
 	}
+
+	public static SettingsModelInteger timeoutSettings() {
+		return new SettingsModelInteger(CFGKEY_TIMEOUT, DEFAULT_TIMEOUT);
+  	}
 	
 	protected KlifsNodeModel(int nrInDataPorts, int nrOutDataPorts) {
 		super(nrInDataPorts, nrOutDataPorts);
 		apiClient = new ApiClient();
 		apiClient.setBasePath(m_basePath.getStringValue());
+		apiClient.getHttpClient().setReadTimeout(m_timeout.getIntValue(), TimeUnit.SECONDS);
 	}
 
 	protected KlifsNodeModel(final PortType[] inPortTypes, final PortType[] outPortTypes) {
@@ -53,6 +63,7 @@ public abstract class KlifsNodeModel extends NodeModel {
 	protected void loadValidatedSettingsFrom(final NodeSettingsRO settings) throws InvalidSettingsException {
 		m_basePath.loadSettingsFrom(settings);
 		apiClient.setBasePath(m_basePath.getStringValue());
+		apiClient.getHttpClient().setReadTimeout(m_timeout.getIntValue(), TimeUnit.SECONDS);
 	}
 
 	/**
@@ -77,6 +88,14 @@ public abstract class KlifsNodeModel extends NodeModel {
 	
 	public void setBasePath(String basePath) {
 		m_basePath.setStringValue(basePath);
+	}
+
+	public int getTimeout() {
+		return m_timeout.getIntValue();
+	}
+
+	public void setTimeout(int timeout) {
+		m_timeout.setIntValue(timeout);
 	}
 
 	@SuppressWarnings("unchecked")

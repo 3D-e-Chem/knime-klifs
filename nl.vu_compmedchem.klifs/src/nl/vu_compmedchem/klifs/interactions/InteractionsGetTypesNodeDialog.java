@@ -18,7 +18,7 @@ public class InteractionsGetTypesNodeDialog extends KlifsNodeDialog {
 
         createNewTab("Advanced");
 
-        addBasePath();
+        addAdvancedSettings();
     }
 }
 

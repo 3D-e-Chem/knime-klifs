@@ -44,7 +44,7 @@ public class InteractionsDecomposerNodeDialog extends KlifsNodeDialog {
 
         createNewTab("Advanced");
 
-        addBasePath();
+        addAdvancedSettings();
     }
 }
 

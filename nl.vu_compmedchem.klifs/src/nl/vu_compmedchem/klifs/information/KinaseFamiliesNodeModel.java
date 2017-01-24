@@ -39,7 +39,7 @@ import org.knime.core.node.port.PortType;
 public class KinaseFamiliesNodeModel extends KlifsNodeModel {
 
 	public static final String CFGKEY_INPUTCOLUMNNAME = "(Optional) input column Kinase Groups";
-	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, null);
+	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, "Group");
 
     // the logger instance
     private static final NodeLogger logger = NodeLogger

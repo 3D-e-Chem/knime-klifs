@@ -44,10 +44,10 @@ import org.knime.core.node.NodeSettingsWO;
 public class StructuresListNodeModel extends KlifsNodeModel {
 
 	public static final String CFGKEY_INPUTCOLUMNNAME = "Kinase or Ligand ID column";
-	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, null);
+	private final SettingsModelString m_inputColumnName = new SettingsModelString(CFGKEY_INPUTCOLUMNNAME, "Kinase ID");
 
 	public static final String CFGKEY_INPUTTYPE = "Select the type of input IDs";
-	private final SettingsModelString m_selectInputType = new SettingsModelString(CFGKEY_INPUTTYPE, null);
+	private final SettingsModelString m_selectInputType = new SettingsModelString(CFGKEY_INPUTTYPE, "Kinase IDs");
 
     // the logger instance
     private static final NodeLogger logger = NodeLogger

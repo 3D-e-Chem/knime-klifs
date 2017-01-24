@@ -33,7 +33,7 @@ public class StructuresListNodeDialog extends KlifsNodeDialog {
 
         createNewTab("Advanced");
 
-        addBasePath();
+        addAdvancedSettings();
                     
     }
 }
