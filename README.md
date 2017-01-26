@@ -16,7 +16,7 @@ Steps to get KLIFS nodes inside KNIME:
 
 1. Goto Help > Install new software ... menu
 2. Press add button
-3. Fill text fields with `https://3d-e-chem.github.io/updates`
+3. Fill text fields with `https://3d-e-chem.github.io/knime-node-collection`
 4. Select --all sites-- in work with pulldown
 6. Select KLIFS knime nodes
 7. Install software & restart (for now an "Unsigned Content" warning can popup during the installation, you can safely ignore this)
