@@ -43,7 +43,7 @@
         <repository>
             <id>3d-e-chem</id>
             <layout>p2</layout>
-            <url>https://3d-e-chem.github.io/knime-node-collection</url>
+            <url>https://3d-e-chem.github.io/updates</url>
         </repository>        
     </repositories>
     <build>
