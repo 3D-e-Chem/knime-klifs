@@ -33,11 +33,11 @@
 <entry key="node-bundle-name" type="xstring" value="KNIME 3D-e-Chem Contributions"/>
 <entry key="node-bundle-symbolic-name" type="xstring" value="nl.vu_compmedchem.klifs"/>
 <entry key="node-bundle-vendor" type="xstring" value="3D-e-Chem"/>
-<entry key="node-bundle-version" type="xstring" value="1.0.14"/>
+<entry key="node-bundle-version" type="xstring" value="1.0.16"/>
 <entry key="node-feature-name" type="xstring" value="KLIFS KNIME nodes"/>
 <entry key="node-feature-symbolic-name" type="xstring" value="nl.vu_compmedchem.klifs.feature.feature.group"/>
 <entry key="node-feature-vendor" type="xstring" isnull="true" value=""/>
-<entry key="node-feature-version" type="xstring" value="1.0.14"/>
+<entry key="node-feature-version" type="xstring" value="1.0.16"/>
 <config key="factory_settings"/>
 <entry key="name" type="xstring" value="Interaction Types Retriever"/>
 <entry key="hasContent" type="xboolean" value="true"/>
@@ -53,6 +53,6 @@
 </config>
 <config key="filestores">
 <entry key="file_store_location" type="xstring" isnull="true" value=""/>
-<entry key="file_store_id" type="xstring" value="08041473-bf42-4425-af39-3d591f885c07"/>
+<entry key="file_store_id" type="xstring" value="9e2d1585-20d3-4c28-ae95-ecfe0b21e480"/>
 </config>
 </config>
