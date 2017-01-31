@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 Formatted as described on http://keepachangelog.com/.
 
+## [Unreleased]
+- Updated test settings for Mac OS X
+
+## [1.1.1] - 2017-01-26
+
+### Changed
+- Updated the repository/update site
+- Handling structures without IFPs by the Interaction Fingerprint Retriever node
+
 ## [1.1.0] - 2017-01-20
 - Time-out option (#1)
 - Usual suspects for settings configuration (#2)

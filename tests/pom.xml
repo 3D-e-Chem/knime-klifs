@@ -20,6 +20,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 				<version>${tycho.version}</version>
 				<configuration>
 					<argLine>${tycho.test.jvmArgs}</argLine>
+					<useUIHarness>true</useUIHarness>
+					<useUIThread>${custom.UIThread}</useUIThread> 
 				</configuration>
 
 			</plugin>
@@ -28,6 +30,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 	<properties>
 		<!-- kill test JVM if tests take more than 5 minutes (300 seconds) to finish -->
 		<surefire.timeout>300</surefire.timeout>
+		<custom.UIThread>true</custom.UIThread>
 	</properties>
 	<profiles>
 		<profile>
@@ -40,6 +43,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
     </activation>
     <properties>
      <tycho.test.jvmArgs>-XstartOnFirstThread</tycho.test.jvmArgs>
+ 	 <custom.UIThread>false</custom.UIThread>
     </properties>
    </profile>
    </profiles>
