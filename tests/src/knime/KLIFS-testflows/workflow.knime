@@ -7,14 +7,10 @@
 <entry key="authored-by" type="xstring" value="Albert"/>
 <entry key="authored-when" type="xstring" value="2016-10-04 14:02:12 +0200"/>
 <entry key="lastEdited-by" type="xstring" value="Albert"/>
-<entry key="lastEdited-when" type="xstring" value="2017-01-27 11:44:12 +0100"/>
+<entry key="lastEdited-when" type="xstring" value="2017-03-05 20:23:14 +0100"/>
 </config>
 <entry key="customDescription" type="xstring" isnull="true" value=""/>
 <entry key="state" type="xstring" value="IDLE"/>
-<config key="nodecontainer_message">
-<entry key="type" type="xstring" value="ERROR"/>
-<entry key="message" type="xstring" value="Error in sub flow."/>
-</config>
 <config key="workflow_credentials"/>
 <config key="nodes">
 <config key="node_2">
@@ -428,7 +424,7 @@
 <entry key="array-size" type="xint" value="4"/>
 <entry key="0" type="xint" value="444"/>
 <entry key="1" type="xint" value="1797"/>
-<entry key="2" type="xint" value="97"/>
+<entry key="2" type="xint" value="60"/>
 <entry key="3" type="xint" value="89"/>
 </config>
 </config>
@@ -444,7 +440,7 @@
 <entry key="array-size" type="xint" value="4"/>
 <entry key="0" type="xint" value="444"/>
 <entry key="1" type="xint" value="1917"/>
-<entry key="2" type="xint" value="97"/>
+<entry key="2" type="xint" value="60"/>
 <entry key="3" type="xint" value="89"/>
 </config>
 </config>
@@ -1228,7 +1224,7 @@
 <entry key="array-size" type="xint" value="4"/>
 <entry key="0" type="xint" value="404"/>
 <entry key="1" type="xint" value="4557"/>
-<entry key="2" type="xint" value="97"/>
+<entry key="2" type="xint" value="60"/>
 <entry key="3" type="xint" value="89"/>
 </config>
 </config>
@@ -1340,7 +1336,7 @@
 <entry key="array-size" type="xint" value="4"/>
 <entry key="0" type="xint" value="404"/>
 <entry key="1" type="xint" value="5157"/>
-<entry key="2" type="xint" value="97"/>
+<entry key="2" type="xint" value="60"/>
 <entry key="3" type="xint" value="89"/>
 </config>
 </config>
@@ -1833,25 +1829,25 @@
 </config>
 <config key="connection_70">
 <entry key="sourceID" type="xint" value="87"/>
-<entry key="destID" type="xint" value="94"/>
+<entry key="destID" type="xint" value="91"/>
 <entry key="sourcePort" type="xint" value="1"/>
 <entry key="destPort" type="xint" value="1"/>
 </config>
 <config key="connection_71">
 <entry key="sourceID" type="xint" value="87"/>
-<entry key="destID" type="xint" value="91"/>
+<entry key="destID" type="xint" value="90"/>
 <entry key="sourcePort" type="xint" value="1"/>
 <entry key="destPort" type="xint" value="1"/>
 </config>
 <config key="connection_72">
 <entry key="sourceID" type="xint" value="87"/>
-<entry key="destID" type="xint" value="90"/>
+<entry key="destID" type="xint" value="89"/>
 <entry key="sourcePort" type="xint" value="1"/>
 <entry key="destPort" type="xint" value="1"/>
 </config>
 <config key="connection_73">
 <entry key="sourceID" type="xint" value="87"/>
-<entry key="destID" type="xint" value="89"/>
+<entry key="destID" type="xint" value="94"/>
 <entry key="sourcePort" type="xint" value="1"/>
 <entry key="destPort" type="xint" value="1"/>
 </config>
