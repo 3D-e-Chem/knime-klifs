@@ -4,11 +4,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 Formatted as described on http://keepachangelog.com/.
 
 ## [Unreleased]
-- Updated test settings for Mac OS X
 
-## [1.1.1] - 2017-01-26
+
+## [1.1.1] - 2017-03-05
 
 ### Changed
+- Added PDB download option (test)
+- Updated test settings for Mac OS X
 - Updated the repository/update site
 - Handling structures without IFPs by the Interaction Fingerprint Retriever node
 

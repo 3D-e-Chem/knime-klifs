@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: KNIME 3D-e-Chem Contributions
 Bundle-SymbolicName: nl.vu_compmedchem.klifs;singleton:=true
-Bundle-Version: 1.1.0
+Bundle-Version: 1.1.1
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .,
  lib/gson-2.6.2.jar,
@@ -19,6 +19,7 @@ Bundle-Vendor: 3D-e-Chem
 Require-Bundle: org.knime.core;bundle-version="[3.1.0,4.0.0)",
  org.knime.base;bundle-version="[3.1.0,4.0.0)",
  org.knime.chem.types;bundle-version="[3.1.0,4.0.0)",
+ org.knime.bio.types;bundle-version="[3.0.0,4.0.0)",
  nl.esciencecenter.e3dchem.plugin;bundle-version="[1.0.0,2.0.0)"
 Bundle-ActivationPolicy: lazy
 Export-Package: nl.vu_compmedchem.klifs.information;

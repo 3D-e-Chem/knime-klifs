@@ -6,11 +6,11 @@ import org.knime.core.node.NodeView;
 
 /**
  * <code>NodeFactory</code> for the "StructuresGetMOL2" Node.
- * Knime node to retrieve a (part of) a structure in  MOL2 format from KLIFS
+ * Knime node to retrieve a (part of) a structure in  MOL2/PDB format from KLIFS
  *
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
-public class StructuresGetMOL2NodeFactory 
+public class StructuresGetMOL2NodeFactory
         extends NodeFactory<StructuresGetMOL2NodeModel> {
 
     /**
@@ -55,4 +55,3 @@ public class StructuresGetMOL2NodeFactory
     }
 
 }
-

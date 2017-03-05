@@ -6,7 +6,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 	<parent>
 		<groupId>nl.vu_compmedchem.klifs</groupId>
 		<artifactId>nl.vu_compmedchem</artifactId>
-		<version>1.1.0</version>
+		<version>1.1.1</version>
 	</parent>
 
 	<artifactId>nl.vu_compmedchem.klifs.tests</artifactId>

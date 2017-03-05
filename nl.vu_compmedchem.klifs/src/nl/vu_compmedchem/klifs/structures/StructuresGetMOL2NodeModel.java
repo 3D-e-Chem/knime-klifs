@@ -6,6 +6,8 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.knime.chem.types.Mol2Cell;
 import org.knime.chem.types.Mol2CellFactory;
+import org.knime.bio.types.PdbCell;
+import org.knime.bio.types.PdbCellFactory;
 import org.knime.core.data.DataCell;
 import org.knime.core.data.DataColumnSpec;
 import org.knime.core.data.DataColumnSpecCreator;
@@ -14,6 +16,7 @@ import org.knime.core.data.DataTableSpec;
 import org.knime.core.data.RowKey;
 import org.knime.core.data.def.DefaultRow;
 import org.knime.core.data.def.IntCell;
+import org.knime.core.data.def.StringCell;
 import org.knime.core.node.BufferedDataContainer;
 import org.knime.core.node.BufferedDataTable;
 import org.knime.core.node.CanceledExecutionException;
@@ -33,7 +36,7 @@ import org.knime.core.node.NodeSettingsWO;
 
 
 /**
- * Knime node to retrieve a (part of) a structure in  MOL2 format from KLIFS
+ * Knime node to retrieve a (part of) a structure in  MOL2/PDB format from KLIFS
  *
  * @author 3D-e-Chem (Albert J. Kooistra)
  */
@@ -43,6 +46,8 @@ public class StructuresGetMOL2NodeModel extends KlifsNodeModel {
 
 	public static final String CFGKEY_STRUCTURE_TYPE = "Select structure type";
 	private final SettingsModelString m_selectStructureType = new SettingsModelString(CFGKEY_STRUCTURE_TYPE, "Complex");
+
+	private String formatType = "MOL2";
 
     // the logger instance
     private static final NodeLogger logger = NodeLogger
@@ -67,39 +72,48 @@ public class StructuresGetMOL2NodeModel extends KlifsNodeModel {
     protected BufferedDataTable[] execute(final BufferedDataTable[] inData,
             final ExecutionContext exec) throws Exception {
 
-    	logger.info("Executing KLIFS Structures get MOL2 node - retrieving structures from the KLIFS server.");
+    	logger.info("Executing KLIFS Structures Retriever node - retrieving structures from the KLIFS server.");
 
     	// Check input data and execute query
     	int columnIndex = inData[0].getDataTableSpec().findColumnIndex(m_inputColumnName.getStringValue());
-        // the data table spec of the single output table,
-        // the table will have eleven columns: all kinase information
-        DataColumnSpec[] allColSpecs = new DataColumnSpec[2];
-        allColSpecs[0] = new DataColumnSpecCreator("Structure ID", IntCell.TYPE).createSpec();
-        allColSpecs[1] = new DataColumnSpecCreator("Structure", Mol2Cell.TYPE).createSpec();
 
-        DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
-        BufferedDataContainer container = exec.createDataContainer(outputSpec);
-        long rowCount = inData[0].size();
-        long currentRow = 0;
+			// the data table spec of the single output table,
+			// the table will have eleven columns: all kinase information
+			DataColumnSpec[] allColSpecs = new DataColumnSpec[2];
+			allColSpecs[0] = new DataColumnSpecCreator("Structure ID", IntCell.TYPE).createSpec();
+			if (m_selectStructureType.getStringValue().equals("Complex (PDB)")){
+				formatType = "PDB";
+				new DataColumnSpecCreator("Structure", PdbCell.TYPE);
+				allColSpecs[1] = new DataColumnSpecCreator("Structure", PdbCell.TYPE).createSpec();
+			} else {
+				formatType = "MOL2"; // not necessary but for clarity
+				allColSpecs[1] = new DataColumnSpecCreator("Structure", Mol2Cell.TYPE).createSpec();
+			}
+
+
+			DataTableSpec outputSpec = new DataTableSpec(allColSpecs);
+			BufferedDataContainer container = exec.createDataContainer(outputSpec);
+			long rowCount = inData[0].size();
+			long currentRow = 0;
     	for (DataRow inrow : inData[0]) {
-    		int structureID = ((IntCell) inrow.getCell(columnIndex)).getIntValue();
-    		getMol2Structures(structureID, container);
+  			int structureID = ((IntCell) inrow.getCell(columnIndex)).getIntValue();
+  			getStructures(structureID, container);
 
-            // report progress
-            exec.setProgress((double) currentRow / rowCount, " processing row " + currentRow);
-            currentRow++;
+        // report progress
+        exec.setProgress((double) currentRow / rowCount, " processing row " + currentRow);
+        currentRow++;
 
-            // Check if process has been cancelled
-            exec.checkCanceled();
-        }
+        // Check if process has been cancelled
+        exec.checkCanceled();
+      }
 
-        // Done: close and return
-        container.close();
-        BufferedDataTable out = container.getTable();
-        return new BufferedDataTable[]{out};
+      // Done: close and return
+      container.close();
+      BufferedDataTable out = container.getTable();
+      return new BufferedDataTable[]{out};
     }
 
-    private void getMol2Structures(int structureID, BufferedDataContainer container) throws Exception {
+    private void getStructures(int structureID, BufferedDataContainer container) throws Exception {
     	RowKey key = new RowKey(new Integer(structureID).toString());
 
         DataCell[] cells = new DataCell[2];
@@ -107,22 +121,29 @@ public class StructuresGetMOL2NodeModel extends KlifsNodeModel {
         try {
             File structure;
             switch(m_selectStructureType.getStringValue()) {
-            	case "Complex":
+            	case "Complex (MOL2)":
             		structure = client.structureGetComplexGet(structureID);
                 break;
-            	case "Protein":
+							case "Complex (PDB)":
+            		structure = client.structureGetPdbComplexGet(structureID);
+                break;
+            	case "Protein (MOL2)":
             		structure = client.structureGetProteinGet(structureID);
                 break;
-            	case "Pocket":
+            	case "Pocket (MOL2)":
             		structure = client.structureGetPocketGet(structureID);
                 break;
-            	case "Ligand":
+            	case "Ligand (MOL2)":
             		structure = client.structureGetLigandGet(structureID);
                 break;
             	default:
             		throw new Exception();
             }
-            cells[1] = Mol2CellFactory.create(FileUtils.readFileToString(structure));
+						if (formatType.equals("PDB")){
+            	cells[1] = PdbCellFactory.create(FileUtils.readFileToString(structure));
+						} else {
+							cells[1] = Mol2CellFactory.create(FileUtils.readFileToString(structure));
+						}
             DataRow row = new DefaultRow(key, cells);
             container.addRowToTable(row);
         } catch (ApiException e) {
@@ -230,4 +251,3 @@ public class StructuresGetMOL2NodeModel extends KlifsNodeModel {
     }
 
 }
-

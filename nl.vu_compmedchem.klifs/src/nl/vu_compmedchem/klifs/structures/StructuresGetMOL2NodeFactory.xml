@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <knimeNode icon="./default.png" type="Source" xmlns="http://knime.org/node/v2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knime.org/node/v2.10 http://knime.org/node/v2.10.xsd">
-    <name>Structures Retriever (MOL2)</name>
-    
+    <name>Structures Retriever</name>
+
     <shortDescription>
-        KNIME node to retrieve (a part of) a kinase-ligand complex as a 3D structure in MOL2 format from KLIFS.
+        KNIME node to retrieve (a part of) a kinase-ligand complex as a 3D structure in MOL2/PDB format from KLIFS.
     </shortDescription>
-    
+
     <fullDescription>
-        <intro>KNIME node to retrieve (a part of) a kinase-ligand complex as a 3D structure in MOL2 format from KLIFS. This node retrieves a set of MOL2 structures from KLIFS based on a user-supplied set of Structure IDs (based on output from the Structures Overview Retriever node). The user can indicate whether to retrieve the full complex, the protein, the pocket, or the ligand. As output the nodes provides a table of structures based on the KLIFS alignment in MOL2 format with the structure ID. As (all structures retrieved from KLIFS are aligned based on the KLIFS pocket definition this node can, for example, be used to compare ligand binding modes, compare protein structures, or to generate structure-based or ligand-based pharmacophores.</intro>
-        
+        <intro>KNIME node to retrieve (a part of) a kinase-ligand complex as a 3D structure in MOL2/PDB format from KLIFS. This node retrieves a set of MOL2/PDB structures from KLIFS based on a user-supplied set of Structure IDs (based on output from the Structures Overview Retriever node). The user can indicate whether to retrieve the full complex, the protein, the pocket, or the ligand. As output the nodes provides a table of structures based on the KLIFS alignment in MOL2/PDB format with the structure ID. As (all structures retrieved from KLIFS are aligned based on the KLIFS pocket definition this node can, for example, be used to compare ligand binding modes, compare protein structures, or to generate structure-based or ligand-based pharmacophores.</intro>
+
         <option name="Structure IDs column">Column from the input stream with the structure IDs</option>
         <option name="Structural element">Select what you want to retrieve: ligand (default), full complex, protein, or pocket</option>
 
@@ -17,9 +17,9 @@
 		<option name="Timeout">Timeout in seconds to wait for KLIFS webservice response</option>
         </tab>
     </fullDescription>
-    
+
     <ports>
         <inPort index="0" name="Structure IDs">Input with at least a column with structure IDs</inPort>
         <outPort index="0" name="Structure Information">All structural information obtained from KLIFS</outPort>
-    </ports>    
+    </ports>
 </knimeNode>
