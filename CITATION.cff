@@ -9,6 +9,6 @@ authors:
   family-names: Kooistra
   name-particle: J.
 version: 1.0.16
-date-released: '2016-12-21'
+date-released: 2016-12-21
 repository-code: https://github.com/3D-e-Chem/knime-klifs
 license: Apache-2.0
