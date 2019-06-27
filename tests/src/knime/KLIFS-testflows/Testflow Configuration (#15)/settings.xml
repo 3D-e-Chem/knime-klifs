@@ -62,7 +62,7 @@
 <entry key="nodeID_2" type="xstring" value="90"/>
 <entry key="message_2" type="xstring" value="Execute failed: Code 400 - KLIFS error: The provided kinase ID(s) is/are invalid"/>
 <entry key="nodeID_3" type="xstring" value="91"/>
-<entry key="message_3" type="xstring" value="Execute failed: Code 400 - KLIFS error: An unknown ligand ID was provided"/>
+<entry key="message_3" type="xstring" value="Execute failed: Code 400 - KLIFS error: An unknown kinase ID was provided"/>
 <entry key="nodeID_4" type="xstring" value="92"/>
 <entry key="message_4" type="xstring" value="Execute failed: Code 400 - KLIFS error: An unknown ligand ID was provided"/>
 <entry key="nodeID_5" type="xstring" value="94"/>
