@@ -6,7 +6,7 @@
 <entry key="type" type="xstring" value="variable"/>
 <entry key="name" type="xstring" value="testing.workflow-result-path"/>
 <entry key="class" type="xstring" value="STRING"/>
-<entry key="value" type="xstring" value="/var/folders/yh/h7x7753s4771hc6cb9vc6fnr93ysnm/T/KLIFS_example_flows/KLIFS_test_workflows_v7"/>
+<entry key="value" type="xstring" value="/var/folders/yh/h7x7753s4771hc6cb9vc6fnr93ysnm/T/KLIFS_example_flows/KLIFS_test_workflows_v8"/>
 </config>
 </config>
 <config key="internal_node_subsettings">
