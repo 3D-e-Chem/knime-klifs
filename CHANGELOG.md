@@ -10,6 +10,7 @@ Formatted as described on http://keepachangelog.com/.
 ### Changes
 
 - Requires KNIME 4.0 [#6](https://github.com/3D-e-Chem/knime-klifs/issues/6)
+- Updated testflow
 
 ## [1.1.1] - 2017-03-05
 
