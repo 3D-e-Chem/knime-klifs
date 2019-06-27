@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/nl.vu_compmedchem.klifs.feature-1.1.1.jar" id="nl.vu_compmedchem.klifs.feature" version="1.1.1">
+   <feature url="features/nl.vu_compmedchem.klifs.feature-1.1.1.jar" id="nl.vu_compmedchem.klifs.feature" version="1.1.1.qualifier">
       <category name="nl.vu_compmedchem.klifs"/>
    </feature>
-   <feature url="features/nl.vu_compmedchem.klifs.feature.source_1.1.1.jar" id="nl.vu_compmedchem.klifs.feature.source" version="1.1.1">
-      <category name="nl.vu_compmedchem.klifs.sources"/>
-   </feature>
    <category-def name="nl.vu_compmedchem.klifs" label="KNIME 3D-e-Chem Contributions"/>
-   <category-def name="nl.vu_compmedchem.klifs.sources" label="KNIME 3D-e-Chem Contributions Sources"/>
 </site>
