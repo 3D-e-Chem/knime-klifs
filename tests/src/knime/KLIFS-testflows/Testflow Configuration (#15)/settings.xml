@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="settings.xml">
 <entry key="node_file" type="xstring" value="settings.xml"/>
-<config key="flow_stack"/>
+<config key="flow_stack">
+<config key="Variable_0">
+<entry key="type" type="xstring" value="variable"/>
+<entry key="name" type="xstring" value="testing.workflow-result-path"/>
+<entry key="class" type="xstring" value="STRING"/>
+<entry key="value" type="xstring" value="/var/folders/yh/h7x7753s4771hc6cb9vc6fnr93ysnm/T/KLIFS_example_flows/KLIFS_test_workflows_v8"/>
+</config>
+</config>
 <config key="internal_node_subsettings">
 <entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
 </config>
@@ -14,6 +21,9 @@
 <entry key="array-size" type="xint" value="0"/>
 </config>
 <config key="requiredLogInfos">
+<entry key="array-size" type="xint" value="0"/>
+</config>
+<config key="optionalLogMessages">
 <entry key="array-size" type="xint" value="0"/>
 </config>
 <config key="failingNodes">
@@ -52,7 +62,7 @@
 <entry key="nodeID_2" type="xstring" value="90"/>
 <entry key="message_2" type="xstring" value="Execute failed: Code 400 - KLIFS error: The provided kinase ID(s) is/are invalid"/>
 <entry key="nodeID_3" type="xstring" value="91"/>
-<entry key="message_3" type="xstring" value="Execute failed: Code 400 - KLIFS error: An unknown ligand ID was provided"/>
+<entry key="message_3" type="xstring" value="Execute failed: Code 400 - KLIFS error: An unknown kinase ID was provided"/>
 <entry key="nodeID_4" type="xstring" value="92"/>
 <entry key="message_4" type="xstring" value="Execute failed: Code 400 - KLIFS error: An unknown ligand ID was provided"/>
 <entry key="nodeID_5" type="xstring" value="94"/>
@@ -73,12 +83,12 @@
 <entry key="node-name" type="xstring" value="Testflow Configuration"/>
 <entry key="node-bundle-name" type="xstring" value="Test-Node extension for KNIME Workbench"/>
 <entry key="node-bundle-symbolic-name" type="xstring" value="org.knime.testing"/>
-<entry key="node-bundle-vendor" type="xstring" value="KNIME GmbH, Konstanz, Germany"/>
-<entry key="node-bundle-version" type="xstring" value="3.3.0.v201612012034"/>
+<entry key="node-bundle-vendor" type="xstring" value="KNIME AG, Zurich, Switzerland"/>
+<entry key="node-bundle-version" type="xstring" value="3.7.0.v201811021340"/>
 <entry key="node-feature-name" type="xstring" value="KNIME Testing Framework"/>
 <entry key="node-feature-symbolic-name" type="xstring" value="org.knime.features.testingapplication.feature.group"/>
-<entry key="node-feature-vendor" type="xstring" value="KNIME GmbH, Konstanz, Germany"/>
-<entry key="node-feature-version" type="xstring" value="3.3.0.v201612012034"/>
+<entry key="node-feature-vendor" type="xstring" value="KNIME AG, Zurich, Switzerland"/>
+<entry key="node-feature-version" type="xstring" value="3.7.0.v201811021340"/>
 <config key="factory_settings"/>
 <entry key="name" type="xstring" value="Testflow Configuration"/>
 <entry key="hasContent" type="xboolean" value="false"/>
