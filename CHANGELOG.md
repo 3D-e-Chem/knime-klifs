@@ -5,7 +5,7 @@ Formatted as described on http://keepachangelog.com/.
 
 ## [Unreleased]
 
-## [1.1.2] - 2019-06-27
+## [1.1.2] - 2019-07-02
 
 ### Changes
 
