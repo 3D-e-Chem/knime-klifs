@@ -1,0 +1,1010 @@
+openapi: 3.0.1
+info:
+  description: "Dynamically interact with the rich content of KLIFS: the structural\
+    \ kinase database"
+  title: KLIFS API
+  version: "0.3"
+servers:
+- url: https://klifs.net/api
+- url: http://klifs.net/api
+paths:
+  /kinase_groups:
+    get:
+      description: |
+        The Kinase groups endpoint returns a list of all available kinase groups in KLIFS.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: An array of kinase groups
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Kinase groups
+      tags:
+      - Information
+      x-accepts: application/json
+  /kinase_families:
+    get:
+      description: |
+        The Kinase families endpoint returns a list of all available kinase families in KLIFS. When a kinase group is specified only those kinase families that are within that kinase group are returned.
+      parameters:
+      - description: "Optional: Name (or multiple names separated by a comma) of the\
+          \ kinase group for which the kinase families are requested (e.g. TKL,STE)."
+        in: query
+        name: kinase_group
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: An array of kinase families
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Kinase families
+      tags:
+      - Information
+      x-accepts: application/json
+  /kinase_names:
+    get:
+      description: |
+        The Kinase names endpoint returns a list of all available kinases in KLIFS according using the HGNC gene symbols. When a kinase group or kinase family is specified only those kinase names that are within that kinase group or kinase family are returned. When both a group and a family are specified, only the family is used to process the request.
+      parameters:
+      - description: "Optional: Name (or multiple names separated by a comma) of the\
+          \ kinase group for which the kinase families are requested (e.g. TKL,STE)."
+        in: query
+        name: kinase_group
+        schema:
+          type: string
+      - description: "Optional: Name (or multiple names separated by a comma) of the\
+          \ kinase family for which the kinase names are requested (e.g. AUR,WEE)."
+        in: query
+        name: kinase_family
+        schema:
+          type: string
+      - description: "Optional: Species for which the kinase names are requested (e.g.\
+          \ HUMAN OR MOUSE)."
+        in: query
+        name: species
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/IDlist'
+                type: array
+          description: An array of IDs and kinase names
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Kinase names
+      tags:
+      - Information
+      x-accepts: application/json
+  /kinase_information:
+    get:
+      description: |
+        The Kinase information endpoint returns a list of information related to the requested kinase (Uniprot, pocket sequence, etc.).
+      parameters:
+      - description: ID (or IDs separated by a comma) of the kinase for which the
+          kinase information is requested.
+        explode: false
+        in: query
+        name: kinase_ID
+        schema:
+          items:
+            format: int32
+            type: integer
+          type: array
+        style: form
+      - description: "Optional: Species for which the kinase names are requested (e.g.\
+          \ HUMAN OR MOUSE)."
+        in: query
+        name: species
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/KinaseInformation'
+                type: array
+          description: An array of kinase information fields
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Kinase information
+      tags:
+      - Information
+      x-accepts: application/json
+  /kinase_ID:
+    get:
+      description: |
+        The Kinase ID endpoint returns the KLIFS ID of a specific kinase based on the abbreviated kinase name (e.g. ABL1) or UniProt ID (e.g. P00519). The kinase names from Manning et al., the HUGO Gene Nomenclature Committee, and the MGI are recognized.
+      parameters:
+      - description: The name (or multiple names separated by a comma) of (a) specfic
+          kinase(s) (e.g. ABL1).
+        in: query
+        name: kinase_name
+        required: true
+        schema:
+          type: string
+      - description: "Optional: Species for which the kinase ID are requested (e.g.\
+          \ HUMAN OR MOUSE)."
+        in: query
+        name: species
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/KinaseInformation'
+                type: array
+          description: An array of kinase information fields
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Kinase ID
+      tags:
+      - Information
+      x-accepts: application/json
+  /ligands_list:
+    get:
+      description: |
+        The Ligands List endpoint returns a list of co-crystallized ligands in KLIFS optiontally restricted to a set of specific kinase IDs.
+      parameters:
+      - description: ID(s) of the kinase(s) for which all structures are requested.
+        explode: false
+        in: query
+        name: kinase_ID
+        schema:
+          items:
+            format: int32
+            type: integer
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ligandDetails'
+                type: array
+          description: An array of ligand details
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Get all co-crystallized ligands optionally restricted to a set of kinase
+        IDs
+      tags:
+      - Ligands
+      x-accepts: application/json
+  /ligands_list_structures:
+    get:
+      description: |
+        The Ligands Get Structures endpoint returns a list of monomers of crystal structures in KLIFS in complex with provided ligand IDs.
+      parameters:
+      - description: ID(s) of the ligand(s) for which all structures are requested.
+        explode: false
+        in: query
+        name: ligand_ID
+        required: true
+        schema:
+          items:
+            format: int32
+            type: integer
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/structureDetails'
+                type: array
+          description: An array of structure details
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Get all structures in complex with one of the provided ligand IDs
+      tags:
+      - Ligands
+      x-accepts: application/json
+  /structure_list:
+    get:
+      description: |
+        The Structure list endpoint returns a information of the indicated kinase structures in KLIFS based on a specific structure ID.
+      parameters:
+      - description: ID(s) of the structure(s) for which all information is/are requested.
+        explode: false
+        in: query
+        name: structure_ID
+        required: true
+        schema:
+          items:
+            format: int32
+            type: integer
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/structureDetails'
+                type: array
+          description: An array of structure details
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Get all structural information based on a structure ID
+      tags:
+      - Structures
+      x-accepts: application/json
+  /bioactivity_list_id:
+    get:
+      description: |
+        The Bioactivity list endpoint returns a list of all known ChEMBL kinase bioactivities for a given ligand as specified by the ligand ID.
+      parameters:
+      - description: KLIFS ID of the ligand for which the bioactivities are requested
+          (e.g. 28 for staurosporine).
+        in: query
+        name: ligand_ID
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/BioactivityDetails'
+                type: array
+          description: An array of bioactivities
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Get all ChEMBL kinase bioactivities for a specific ligand
+      tags:
+      - Ligands
+      x-accepts: application/json
+  /bioactivity_list_pdb:
+    get:
+      description: The Bioactivity list endpoint returns a list of all known ChEMBL
+        kinase bioactivities for a given ligand as specified by the ligand PDB HET-code.
+      parameters:
+      - description: The PDB HET-code of the ligand for which the bioactivities are
+          requested. (e.g. STU for staurosporine)
+        in: query
+        name: ligand_PDB
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/BioactivityDetails'
+                type: array
+          description: An array of bioactivities
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Get all ChEMBL kinase bioactivities for a specific ligand
+      tags:
+      - Ligands
+      x-accepts: application/json
+  /structures_list:
+    get:
+      description: |
+        The Structures list endpoint returns a list of available kinase structures in KLIFS based on a specific kinase ID (e.g. kinase ID 392, which is the ID for ABL1).
+      parameters:
+      - description: ID(s) of the kinase(s) for which all structures are requested.
+        explode: false
+        in: query
+        name: kinase_ID
+        required: true
+        schema:
+          items:
+            format: int32
+            type: integer
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/structureDetails'
+                type: array
+          description: An array of structure details
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Get all structures based on a kinase ID
+      tags:
+      - Structures
+      x-accepts: application/json
+  /structures_pdb_list:
+    get:
+      description: |
+        The Structures PDB list endpoint returns a list of available kinase structures in KLIFS based on a set of 4-letter PDB-codes.
+      parameters:
+      - description: PDB-codes for which all structures are requested.
+        explode: false
+        in: query
+        name: pdb-codes
+        required: true
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/structureDetails'
+                type: array
+          description: An array of structure details
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Get all structures based on a set of PDB-codes
+      tags:
+      - Structures
+      x-accepts: application/json
+  /structure_get_complex:
+    get:
+      description: |
+        The Get Kinase Complex endpoint returns the full structure (including solvent, cofactors, ligands, etc.) in MOL2 format
+      parameters:
+      - description: ID(s) of the structure(s) that is/are requested.
+        in: query
+        name: structure_ID
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            chemical/x-mol2:
+              schema:
+                format: binary
+                type: string
+          description: The processed complex in MOL2 format
+        default:
+          content:
+            chemical/x-mol2:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Get full complex
+      tags:
+      - Structures
+      x-accepts: chemical/x-mol2
+  /structure_get_pdb_complex:
+    get:
+      description: |
+        The Get Kinase PDB Complex endpoint returns the full structure (including solvent, cofactors, ligands, etc.) in PDB format
+      parameters:
+      - description: ID(s) of the structure(s) that is/are requested.
+        in: query
+        name: structure_ID
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            chemical/x-pdb:
+              schema:
+                format: binary
+                type: string
+          description: The processed complex in PDB format
+        default:
+          content:
+            chemical/x-pdb:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Get full complex in PDB format
+      tags:
+      - Structures
+      x-accepts: chemical/x-pdb
+  /structure_get_protein:
+    get:
+      description: |
+        The Get kinase protein endpoint returns the full protein of a specific structure (excluding solvent, cofactors, ligands, etc.) in MOL2 format
+      parameters:
+      - description: ID(s) of the structure(s) that is/are requested.
+        in: query
+        name: structure_ID
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            chemical/x-mol2:
+              schema:
+                format: binary
+                type: string
+          description: The processed complex in MOL2 format
+        default:
+          content:
+            chemical/x-mol2:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Get protein from structure
+      tags:
+      - Structures
+      x-accepts: chemical/x-mol2
+  /structure_get_pocket:
+    get:
+      description: |
+        The Get kinase pocket endpoint returns only the KLIFS pocket of a specific structure (excluding solvent, cofactors, ligands, etc.) in MOL2 format
+      parameters:
+      - description: ID(s) of the structure(s) that is/are requested.
+        in: query
+        name: structure_ID
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            chemical/x-mol2:
+              schema:
+                format: binary
+                type: string
+          description: The processed complex in MOL2 format
+        default:
+          content:
+            chemical/x-mol2:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Get pocket from structure
+      tags:
+      - Structures
+      x-accepts: chemical/x-mol2
+  /structure_get_ligand:
+    get:
+      description: |
+        The Get kinase ligand endpoint returns the orthosteric ligand of a specific structure in MOL2 format
+      parameters:
+      - description: ID(s) of the structure(s) that is/are requested.
+        in: query
+        name: structure_ID
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            chemical/x-mol2:
+              schema:
+                format: binary
+                type: string
+          description: The processed complex in MOL2 format
+        default:
+          content:
+            chemical/x-mol2:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Get ligand from structure
+      tags:
+      - Structures
+      x-accepts: chemical/x-mol2
+  /interactions_get_types:
+    get:
+      description: "The Get interaction types endpoint returns a list of the interactions\
+        \ (1-7) and the type of interaction. IFP encodes 7 types of interactions between\
+        \ the ligand and each pocket residue. E.g. 1000010 represents a hydrophobic\
+        \ interaction (position 1) and an ionic interaction: protein cation - ligand\
+        \ anion (position 6)."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/InteractionList'
+                type: array
+          description: An list specifying the different interactions encoded by the
+            IFP
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Get interaction types
+      tags:
+      - Interactions
+      x-accepts: application/json
+  /interactions_get_IFP:
+    get:
+      description: |
+        The Get structure IFP endpoint returns the full IFP a specific kinase structure. This IFP consists of 7 interactions for each of the 85 pocket residues. The presence or absence of an interaction is annotation with a 1 and 0 respectively. This method returns a string of 85 residues x 7 interaction types=595 bits.
+      parameters:
+      - description: ID(s) of the structure(s) that is/are requested.
+        explode: false
+        in: query
+        name: structure_ID
+        required: true
+        schema:
+          items:
+            format: int32
+            type: integer
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/IFPList'
+                type: array
+          description: The numeric ID for the requested kinase
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Get structure IFP
+      tags:
+      - Interactions
+      x-accepts: application/json
+  /interactions_match_residues:
+    get:
+      description: The Match IFP residues endpoint returns a list of the pocket definition
+        of IFP including the X-ray numbering for a specific structure. This list can
+        be used to decompose an IFP into specific residue interactions and to match
+        Xray numbering to KLIFS numbering and vice versa.
+      parameters:
+      - description: ID of the structure(s) that is requested.
+        in: query
+        name: structure_ID
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/MatchList'
+                type: array
+          description: An list specifying the different interactions encoded by the
+            IFP
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Match IFP residues
+      tags:
+      - Interactions
+      x-accepts: application/json
+components:
+  schemas:
+    structureDetails:
+      example:
+        Grich_angle: 2.027123
+        bp_II_in: true
+        DFG: DFG
+        Grich_distance: 3.6160767
+        back: true
+        structure_ID: 0
+        bp_I_B: true
+        bp_I_A: true
+        bp_V: true
+        resolution: 5.637377
+        ligand: ligand
+        allosteric_ligand: allosteric_ligand
+        missing_atoms: 9
+        aC_helix: aC_helix
+        kinase_ID: 6
+        rmsd1: 1.4658129
+        bp_II_A_in: true
+        rmsd2: 5.962134
+        bp_II_B_in: true
+        chain: chain
+        fp_I: true
+        fp_II: true
+        quality_score: 2.302136
+        Grich_rotation: 4.145608
+        bp_IV: true
+        alt: alt
+        bp_II_out: true
+        bp_III: true
+        bp_II_B: true
+        pdb: pdb
+        kinase: kinase
+        species: species
+        missing_residues: 7
+        front: true
+        gate: true
+        pocket: pocket
+      properties:
+        structure_ID:
+          description: KLIFS ID for a specific kinase structure
+          format: int32
+          type: integer
+        kinase:
+          description: HGNC gene symbol for a specific kinase structure
+          type: string
+        species:
+          description: Species of a specific kinase structure (e.g. human)
+          type: string
+        kinase_ID:
+          description: KLIFS ID for a specific kinase
+          format: int32
+          type: integer
+        pdb:
+          description: 4-letter PDB-code for a given structure
+          type: string
+        alt:
+          description: Indicates the (alternate) model of the given structure
+          type: string
+        chain:
+          description: Indicates the chain of the given structure
+          type: string
+        rmsd1:
+          description: RMSD compared to the reference template for the superpose pocket
+          format: float
+          type: number
+        rmsd2:
+          description: RMSD compared to the reference template for the full pocket
+          format: float
+          type: number
+        pocket:
+          description: Alignment of the 85 pocket residues
+          type: string
+        resolution:
+          description: Resolution of the crystal struture
+          format: float
+          type: number
+        quality_score:
+          description: The quality score estimates the quality of the structure with
+            respect to the binding pocket as well as the quality of the processing
+            by KLIFS.
+          format: float
+          type: number
+        missing_residues:
+          description: Number of residues missing in the pocket
+          format: int32
+          type: integer
+        missing_atoms:
+          description: Number of atoms missing from pocket residues (not including
+            the missing residues)
+          format: int32
+          type: integer
+        ligand:
+          description: 3-letter PDB-code of the ligand within the main pocket
+          type: string
+        allosteric_ligand:
+          description: 3-letter PDB-code of the ligand outside the main pocket
+          type: string
+        DFG:
+          description: Conformation of the DFG motif
+          type: string
+        aC_helix:
+          description: Conformation of the alpha-C helix
+          type: string
+        Grich_distance:
+          description: Conformation of the G-rich loop - distance
+          format: float
+          type: number
+        Grich_angle:
+          description: Conformation of the G-rich loop - angle
+          format: float
+          type: number
+        Grich_rotation:
+          description: Conformation of the G-rich loop - rotation
+          format: float
+          type: number
+        front:
+          description: The ligand binds to the front pocket
+          type: boolean
+        gate:
+          description: The ligand binds to the gate area
+          type: boolean
+        back:
+          description: The ligand binds to the back pocket
+          type: boolean
+        fp_I:
+          description: The ligand binds to FP-I
+          type: boolean
+        fp_II:
+          description: The ligand binds to FP-II
+          type: boolean
+        bp_I_A:
+          description: The ligand binds to BP-I-A
+          type: boolean
+        bp_I_B:
+          description: The ligand binds to BP-I-B
+          type: boolean
+        bp_II_in:
+          description: The ligand binds to BP-II-in
+          type: boolean
+        bp_II_A_in:
+          description: The ligand binds to BP-II-A-in
+          type: boolean
+        bp_II_B_in:
+          description: The ligand binds to BP-II-B-in
+          type: boolean
+        bp_II_out:
+          description: The ligand binds to BP-II-out
+          type: boolean
+        bp_II_B:
+          description: The ligand binds to BP-II-B
+          type: boolean
+        bp_III:
+          description: The ligand binds to BP-III
+          type: boolean
+        bp_IV:
+          description: The ligand binds to BP-IV
+          type: boolean
+        bp_V:
+          description: The ligand binds to BP-V
+          type: boolean
+      required:
+      - chain
+      - kinase_ID
+      - missing_atoms
+      - missing_residues
+      - pdb
+      - pocket
+      - quality_score
+      - rmsd1
+      - rmsd2
+      - species
+      - structure_ID
+      type: object
+    ligandDetails:
+      example:
+        ligand_ID: 0
+        PDB-code: PDB-code
+        InChIKey: InChIKey
+        SMILES: SMILES
+        Name: Name
+      properties:
+        ligand_ID:
+          description: KLIFS ID for a specific kinase structure
+          format: int32
+          type: integer
+        PDB-code:
+          description: 3-letter PDB-code for a specific ligand
+          type: string
+        Name:
+          description: Name of the ligand
+          type: string
+        SMILES:
+          description: SMILES code for a specific ligand
+          type: string
+        InChIKey:
+          description: InChiKey of a specific ligand
+          type: string
+      required:
+      - PDB-code
+      - ligand_ID
+      type: object
+    IFPList:
+      example:
+        IFP: IFP
+        structure_ID: 0
+      properties:
+        structure_ID:
+          format: int32
+          type: integer
+        IFP:
+          type: string
+      type: object
+    InteractionList:
+      example:
+        name: name
+        position: 0
+      properties:
+        position:
+          format: int32
+          type: integer
+        name:
+          type: string
+      type: object
+    MatchList:
+      example:
+        index: 0
+        KLIFS_position: KLIFS_position
+        Xray_position: Xray_position
+      properties:
+        index:
+          format: int32
+          type: integer
+        Xray_position:
+          type: string
+        KLIFS_position:
+          type: string
+      type: object
+    IDlist:
+      example:
+        full_name: full_name
+        species: species
+        name: name
+        kinase_ID: 0
+      properties:
+        kinase_ID:
+          format: int32
+          type: integer
+        name:
+          type: string
+        full_name:
+          type: string
+        species:
+          type: string
+      type: object
+    KinaseInformation:
+      example:
+        full_name: full_name
+        kinase_class: kinase_class
+        HGNC: HGNC
+        species: species
+        iuphar: iuphar
+        name: name
+        kinase_ID: 0
+        family: family
+        uniprot: uniprot
+        group: group
+        pocket: pocket
+      properties:
+        kinase_ID:
+          format: int32
+          type: integer
+        name:
+          type: string
+        HGNC:
+          type: string
+        family:
+          type: string
+        group:
+          type: string
+        kinase_class:
+          type: string
+        species:
+          type: string
+        full_name:
+          type: string
+        uniprot:
+          type: string
+        iuphar:
+          type: string
+        pocket:
+          type: string
+      type: object
+    BioactivityDetails:
+      example:
+        pchembl_value: 6.0274563
+        organism: organism
+        standard_units: standard_units
+        standard_type: standard_type
+        standard_relation: standard_relation
+        accession: accession
+        standard_value: 0.8008282
+        pref_name: pref_name
+      properties:
+        pref_name:
+          description: The full kinase name from ChEMBL
+          type: string
+        accession:
+          description: The UniProt accession code
+          type: string
+        organism:
+          description: Organism
+          type: string
+        standard_type:
+          description: The type of bioactivity
+          type: string
+        standard_relation:
+          description: "Exact measurement, or lower than/higher than? Note, this relates\
+            \ to the standard_value"
+          type: string
+        standard_value:
+          description: The standard activity value as annotated by ChEMBL
+          format: float
+          type: number
+        standard_units:
+          description: The unit of the standard activity value as annotated by ChEMBL
+          type: string
+        pchembl_value:
+          description: The standardized -Log10 value by ChEMBL
+          format: float
+          type: number
+      type: object
+    Error:
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+      type: object
+x-original-swagger-version: "2.0"
+
