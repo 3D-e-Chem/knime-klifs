@@ -5,7 +5,6 @@ Formatted as described on http://keepachangelog.com/.
 
 ## [Unreleased]
 
-
 ## [1.1.3] - 2023-11-21
 
 ### Changes

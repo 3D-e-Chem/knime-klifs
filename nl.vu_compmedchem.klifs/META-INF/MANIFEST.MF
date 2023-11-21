@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: KNIME 3D-e-Chem Contributions
 Bundle-SymbolicName: nl.vu_compmedchem.klifs;singleton:=true
-Bundle-Version: 1.1.2.qualifier
+Bundle-Version: 1.1.3.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ClassPath: .,
   lib/okhttp-4.11.0.jar,
