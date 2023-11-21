@@ -17,9 +17,9 @@ import org.knime.core.node.BufferedDataContainer;
 import org.knime.core.node.BufferedDataTable;
 import org.knime.core.node.CanceledExecutionException;
 
-import io.swagger.client.ApiException;
-import io.swagger.client.api.InteractionsApi;
-import io.swagger.client.model.InteractionList;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.api.InteractionsApi;
+import org.openapitools.client.model.InteractionList;
 import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
 import org.knime.core.node.ExecutionContext;

@@ -1,10 +1,11 @@
 # KLIFS KNIME nodes
 
-[![Build Status](https://travis-ci.org/3D-e-Chem/knime-klifs.svg?branch=master)](https://travis-ci.org/3D-e-Chem/knime-klifs)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e48d6b99a76d479ea37f13f6f3189b5b)](https://www.codacy.com/app/AJK-dev/knime-klifs?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=3D-e-Chem/knime-klifs&amp;utm_campaign=Badge_Grade)
+[![Java CI with Maven](https://github.com/3D-e-Chem/knime-klifs/actions/workflows/ci.yml/badge.svg)](https://github.com/3D-e-Chem/knime-gpcrdb/actions/workflows/ci.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=3D-e-Chem_knime-klifs&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=3D-e-Chem_knime-klifs)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=3D-e-Chem_knime-klifs&metric=coverage)](https://sonarcloud.io/summary/new_code?id=3D-e-Chem_knime-klifs)
 [![DOI](https://zenodo.org/badge/20180/3D-e-Chem/knime-klifs.svg)](https://zenodo.org/badge/latestdoi/20180/3D-e-Chem/knime-klifs)
 
-KNIME nodes for retrieving data from KLIFS (http://klifs.vu-compmedchem.nl). KLIFS is a structural kinase-ligand interaction database. For more information regarding KLIFS see [the website](http://klifs.vu-compmedchem.nl) and the references at the bottom.
+KNIME nodes for retrieving data from KLIFS (https://klifs.net/). KLIFS is a structural kinase-ligand interaction database. For more information regarding KLIFS see [the website](https://klifs.net/) and the references at the bottom.
 
 # Installation
 
@@ -38,11 +39,11 @@ An Eclipse update site will be made in `p2/target/repository` repository.
 
 Steps to get development environment setup based on https://github.com/knime/knime-sdk-setup#sdk-setup:
 
-1. Install Java 8
-2. Install Eclipse for [RCP and RAP developers](https://www.eclipse.org/downloads/packages/release/2018-12/r/eclipse-ide-rcp-and-rap-developers)
-3. Configure Java 8 inside Eclipse Window > Preferences > Java > Installed JREs
+1. Install Java 17
+2. Install Eclipse for [RCP and RAP developers](https://www.eclipse.org/downloads/packages/installer)
+3. Configure Java 17 inside Eclipse Window > Preferences > Java > Installed JREs
 4. Import this repo as an Existing Maven project
-5. Activate target platform by going to Window > Preferences > Plug-in Development > Target Platform and check the `KNIME Analytics Platform (4.0) - nl.esciencecenter.e3dchem.knime.sstea.targetplatform/KNIME-AP-4.0.target` target definition.
+5. Activate target platform by going to Window > Preferences > Plug-in Development > Target Platform and check the `KNIME Analytics Platform (5.1) - nl.esciencecenter.e3dchem.knime.sstea.targetplatform/KNIME-AP-5.1.target` target definition.
 
 During import the Tycho Eclipse providers must be installed.
 
@@ -61,18 +62,27 @@ During import the Tycho Eclipse providers must be installed.
 
 # Create KLIFS client
 
-1. Compile client
-```
-cd nl.vu_compmedchem.klifs.client
+0. Generate client
+
+```    
+wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/7.1.0/openapi-generator-cli-7.1.0.jar -O openapi-generator-cli.jar
+java -jar openapi-generator-cli.jar generate -i https://klifs.net/swagger/swagger.json -o net.klifs.client -g java
+# in knime-klifs/net.klifs.client/pom.xml change version of build-helper-maven-plugin to 3.4.0
 mvn package
 ```
 
-2. Make client jar and it's dependencies available in plugin
+1. Compile client
+```
+cd net.klifs.client
+mvn package
+```
+
+1. Make client jar and it's dependencies available in plugin
 ```
 cp -r target/lib/* target/*jar ../nl.vu_compmedchem.klifs/lib/
 ```
 
-3. Update `plugin/META-INF/MANIFEST.MF`, `plugin/build.properties` files to reflect contents of lib/
+1. Update `plugin/META-INF/MANIFEST.MF`, `plugin/build.properties` files to reflect contents of lib/
 
 # References
 

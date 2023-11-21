@@ -5,6 +5,13 @@ Formatted as described on http://keepachangelog.com/.
 
 ## [Unreleased]
 
+## [1.1.3] - 2023-11-21
+
+### Changes
+
+- Endpoint URL changed to https://klifs.net/api (includes new client)
+- Requires KNIME 5.1
+
 ## [1.1.2] - 2019-07-02
 
 ### Changes

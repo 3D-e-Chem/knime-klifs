@@ -21,10 +21,10 @@ import org.knime.core.node.BufferedDataTable;
 import org.knime.core.node.CanceledExecutionException;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
-import io.swagger.client.ApiException;
-import io.swagger.client.api.LigandsApi;
-import io.swagger.client.api.StructuresApi;
-import io.swagger.client.model.StructureDetails;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.api.LigandsApi;
+import org.openapitools.client.api.StructuresApi;
+import org.openapitools.client.model.StructureDetails;
 import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
 import org.knime.core.node.ExecutionContext;
@@ -161,7 +161,7 @@ public class StructuresListNodeModel extends KlifsNodeModel {
                 cells[14] = new StringCell(structureEntry.getLigand());
                 cells[15] = new StringCell(structureEntry.getAllostericLigand());
                 cells[16] = new StringCell(structureEntry.getDFG());
-                cells[17] = new StringCell(structureEntry.getACHelix());
+                cells[17] = new StringCell(structureEntry.getaCHelix());
                 cells[18] = new DoubleCell(structureEntry.getGrichDistance());
                 cells[19] = new DoubleCell(structureEntry.getGrichAngle());
                 cells[20] = new DoubleCell(structureEntry.getGrichRotation());

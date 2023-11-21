@@ -21,9 +21,9 @@ import org.knime.core.node.CanceledExecutionException;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 import org.knime.core.node.port.PortType;
 
-import io.swagger.client.ApiException;
-import io.swagger.client.api.LigandsApi;
-import io.swagger.client.model.LigandDetails;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.api.LigandsApi;
+import org.openapitools.client.model.LigandDetails;
 import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
 import org.knime.core.node.ExecutionContext;
@@ -99,7 +99,7 @@ public class LigandsListNodeModel extends KlifsNodeModel {
 
                 DataCell[] cells = new DataCell[5];
                 cells[0] = new IntCell(info.getLigandID());
-                cells[1] = new StringCell(info.getPDBCode());
+                cells[1] = new StringCell(info.getPdBCode());
                 cells[2] = new StringCell(info.getName());
                 cells[3] = new SmilesCell(info.getSMILES());
                 cells[4] = new StringCell(info.getInChIKey());

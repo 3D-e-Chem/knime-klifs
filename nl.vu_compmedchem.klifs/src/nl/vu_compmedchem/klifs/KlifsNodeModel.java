@@ -9,8 +9,9 @@ import org.knime.core.node.defaultnodesettings.SettingsModelInteger;
 import org.knime.core.node.port.PortType;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
-import io.swagger.client.ApiClient;
-import io.swagger.client.ApiException;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import okhttp3.OkHttpClient;
 
 import java.util.concurrent.TimeUnit;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 public abstract class KlifsNodeModel extends NodeModel {
 
 	public static final String CFGKEY_BASEPATH = "Base path";
-	public static final String DEFAULT_BASEPATH = "http://klifs.vu-compmedchem.nl/api";
+	public static final String DEFAULT_BASEPATH = "https://klifs.net/api";
 	private final SettingsModelString m_basePath = basePathSettings();
 
 	public static final String CFGKEY_TIMEOUT = "Timeout";
@@ -39,7 +40,8 @@ public abstract class KlifsNodeModel extends NodeModel {
 		super(nrInDataPorts, nrOutDataPorts);
 		apiClient = new ApiClient();
 		apiClient.setBasePath(m_basePath.getStringValue());
-		apiClient.getHttpClient().setReadTimeout(m_timeout.getIntValue(), TimeUnit.SECONDS);
+		OkHttpClient.Builder builder = new OkHttpClient.Builder();
+		apiClient.setHttpClient(builder.readTimeout(m_timeout.getIntValue(), TimeUnit.SECONDS).build());
 	}
 
 	protected KlifsNodeModel(final PortType[] inPortTypes, final PortType[] outPortTypes) {
@@ -63,7 +65,8 @@ public abstract class KlifsNodeModel extends NodeModel {
 	protected void loadValidatedSettingsFrom(final NodeSettingsRO settings) throws InvalidSettingsException {
 		m_basePath.loadSettingsFrom(settings);
 		apiClient.setBasePath(m_basePath.getStringValue());
-		apiClient.getHttpClient().setReadTimeout(m_timeout.getIntValue(), TimeUnit.SECONDS);
+		OkHttpClient.Builder builder = new OkHttpClient.Builder();
+		apiClient.setHttpClient(builder.readTimeout(m_timeout.getIntValue(), TimeUnit.SECONDS).build());
 	}
 
 	/**
