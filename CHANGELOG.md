@@ -9,6 +9,7 @@ Formatted as described on http://keepachangelog.com/.
 
 ### Changes
 
+- Endpoint URL changed to https://klifs.net/api (includes new client)
 - Requires KNIME 5.1
 
 ## [1.1.2] - 2019-07-02

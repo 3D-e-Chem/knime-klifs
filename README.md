@@ -62,18 +62,27 @@ During import the Tycho Eclipse providers must be installed.
 
 # Create KLIFS client
 
+0. Generate client
+
+```    
+wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/7.1.0/openapi-generator-cli-7.1.0.jar -O openapi-generator-cli.jar
+java -jar openapi-generator-cli.jar generate -i https://klifs.net/swagger/swagger.json -o net.klifs.client -g java
+# in knime-klifs/net.klifs.client/pom.xml change version of build-helper-maven-plugin to 3.4.0
+mvn package
+```
+
 1. Compile client
 ```
 cd net.klifs.client
 mvn package
 ```
 
-2. Make client jar and it's dependencies available in plugin
+1. Make client jar and it's dependencies available in plugin
 ```
 cp -r target/lib/* target/*jar ../nl.vu_compmedchem.klifs/lib/
 ```
 
-3. Update `plugin/META-INF/MANIFEST.MF`, `plugin/build.properties` files to reflect contents of lib/
+1. Update `plugin/META-INF/MANIFEST.MF`, `plugin/build.properties` files to reflect contents of lib/
 
 # References
 
