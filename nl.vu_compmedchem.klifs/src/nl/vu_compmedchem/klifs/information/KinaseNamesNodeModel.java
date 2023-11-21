@@ -19,9 +19,9 @@ import org.knime.core.node.CanceledExecutionException;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 import org.knime.core.node.port.PortType;
 
-import io.swagger.client.ApiException;
-import io.swagger.client.api.InformationApi;
-import io.swagger.client.model.IDlist;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.api.InformationApi;
+import org.openapitools.client.model.IDlist;
 import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
 import org.knime.core.node.ExecutionContext;

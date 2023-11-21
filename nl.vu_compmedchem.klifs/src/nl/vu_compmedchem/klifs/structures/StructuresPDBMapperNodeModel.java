@@ -21,9 +21,9 @@ import org.knime.core.node.BufferedDataTable;
 import org.knime.core.node.CanceledExecutionException;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
-import io.swagger.client.ApiException;
-import io.swagger.client.api.StructuresApi;
-import io.swagger.client.model.StructureDetails;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.api.StructuresApi;
+import org.openapitools.client.model.StructureDetails;
 import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
 import org.knime.core.node.ExecutionContext;

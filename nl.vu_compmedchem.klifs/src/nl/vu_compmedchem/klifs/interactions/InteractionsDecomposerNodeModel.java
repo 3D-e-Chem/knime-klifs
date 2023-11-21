@@ -20,9 +20,9 @@ import org.knime.core.node.CanceledExecutionException;
 import org.knime.core.node.defaultnodesettings.SettingsModelBoolean;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
-import io.swagger.client.ApiException;
-import io.swagger.client.api.InteractionsApi;
-import io.swagger.client.model.MatchList;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.api.InteractionsApi;
+import org.openapitools.client.model.MatchList;
 import nl.vu_compmedchem.klifs.KlifsNodeModel;
 
 import org.knime.core.node.ExecutionContext;

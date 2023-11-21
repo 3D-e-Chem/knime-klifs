@@ -64,7 +64,7 @@ During import the Tycho Eclipse providers must be installed.
 
 1. Compile client
 ```
-cd nl.vu_compmedchem.klifs.client
+cd net.klifs.client
 mvn package
 ```
 

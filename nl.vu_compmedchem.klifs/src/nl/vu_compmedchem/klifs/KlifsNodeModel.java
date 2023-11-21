@@ -9,8 +9,8 @@ import org.knime.core.node.defaultnodesettings.SettingsModelInteger;
 import org.knime.core.node.port.PortType;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
-import io.swagger.client.ApiClient;
-import io.swagger.client.ApiException;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
 
 import java.util.concurrent.TimeUnit;
 import java.util.List;
