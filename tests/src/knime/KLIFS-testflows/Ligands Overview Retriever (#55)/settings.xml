@@ -10,7 +10,7 @@
 <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
 <entry key="EnabledStatus" type="xboolean" value="true"/>
 </config>
-<entry key="Base path" type="xstring" value="http://klifs.vu-compmedchem.nl/api"/>
+<entry key="Base path" type="xstring" value="https://klifs.net/api"/>
 <config key="(Optional) Kinase ID column_Internals">
 <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
 <entry key="EnabledStatus" type="xboolean" value="true"/>

@@ -5,7 +5,7 @@
       version="1.1.2.qualifier">
 
    <description url="https://github.com/3D-e-Chem/knime-klifs">
-      Knime plugins for retrieving data from KLIFS http://klifs.vu-compmedchem.nl
+      Knime plugins for retrieving data from KLIFS https://klifs.net
    </description>
 
    <copyright url="http://3d-e-chem.github.io">
@@ -207,7 +207,7 @@
 
    <url>
       <update label="3D-e-Chem update site" url="https://3d-e-chem.github.io/knime-node-collection"/>
-      <discovery label="KLIFS" url="http://klifs.vu-compmedchem.nl"/>
+      <discovery label="KLIFS" url="https://klifs.net"/>
    </url>
 
    <plugin

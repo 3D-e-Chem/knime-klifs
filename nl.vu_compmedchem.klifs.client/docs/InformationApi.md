@@ -1,6 +1,6 @@
 # InformationApi
 
-All URIs are relative to *http://klifs.vu-compmedchem.nl/api*
+All URIs are relative to *https://klifs.net/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

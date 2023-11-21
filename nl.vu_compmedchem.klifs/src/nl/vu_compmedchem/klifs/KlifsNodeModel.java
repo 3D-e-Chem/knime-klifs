@@ -18,7 +18,7 @@ import java.util.List;
 public abstract class KlifsNodeModel extends NodeModel {
 
 	public static final String CFGKEY_BASEPATH = "Base path";
-	public static final String DEFAULT_BASEPATH = "http://klifs.vu-compmedchem.nl/api";
+	public static final String DEFAULT_BASEPATH = "https://klifs.net/api";
 	private final SettingsModelString m_basePath = basePathSettings();
 
 	public static final String CFGKEY_TIMEOUT = "Timeout";

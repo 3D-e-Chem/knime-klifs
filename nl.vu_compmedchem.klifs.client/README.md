@@ -86,7 +86,7 @@ public class InformationApiExample {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://klifs.vu-compmedchem.nl/api*
+All URIs are relative to *https://klifs.net/api*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
