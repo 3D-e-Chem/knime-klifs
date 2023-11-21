@@ -19,8 +19,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<version>${tycho.version}</version>
 				<configuration>
-					<argLine>${tycho.testArgLine} 
-						${tycho.test.jvmArgs} 
+					<argLine>${tycho.test.jvmArgs} 
 						${knime.ini.testArgs}</argLine>
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>${custom.UIThread}</useUIThread> 
