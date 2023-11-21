@@ -3,13 +3,13 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Tests
 Bundle-SymbolicName: nl.vu_compmedchem.klifs.tests
 Bundle-Version: 1.1.2.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.junit,
  nl.vu_compmedchem.klifs,
  nl.esciencecenter.e3dchem.knime.testing.plugin;bundle-version="[1.0.1,2.0.0)",
- org.knime.core;bundle-version="[4.0.0,5.0.0)",
- org.knime.json;bundle-version="[4.0.0,5.0.0)",
- org.knime.testing;bundle-version="[4.0.0,5.0.0)",
- org.knime.base;bundle-version="[4.0.0,5.0.0)"
+ org.knime.core;bundle-version="[4.0.0,6.0.0)",
+ org.knime.json;bundle-version="[4.0.0,6.0.0)",
+ org.knime.testing;bundle-version="[4.0.0,6.0.0)",
+ org.knime.base;bundle-version="[4.0.0,6.0.0)"
 Bundle-Vendor: 3D-e-Chem
 Bundle-ClassPath: .

@@ -8,4 +8,7 @@
 	</parent>
 	<artifactId>nl.vu_compmedchem.klifs</artifactId>
 	<packaging>eclipse-plugin</packaging>
+	<properties>
+		<sonar.junit.reportsPath>../tests/target/surefire-reports</sonar.junit.reportsPath>
+	</properties>
 </project>
