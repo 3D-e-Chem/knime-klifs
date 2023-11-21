@@ -143,7 +143,7 @@ public class LigandsGetStructuresNodeModel extends KlifsNodeModel {
                 cells[14] = new StringCell(structureEntry.getLigand());
                 cells[15] = new StringCell(structureEntry.getAllostericLigand());
                 cells[16] = new StringCell(structureEntry.getDFG());
-                cells[17] = new StringCell(structureEntry.getACHelix());
+                cells[17] = new StringCell(structureEntry.getaCHelix());
                 cells[18] = new DoubleCell(structureEntry.getGrichDistance());
                 cells[19] = new DoubleCell(structureEntry.getGrichAngle());
                 cells[20] = new DoubleCell(structureEntry.getGrichRotation());

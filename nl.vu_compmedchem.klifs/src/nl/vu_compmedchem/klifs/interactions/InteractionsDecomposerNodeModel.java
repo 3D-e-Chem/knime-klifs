@@ -133,7 +133,7 @@ public class InteractionsDecomposerNodeModel extends KlifsNodeModel {
         		                	cells[3] = BooleanCell.BooleanCellFactory.create(interacting);
         		                if (m_inputBooleanMatch.getBooleanValue()){
         		                	cells[specLength-2] = new StringCell(matchList.get(r).getXrayPosition());
-        		                	cells[specLength-1] = new StringCell(matchList.get(r).getKLIFSPosition());
+        		                	cells[specLength-1] = new StringCell(matchList.get(r).getKlIFSPosition());
         		                }
 
         		                // Add row

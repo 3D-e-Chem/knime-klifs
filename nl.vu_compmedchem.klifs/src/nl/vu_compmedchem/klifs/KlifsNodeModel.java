@@ -11,6 +11,7 @@ import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
+import okhttp3.OkHttpClient;
 
 import java.util.concurrent.TimeUnit;
 import java.util.List;
@@ -39,7 +40,8 @@ public abstract class KlifsNodeModel extends NodeModel {
 		super(nrInDataPorts, nrOutDataPorts);
 		apiClient = new ApiClient();
 		apiClient.setBasePath(m_basePath.getStringValue());
-		apiClient.getHttpClient().setReadTimeout(m_timeout.getIntValue(), TimeUnit.SECONDS);
+		OkHttpClient.Builder builder = new OkHttpClient.Builder();
+		apiClient.setHttpClient(builder.readTimeout(m_timeout.getIntValue(), TimeUnit.SECONDS).build());
 	}
 
 	protected KlifsNodeModel(final PortType[] inPortTypes, final PortType[] outPortTypes) {
@@ -63,7 +65,8 @@ public abstract class KlifsNodeModel extends NodeModel {
 	protected void loadValidatedSettingsFrom(final NodeSettingsRO settings) throws InvalidSettingsException {
 		m_basePath.loadSettingsFrom(settings);
 		apiClient.setBasePath(m_basePath.getStringValue());
-		apiClient.getHttpClient().setReadTimeout(m_timeout.getIntValue(), TimeUnit.SECONDS);
+		OkHttpClient.Builder builder = new OkHttpClient.Builder();
+		apiClient.setHttpClient(builder.readTimeout(m_timeout.getIntValue(), TimeUnit.SECONDS).build());
 	}
 
 	/**

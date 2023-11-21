@@ -99,7 +99,7 @@ public class LigandsListNodeModel extends KlifsNodeModel {
 
                 DataCell[] cells = new DataCell[5];
                 cells[0] = new IntCell(info.getLigandID());
-                cells[1] = new StringCell(info.getPDBCode());
+                cells[1] = new StringCell(info.getPdBCode());
                 cells[2] = new StringCell(info.getName());
                 cells[3] = new SmilesCell(info.getSMILES());
                 cells[4] = new StringCell(info.getInChIKey());
